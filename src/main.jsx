@@ -105,7 +105,7 @@ function App() {
               {fleetModels.map((item, index) => <article className={index === fleetIndex ? "fleet-card active" : "fleet-card"} key={item.name} style={{ '--card-angle': (index * 90) + 'deg' }} aria-hidden={index !== fleetIndex}>
                 <img src={item.image} alt={item.alt} loading={index === fleetIndex ? 'eager' : 'lazy'}/>
                 <div className="fleet-card-shade"/>
-                <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index + 1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions"><a href={item.order} target="_blank" rel="noreferrer" tabIndex={index === fleetIndex ? 0 : -1} className="fleet-order">Order Now <ArrowUpRight size={15}/></a><a href={item.learn} target="_blank" rel="noreferrer" tabIndex={index === fleetIndex ? 0 : -1} className="fleet-learn">Learn More <ArrowRight size={15}/></a></div></div>
+                <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index + 1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions"><button type="button" onClick={() => window.open(item.order, "_blank", "noopener,noreferrer")} tabIndex={index === fleetIndex ? 0 : -1} className="fleet-order">Order Now <ArrowUpRight size={15}/></button><button type="button" onClick={() => window.open(item.learn, "_blank", "noopener,noreferrer")} tabIndex={index === fleetIndex ? 0 : -1} className="fleet-learn">Learn More <ArrowRight size={15}/></button></div></div>
               </article>)}
             </div>
           </div>
@@ -138,7 +138,7 @@ function App() {
         </section>
 
         <section className="technology-section" id="technology">
-          <div className="technology-image"><img src="https://images.unsplash.com/photo-1536700503339-7e4d4a3a5f0a?auto=format&fit=crop&w=2200&q=90" alt="Electric car driving through a dramatic landscape" loading="lazy"/><div className="technology-gradient"/></div>
+          <div className="technology-image"><img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg" alt="Electric car driving through a dramatic landscape" loading="lazy"/><div className="technology-gradient"/></div>
           <div className="technology-content section-pad"><Reveal><p className="eyebrow light-eyebrow"><span className="eyebrow-line"/> INTELLIGENCE IN EVERY DETAIL</p><h2>Technology<br/>that feels<br/><em>instinctive.</em></h2><p className="technology-copy">A connected experience that keeps evolving. Thoughtful design, intuitive controls, and software built to make the drive feel more natural.</p><a className="button button-light" href="https://www.tesla.com" target="_blank" rel="noreferrer">Explore Tesla <ArrowUpRight size={16}/></a></Reveal></div>
           <div className="technology-note"><span>02 — THE EXPERIENCE</span><span>Less friction. More freedom.</span></div>
         </section>
