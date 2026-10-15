@@ -384,3 +384,81 @@ body{scroll-behavior:smooth}
   .fleet-stage-wrap{height:370px}
   .fleet-card{width:70vw;height:285px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(18vw)}
 }
+
+
+/* Fleet carousel: match the heading's content edges, remove overlays, enforce foreground layers */
+.fleet-carousel-section .fleet-heading{
+  padding-left:max(10.2%,calc((100% - 1190px)/2));
+  padding-right:max(10.2%,calc((100% - 1190px)/2));
+}
+.fleet-stage-wrap{perspective:1800px;perspective-origin:50% 45%;overflow:hidden}
+.fleet-stage{
+  transform:translate(-50%,-50%) rotateY(var(--fleet-angle));
+  transform-style:preserve-3d;
+}
+.fleet-card{
+  width:min(68vw,960px);
+  max-width:none;
+  transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(18vw);
+  isolation:isolate;
+  overflow:hidden;
+}
+.fleet-card>img{z-index:0}
+.fleet-card-shade{
+  z-index:1;
+  background:transparent!important;
+  pointer-events:none;
+}
+.fleet-card-copy{
+  position:absolute;
+  z-index:10!important;
+  isolation:isolate;
+  pointer-events:auto;
+}
+.fleet-card-actions{position:relative;z-index:12!important}
+.fleet-card-actions a,.fleet-card-actions button{
+  position:relative;
+  z-index:13!important;
+  pointer-events:auto;
+}
+.fleet-card.active{z-index:5}
+@media(max-width:1500px) and (min-width:901px){
+  .fleet-carousel-section .fleet-heading{padding-left:10.2%;padding-right:10.2%}
+}
+@media(min-width:1501px){
+  .fleet-carousel-section .fleet-heading{
+    padding-left:max(10.2%,calc((100% - 1190px)/2));
+    padding-right:max(10.2%,calc((100% - 1190px)/2));
+  }
+}
+@media(max-width:900px){
+  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
+  .fleet-stage-wrap{perspective:1600px}
+  .fleet-card{
+    width:75vw;
+    height:clamp(320px,42vw,380px);
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(22vw);
+  }
+}
+@media(max-width:600px){
+  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
+  .fleet-stage-wrap{height:390px;perspective:1200px}
+  .fleet-card{
+    width:81vw;
+    height:300px;
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(18vw);
+  }
+  .fleet-card-copy{left:7%;right:7%;top:48%;max-width:none}
+  .fleet-card-kicker{font-size:7px;letter-spacing:.14em}
+  .fleet-card-copy h3{font-size:clamp(29px,8.4vw,39px);line-height:1.02;margin:12px 0 9px;overflow-wrap:anywhere}
+  .fleet-card-copy>p{font-size:11px;line-height:1.5;margin-bottom:14px}
+  .fleet-card-actions{display:flex;flex-wrap:wrap;gap:7px;max-width:100%}
+  .fleet-card-actions a,.fleet-card-actions button{min-height:34px;max-width:100%;padding:0 9px;gap:6px;font-size:8px;white-space:normal}
+  .fleet-card-actions svg{width:13px;height:13px;flex:0 0 auto}
+}
+@media(max-width:380px){
+  .fleet-stage-wrap{height:370px}
+  .fleet-card{height:285px}
+  .fleet-card-copy h3{font-size:29px}
+  .fleet-card-actions a,.fleet-card-actions button{font-size:7.5px;padding:0 7px}
+}
