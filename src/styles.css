@@ -363,3 +363,24 @@ body{scroll-behavior:smooth}
   .fleet-card-actions a,.fleet-card-actions button{font-size:7.5px;padding:0 7px}
   .fleet-controls{gap:6px}
 }
+
+
+/* Geometry correction: prevent 3D perspective from scaling the active card beyond the viewport */
+.fleet-stage-wrap{perspective:2200px;overflow:hidden}
+.fleet-card{width:58vw;max-width:none;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(24vw)}
+@media(min-width:1501px){
+  .fleet-card{width: min(58vw, 920px);transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(min(24vw, 390px))}
+}
+@media(max-width:900px){
+  .fleet-stage-wrap{perspective:1600px}
+  .fleet-card{width:70vw;height:clamp(320px,42vw,380px);transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(22vw)}
+}
+@media(max-width:600px){
+  .fleet-stage-wrap{height:390px;perspective:1200px}
+  .fleet-card{width:70vw;height:300px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(18vw)}
+  .fleet-card-copy{left:7%;right:7%;max-width:none}
+}
+@media(max-width:380px){
+  .fleet-stage-wrap{height:370px}
+  .fleet-card{width:70vw;height:285px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(18vw)}
+}
