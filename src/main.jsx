@@ -111,19 +111,32 @@ function App() {
         </section>
 
         <section className="fleet-carousel-section" id="fleet">
-          <div className="fleet-heading section-pad"><Reveal><p className="eyebrow"><span className="eyebrow-line"/> MEET THE LINEUP</p><h2>Find your<br/><em>kind of drive.</em></h2></Reveal><Reveal delay={100}><p>Four distinct personalities. One electric future.<br/>Take a closer look around the lineup.</p></Reveal></div>
           <div className="fleet-content-shell">
-          <div className="fleet-stage-wrap" onMouseEnter={() => setFleetPaused(true)} onMouseLeave={() => setFleetPaused(false)} onFocusCapture={() => setFleetPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFleetPaused(false); }}>
-            <div className="fleet-stage" style={{ '--fleet-angle': (fleetIndex * -90) + 'deg' }}>
-              {fleetModels.map((item, index) => <article className={index === fleetIndex ? "fleet-card active" : "fleet-card"} key={item.name} style={{ '--card-angle': (index * 90) + 'deg' }} aria-hidden={index !== fleetIndex}>
-                <img src={item.image} alt={item.alt} loading={index === fleetIndex ? 'eager' : 'lazy'}/>
-                <div className="fleet-card-shade"/>
-                <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index + 1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions"><button type="button" onClick={() => window.open(item.order, "_blank", "noopener,noreferrer")} tabIndex={index === fleetIndex ? 0 : -1} className="fleet-order">Order Now <ArrowUpRight size={15}/></button><button type="button" onClick={() => item.learn.startsWith("/") ? (window.location.href = item.learn) : window.open(item.learn, "_blank", "noopener,noreferrer")} tabIndex={index === fleetIndex ? 0 : -1} className="fleet-learn">Learn More <ArrowRight size={15}/></button></div></div>
-              </article>)}
+            <div className="fleet-heading">
+              <Reveal><p className="eyebrow"><span className="eyebrow-line"/> MEET THE LINEUP</p><h2>Find your<br/><em>kind of drive.</em></h2></Reveal>
+              <Reveal delay={100}><p>Four distinct personalities. One electric future.<br/>Take a closer look around the lineup.</p></Reveal>
             </div>
-          </div>
-          <div className="fleet-controls"><div className="fleet-pagination" aria-label="Choose a vehicle">{fleetModels.map((item,index) => <button key={item.name} aria-label={'Show ' + item.name} aria-pressed={fleetIndex===index} className={fleetIndex===index?'fleet-dot active':'fleet-dot'} onClick={() => setFleetIndex(index)}><span/></button>)}</div><div className="fleet-control-buttons"><span className="fleet-count">0{fleetIndex+1} <i/> 04</span><button onClick={() => setFleetIndex((fleetIndex+fleetModels.length-1)%fleetModels.length)} aria-label="Previous vehicle"><ChevronLeft size={19}/></button><button onClick={() => setFleetIndex((fleetIndex+1)%fleetModels.length)} aria-label="Next vehicle"><ChevronRight size={19}/></button><button onClick={() => setFleetPaused(!fleetPaused)} aria-label={fleetPaused?'Play carousel':'Pause carousel'}>{fleetPaused?<Play size={15}/>:<Pause size={15}/>}</button></div></div>
-          <p className="fleet-note">Prices and lease offers are shown as supplied for this concept and may vary by market, eligibility, taxes and terms. Confirm current offers with Tesla.</p>
+            <div className="carousel-stage" onMouseEnter={() => setFleetPaused(true)} onMouseLeave={() => setFleetPaused(false)} onFocusCapture={() => setFleetPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFleetPaused(false); }}>
+              <div className="carousel-track" style={{'--fleet-angle': (fleetIndex * -90) + 'deg'}}>
+                {fleetModels.map((item,index) => {
+                  const position=(index-fleetIndex+fleetModels.length)%fleetModels.length;
+                  const state=position===0?'is-active':position===1?'is-next':position===fleetModels.length-1?'is-previous':'is-opposite';
+                  return <article className={'fleet-card '+state} key={item.name} style={{'--card-angle':(index*90)+'deg'}} aria-hidden={position!==0}>
+                    <img src={item.image} alt={item.alt} loading={position===0?'eager':'lazy'}/>
+                    <div className="fleet-card-shade"/>
+                    <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index+1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions">
+                      <button type="button" onClick={() => window.open(item.order,'_blank','noopener,noreferrer')} tabIndex={position===0?0:-1} className="fleet-order">Order Now <ArrowUpRight size={15}/></button>
+                      <button type="button" onClick={() => item.learn.startsWith('/')?(window.location.href=item.learn):window.open(item.learn,'_blank','noopener,noreferrer')} tabIndex={position===0?0:-1} className="fleet-learn">Learn More <ArrowRight size={15}/></button>
+                    </div></div>
+                  </article>;
+                })}
+              </div>
+            </div>
+            <div className="fleet-controls">
+              <div className="fleet-pagination" aria-label="Choose a vehicle">{fleetModels.map((item,index)=><button key={item.name} aria-label={'Show '+item.name} aria-pressed={fleetIndex===index} className={fleetIndex===index?'fleet-dot active':'fleet-dot'} onClick={() => setFleetIndex(index)}><span/></button>)}</div>
+              <div className="fleet-control-buttons"><span className="fleet-count">0{fleetIndex+1} <i/> 04</span><button onClick={() => setFleetIndex((fleetIndex+fleetModels.length-1)%fleetModels.length)} aria-label="Previous vehicle"><ChevronLeft size={19}/></button><button onClick={() => setFleetIndex((fleetIndex+1)%fleetModels.length)} aria-label="Next vehicle"><ChevronRight size={19}/></button><button onClick={() => setFleetPaused(!fleetPaused)} aria-label={fleetPaused?'Play carousel':'Pause carousel'}>{fleetPaused?<Play size={15}/>:<Pause size={15}/>}</button></div>
+            </div>
+            <p className="fleet-note">Prices and lease offers are shown as supplied for this concept and may vary by market, eligibility, taxes and terms. Confirm current offers with Tesla.</p>
           </div>
         </section>
 
