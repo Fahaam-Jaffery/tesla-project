@@ -48,9 +48,9 @@
 .fleet-card-copy h3{font-family:'Manrope',sans-serif;font-size:clamp(37px,5.3vw,68px);font-weight:500;letter-spacing:-.07em;line-height:1.02;margin:20px 0 13px}
 .fleet-card-copy>p{font-size:14px;font-weight:500;color:#ffffffe6;margin-bottom:26px}
 .fleet-card-actions{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
-.fleet-card-actions a{display:inline-flex;align-items:center;justify-content:center;gap:15px;min-height:43px;padding:0 17px;font-size:10px;font-weight:700;transition:background .2s,color .2s,transform .2s}
-.fleet-card-actions a:hover{transform:translateY(-2px)}
-.fleet-order{background:#f7f7f5;color:#17191b}
+.fleet-card-actions a,.fleet-card-actions button{display:inline-flex;align-items:center;justify-content:center;gap:15px;min-height:43px;padding:0 17px;font-size:10px;font-weight:700;transition:background .2s,color .2s,transform .2s;border-radius:0}
+.fleet-card-actions a:hover,.fleet-card-actions button:hover{transform:translateY(-2px)}
+.fleet-order{background:#f7f7f5;color:#17191b;border:0}
 .fleet-order:hover{background:#fff}
 .fleet-learn{border:1px solid #ffffffa8;color:white;background:#ffffff12;backdrop-filter:blur(8px)}
 .fleet-learn:hover{background:#fff;color:#17191b}
@@ -66,7 +66,7 @@
 .fleet-control-buttons button:hover{background:var(--ink);border-color:var(--ink);color:white}
 .fleet-note{font-size:9px;line-height:1.7;color:#898b8b;padding:17px 10.2% 0;margin:0}
 @media(max-width:900px){.fleet-carousel-section{padding-top:90px}.fleet-heading{gap:25px}.fleet-stage-wrap{height:490px}.fleet-card{width:78vw;height:380px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(40vw)}.fleet-controls{padding-left:7%;padding-right:7%}.fleet-note{padding-left:7%;padding-right:7%}}
-@media(max-width:600px){.fleet-carousel-section{padding-top:76px;padding-bottom:36px}.fleet-heading{display:block;padding-bottom:20px}.fleet-heading .eyebrow{margin-bottom:24px}.fleet-heading h2{font-size:clamp(46px,12vw,65px)}.fleet-heading>div+div{margin-top:22px}.fleet-heading>div+div>p{font-size:12px}.fleet-stage-wrap{height:450px;perspective:1050px}.fleet-stage{width:100%}.fleet-card{width:84vw;height:345px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(44vw)}.fleet-card-copy{left:7%;max-width:86%}.fleet-card-copy h3{font-size:clamp(35px,9vw,48px);margin:17px 0 11px}.fleet-card-copy>p{font-size:12px;margin-bottom:20px}.fleet-card-actions{gap:8px}.fleet-card-actions a{min-height:40px;padding:0 12px;gap:9px;font-size:9px}.fleet-card-shade{background:linear-gradient(90deg,#090b0ddf 0%,#090b0d7a 62%,#090b0d1f 100%),linear-gradient(0deg,#090b0d4d,transparent 50%)}.fleet-controls{padding-top:16px}.fleet-count{margin-right:4px;gap:7px}.fleet-count i{width:13px}.fleet-control-buttons{gap:5px}.fleet-control-buttons button{width:32px;height:32px}.fleet-note{font-size:8px;padding-top:14px}}
+@media(max-width:600px){.fleet-carousel-section{padding-top:76px;padding-bottom:36px}.fleet-heading{display:block;padding-bottom:20px}.fleet-heading .eyebrow{margin-bottom:24px}.fleet-heading h2{font-size:clamp(46px,12vw,65px)}.fleet-heading>div+div{margin-top:22px}.fleet-heading>div+div>p{font-size:12px}.fleet-stage-wrap{height:450px;perspective:1050px}.fleet-stage{width:100%}.fleet-card{width:84vw;height:345px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(44vw)}.fleet-card-copy{left:7%;max-width:86%}.fleet-card-copy h3{font-size:clamp(35px,9vw,48px);margin:17px 0 11px}.fleet-card-copy>p{font-size:12px;margin-bottom:20px}.fleet-card-actions{gap:8px}.fleet-card-actions a,.fleet-card-actions button{min-height:40px;padding:0 12px;gap:9px;font-size:9px}.fleet-card-shade{background:linear-gradient(90deg,#090b0ddf 0%,#090b0d7a 62%,#090b0d1f 100%),linear-gradient(0deg,#090b0d4d,transparent 50%)}.fleet-controls{padding-top:16px}.fleet-count{margin-right:4px;gap:7px}.fleet-count i{width:13px}.fleet-control-buttons{gap:5px}.fleet-control-buttons button{width:32px;height:32px}.fleet-note{font-size:8px;padding-top:14px}}
 @media(prefers-reduced-motion:reduce){.fleet-stage{transition:none}.fleet-card,.fleet-card>img{transition:none}}
 
 /* Smoother navigation and a subtle, custom scrollbar */
