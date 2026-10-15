@@ -462,3 +462,64 @@ body{scroll-behavior:smooth}
   .fleet-card-copy h3{font-size:29px}
   .fleet-card-actions a,.fleet-card-actions button{font-size:7.5px;padding:0 7px}
 }
+
+
+/* Fleet final correction: align the controls with the heading and give each 3D face room to rotate */
+.fleet-carousel-section .fleet-controls,
+.fleet-carousel-section .fleet-note{
+  padding-left:max(10.2%,calc((100% - 1190px)/2));
+  padding-right:max(10.2%,calc((100% - 1190px)/2));
+}
+.fleet-stage-wrap{
+  perspective:2800px;
+  perspective-origin:50% 45%;
+  overflow:hidden;
+}
+.fleet-card{
+  width:min(62vw,960px);
+  transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(min(45vw,680px));
+  backface-visibility:hidden;
+}
+.fleet-card.active{z-index:5}
+@media(max-width:1500px) and (min-width:901px){
+  .fleet-carousel-section .fleet-controls,
+  .fleet-carousel-section .fleet-note{
+    padding-left:10.2%;
+    padding-right:10.2%;
+  }
+}
+@media(max-width:900px){
+  .fleet-carousel-section .fleet-controls,
+  .fleet-carousel-section .fleet-note{
+    padding-left:7%;
+    padding-right:7%;
+  }
+  .fleet-stage-wrap{perspective:2000px}
+  .fleet-card{
+    width:70vw;
+    height:clamp(320px,42vw,380px);
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(48vw);
+  }
+}
+@media(max-width:600px){
+  .fleet-stage-wrap{height:390px;perspective:1700px}
+  .fleet-card{
+    width:70vw;
+    height:300px;
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(47vw);
+  }
+  .fleet-controls{gap:8px}
+  .fleet-pagination{gap:3px}
+  .fleet-dot{width:21px;height:24px}
+  .fleet-dot.active span{width:17px}
+  .fleet-count{font-size:8px;gap:5px;margin-right:0}
+  .fleet-count i{width:10px}
+  .fleet-control-buttons{gap:4px}
+  .fleet-control-buttons button{width:30px;height:30px}
+  .fleet-note{font-size:8px}
+}
+@media(max-width:380px){
+  .fleet-stage-wrap{height:370px}
+  .fleet-card{height:285px}
+  .fleet-controls{gap:5px}
+}
