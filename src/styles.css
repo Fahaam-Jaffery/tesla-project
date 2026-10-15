@@ -77,6 +77,7 @@
   .fleet-card{height:380px}
   .fleet-heading{gap:28px}
 }
+@media(max-width:700px) and (min-width:601px){.fleet-carousel-section{--carousel-card-width:440px}}
 @media(max-width:900px){
   .fleet-carousel-section{--carousel-card-width:500px;padding:90px 7% 40px}
   .fleet-heading{gap:25px}
