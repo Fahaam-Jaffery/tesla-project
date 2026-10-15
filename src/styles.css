@@ -77,7 +77,6 @@
   .fleet-card{height:380px}
   .fleet-heading{gap:28px}
 }
-@media(max-width:700px) and (min-width:601px){.fleet-carousel-section{--carousel-card-width:440px}}
 @media(max-width:900px){
   .fleet-carousel-section{--carousel-card-width:500px;padding:90px 7% 40px}
   .fleet-heading{gap:25px}
@@ -85,6 +84,7 @@
   .fleet-card{height:clamp(320px,42vw,380px)}
   .fleet-controls{padding-top:18px}
 }
+@media(max-width:700px) and (min-width:601px){.fleet-carousel-section{--carousel-card-width:440px}}
 @media(max-width:600px){
   .fleet-carousel-section{--carousel-card-width:min(260px,calc(100vw - 145px));padding:76px 7% 36px}
   .fleet-heading{display:block;padding-bottom:20px}
