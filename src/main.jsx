@@ -102,7 +102,7 @@ function App() {
           <div className="fleet-heading section-pad"><Reveal><p className="eyebrow"><span className="eyebrow-line"/> MEET THE LINEUP</p><h2>Find your<br/><em>kind of drive.</em></h2></Reveal><Reveal delay={100}><p>Four distinct personalities. One electric future.<br/>Take a closer look around the lineup.</p></Reveal></div>
           <div className="fleet-stage-wrap" onMouseEnter={() => setFleetPaused(true)} onMouseLeave={() => setFleetPaused(false)} onFocusCapture={() => setFleetPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFleetPaused(false); }}>
             <div className="fleet-stage" style={{ '--fleet-angle': (fleetIndex * -90) + 'deg' }}>
-              {fleetModels.map((item, index) => <article className="fleet-card" key={item.name} style={{ '--card-angle': (index * 90) + 'deg' }} aria-hidden={index !== fleetIndex}>
+              {fleetModels.map((item, index) => <article className={index === fleetIndex ? "fleet-card active" : "fleet-card"} key={item.name} style={{ '--card-angle': (index * 90) + 'deg' }} aria-hidden={index !== fleetIndex}>
                 <img src={item.image} alt={item.alt} loading={index === fleetIndex ? 'eager' : 'lazy'}/>
                 <div className="fleet-card-shade"/>
                 <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index + 1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions"><a href={item.order} target="_blank" rel="noreferrer" className="fleet-order">Order Now <ArrowUpRight size={15}/></a><a href={item.learn} target="_blank" rel="noreferrer" className="fleet-learn">Learn More <ArrowRight size={15}/></a></div></div>
