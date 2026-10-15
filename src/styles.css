@@ -29,9 +29,10 @@
 @media(max-width:600px){.charging-story{height:760px;min-height:0}.charging-story-image img{object-position:60% center}.charging-story-shade{background:linear-gradient(90deg,#0a0c0ec7,#0a0c0e35 100%),linear-gradient(0deg,#080a0cb8,transparent 70%)}.charging-story-copy{left:7%;right:7%;top:13%}.charging-story-copy h2{font-size:clamp(53px,13vw,73px);margin:27px 0 20px}.charging-story-copy>div>p:not(.eyebrow){font-size:12px;max-width:300px}.charging-story-footer{left:7%;right:7%;font-size:7px}.energy-section{padding-top:82px;padding-bottom:85px}.energy-heading{grid-template-columns:1fr;gap:22px;margin-top:28px}.energy-heading h2{font-size:clamp(46px,12vw,65px)}.energy-heading>p{font-size:12px}.energy-grid{grid-template-columns:1fr;margin-top:35px;gap:12px}.energy-card{height:420px;min-height:0;max-height:none}.energy-card img{object-position:center 55%}.energy-card-bottom{padding:22px}.energy-card-bottom h3{font-size:29px}}
 
 /* Unified responsive 3D fleet carousel — one alignment rail, one geometry system */
-.fleet-carousel-section{--carousel-card-width:680px;background:#f4f4f2;padding:112px 24px 48px;overflow:hidden}
-.fleet-content-shell{width:min(100%,1190px);margin-inline:auto;display:flex;flex-direction:column;min-width:0}
-.fleet-heading{width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding:0 0 28px}
+.fleet-carousel-section{--carousel-card-width:calc(min(100vw,1190px) - 48px);background:#f4f4f2;padding:112px 0 48px;overflow:hidden}
+.fleet-content-shell{width:min(100%,1190px);box-sizing:border-box;padding-inline:24px;margin-inline:auto;display:flex;flex-direction:column;min-width:0}
+.fleet-heading,.carousel-stage,.fleet-controls,.fleet-note{width:100%;box-sizing:border-box}
+.fleet-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding:0 0 28px}
 .fleet-heading .eyebrow{margin-bottom:27px}
 .fleet-heading h2{font-family:'Manrope',sans-serif;font-size:clamp(48px,6vw,80px);font-weight:500;line-height:.98;letter-spacing:-.075em;margin:0}
 .fleet-heading h2 em{font-style:normal;color:#a6a8a8}
@@ -52,13 +53,13 @@
 .fleet-card-copy h3{font-family:'Manrope',sans-serif;font-size:clamp(37px,5.3vw,68px);font-weight:500;letter-spacing:-.07em;line-height:1.02;margin:20px 0 13px}
 .fleet-card-copy>p{font-size:14px;font-weight:500;color:#ffffffe6;margin-bottom:26px}
 .fleet-card-actions{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
-.fleet-card-actions button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:43px;padding:0 15px;font-size:10px;font-weight:700;white-space:nowrap;border-radius:0;cursor:pointer;transition:background .2s,color .2s,transform .2s}
-.fleet-card-actions button:hover{transform:translateY(-2px)}
+.fleet-card-actions a{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:43px;padding:0 15px;font-size:10px;font-weight:700;white-space:nowrap;border-radius:0;cursor:pointer;transition:background .2s,color .2s,transform .2s;text-decoration:none;box-sizing:border-box}
+.fleet-card-actions a:hover{transform:translateY(-2px)}
 .fleet-order{background:#f7f7f5;color:#17191b;border:0}
 .fleet-order:hover{background:#fff}
 .fleet-learn{border:1px solid #ffffffa8;color:#fff;background:#ffffff12;backdrop-filter:blur(8px)}
 .fleet-learn:hover{background:#fff;color:#17191b}
-.fleet-card-actions button:focus-visible,.fleet-control-buttons button:focus-visible,.fleet-dot:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.fleet-card-actions a:focus-visible,.fleet-control-buttons button:focus-visible,.fleet-dot:focus-visible{outline:2px solid var(--red);outline-offset:3px}
 .fleet-controls{width:100%;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 0 0}
 .fleet-pagination{display:flex;align-items:center;gap:7px}
 .fleet-dot{height:25px;width:25px;flex:0 0 25px;display:grid;place-items:center;border:0;background:transparent;padding:0}
@@ -72,21 +73,19 @@
 .fleet-note{width:100%;font-size:9px;line-height:1.7;color:#898b8b;padding:17px 0 0;margin:0}
 
 @media(max-width:1100px) and (min-width:901px){
-  .fleet-carousel-section{--carousel-card-width:560px}
   .carousel-stage{height:490px}
   .fleet-card{height:380px}
   .fleet-heading{gap:28px}
 }
 @media(max-width:900px){
-  .fleet-carousel-section{--carousel-card-width:500px;padding:90px 7% 40px}
+  .fleet-carousel-section{padding:90px 0 40px}
   .fleet-heading{gap:25px}
   .carousel-stage{height:470px}
   .fleet-card{height:clamp(320px,42vw,380px)}
   .fleet-controls{padding-top:18px}
 }
-@media(max-width:700px) and (min-width:601px){.fleet-carousel-section{--carousel-card-width:440px}}
 @media(max-width:600px){
-  .fleet-carousel-section{--carousel-card-width:min(260px,calc(100vw - 145px));padding:76px 7% 36px}
+  .fleet-carousel-section{padding:76px 0 36px}
   .fleet-heading{display:block;padding-bottom:20px}
   .fleet-heading .eyebrow{margin-bottom:24px}
   .fleet-heading h2{font-size:clamp(46px,12vw,65px)}
@@ -99,7 +98,7 @@
   .fleet-card-copy h3{font-size:clamp(29px,8.4vw,39px);line-height:1.02;margin:12px 0 9px;overflow-wrap:anywhere}
   .fleet-card-copy>p{font-size:11px;line-height:1.5;margin-bottom:14px}
   .fleet-card-actions{gap:7px}
-  .fleet-card-actions button{min-height:34px;padding:0 9px;gap:6px;font-size:8px;white-space:normal}
+  .fleet-card-actions a{min-height:34px;padding:0 9px;gap:6px;font-size:8px;white-space:normal}
   .fleet-card-actions svg{width:13px;height:13px;flex:0 0 auto}
   .fleet-controls{gap:8px;padding-top:16px}
   .fleet-pagination{gap:3px}
@@ -112,7 +111,6 @@
   .fleet-note{font-size:8px;padding-top:14px}
 }
 @media(max-width:380px){
-  .fleet-carousel-section{--carousel-card-width:calc(100vw - 145px)}
   .carousel-stage{height:370px}
   .fleet-card{height:285px}
   .fleet-controls{gap:5px}
