@@ -78,3 +78,11 @@ body{scroll-behavior:smooth}
 *::-webkit-scrollbar-thumb{background:#858787;border:2px solid #e7e7e4;border-radius:10px}
 *::-webkit-scrollbar-thumb:hover{background:#5d6062}
 .fleet-card-actions button{font:inherit;cursor:pointer;border-radius:0}
+
+/* Official Tesla T mark in the navigation */
+.logo-wordmark{display:flex;align-items:center;justify-content:flex-start;width:max-content;min-width:44px;height:34px}
+.logo-wordmark img{display:block;width:42px;height:32px;object-fit:contain;filter:brightness(0) invert(1);transition:opacity .2s}
+.header-scrolled .logo-wordmark img{filter:none;opacity:.92}
+.logo-wordmark:hover img{opacity:.65}
+.menu-top .logo-wordmark img{filter:none;width:43px;height:34px}
+@media(max-width:900px){.logo-wordmark img{width:39px;height:30px}}
