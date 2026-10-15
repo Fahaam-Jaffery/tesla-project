@@ -523,3 +523,68 @@ body{scroll-behavior:smooth}
   .fleet-card{height:285px}
   .fleet-controls{gap:5px}
 }
+
+
+/* Unified fleet composition: one shared content rail for carousel, controls and note.
+   Each 90-degree face is exactly one rail-width wide and sits half a width from center,
+   so adjacent faces meet edge-to-edge instead of leaving gaps or cutting into each other. */
+.fleet-content-shell{
+  width:min(79.6vw,1190px);
+  margin:0 auto;
+  position:relative;
+}
+.fleet-content-shell .fleet-stage-wrap{
+  width:100%;
+  perspective:2400px;
+  perspective-origin:50% 45%;
+  overflow:hidden;
+}
+.fleet-content-shell .fleet-stage{width:100%}
+.fleet-content-shell .fleet-card{
+  width:100%;
+  max-width:none;
+  transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(calc(min(79.6vw,1190px) / 2));
+  backface-visibility:hidden;
+}
+.fleet-content-shell .fleet-controls,
+.fleet-content-shell .fleet-note{
+  width:100%;
+  box-sizing:border-box;
+  padding-left:0;
+  padding-right:0;
+}
+@media(min-width:1501px){
+  .fleet-content-shell{width:min(calc(100% - 80px),1190px)}
+  .fleet-content-shell .fleet-card{
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(595px);
+  }
+}
+@media(max-width:1500px) and (min-width:901px){
+  .fleet-content-shell{width:79.6vw}
+  .fleet-content-shell .fleet-card{
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(39.8vw);
+  }
+}
+@media(max-width:900px){
+  .fleet-content-shell{width:86vw}
+  .fleet-content-shell .fleet-stage-wrap{perspective:1900px}
+  .fleet-content-shell .fleet-card{
+    width:100%;
+    height:clamp(320px,42vw,380px);
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(43vw);
+  }
+}
+@media(max-width:600px){
+  .fleet-content-shell{width:86vw}
+  .fleet-content-shell .fleet-stage-wrap{height:390px;perspective:1500px}
+  .fleet-content-shell .fleet-card{
+    height:300px;
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(43vw);
+  }
+  .fleet-content-shell .fleet-controls{padding-top:18px;gap:8px}
+  .fleet-content-shell .fleet-note{padding-top:14px}
+}
+@media(max-width:380px){
+  .fleet-content-shell .fleet-stage-wrap{height:370px}
+  .fleet-content-shell .fleet-card{height:285px}
+}
