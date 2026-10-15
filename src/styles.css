@@ -128,3 +128,96 @@ body{scroll-behavior:smooth}
 *::-webkit-scrollbar-track{background:#e7e7e4}
 *::-webkit-scrollbar-thumb{background:#858787;border:2px solid #e7e7e4;border-radius:10px}
 *::-webkit-scrollbar-thumb:hover{background:#5d6062}
+
+
+/* Restored navigation styling preserved from the previous main stylesheet */
+/* Larger official Tesla T mark in the navigation */
+.logo-wordmark{display:flex;align-items:center;justify-content:flex-start;width:100px;min-width:100px;height:96px;overflow:visible}
+.logo-wordmark img{display:block;width:96px;height:96px;max-width:none;object-fit:contain;filter:brightness(0) invert(1);transition:opacity .2s}
+.header-scrolled .logo-wordmark img{filter:none;opacity:.92}
+.logo-wordmark:hover img{opacity:.65}
+.menu-top .logo-wordmark img{filter:none;width:96px;height:96px}
+@media(max-width:900px){.logo-wordmark{width:90px;min-width:90px;height:90px}.logo-wordmark img{width:90px;height:90px}}
+
+
+/* Premium iPhone-inspired liquid-glass navigation */
+.site-header{
+  top:14px;left:3%;width:94%;height:82px;padding:0 25px;
+  grid-template-columns:100px minmax(0,1fr) 200px;gap:20px;
+  border:1px solid rgba(255,255,255,.26);border-radius:25px;
+  background:rgba(20,22,25,.24);color:#fff;
+  -webkit-backdrop-filter:blur(28px) saturate(185%);backdrop-filter:blur(28px) saturate(185%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 12px 38px rgba(0,0,0,.10);
+  transition:background .3s,border-color .3s,box-shadow .3s,transform .3s;
+}
+.site-header.header-scrolled{
+  background:rgba(248,248,246,.78);color:#17191b;border-color:rgba(255,255,255,.82);
+  -webkit-backdrop-filter:blur(30px) saturate(190%);backdrop-filter:blur(30px) saturate(190%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 12px 36px rgba(20,22,24,.09);
+}
+.logo-wordmark{width:72px;min-width:72px;height:72px}
+.logo-wordmark img{width:68px;height:68px;max-width:none}
+.header-scrolled .logo-wordmark img{filter:none}
+.desktop-nav{height:100%;align-items:center;gap:clamp(24px,3.1vw,48px)}
+.desktop-nav a,.header-cta{font-size:14px;font-weight:650;letter-spacing:-.025em;opacity:.94;white-space:nowrap}
+.desktop-nav a{position:relative;padding:12px 0;transition:opacity .2s,transform .2s}
+.desktop-nav a:after{content:'';position:absolute;left:0;right:100%;bottom:5px;height:1px;background:currentColor;transition:right .25s}
+.desktop-nav a:hover{opacity:1;transform:translateY(-1px)}
+.desktop-nav a:hover:after{right:0}
+.header-actions{gap:20px}
+.header-cta{gap:9px}
+.menu-button{width:44px;height:44px;border:1px solid rgba(255,255,255,.28);border-radius:15px;background:rgba(255,255,255,.12);transition:background .2s,border-color .2s,transform .2s}
+.header-scrolled .menu-button{border-color:rgba(20,22,24,.12);background:rgba(255,255,255,.52)}
+.menu-button:hover{background:rgba(255,255,255,.3);transform:scale(1.03)}
+.nav-mega{
+  position:absolute;top:calc(100% - 2px);left:0;right:0;z-index:2;
+  display:grid;grid-template-columns:1.2fr repeat(3,minmax(0,1fr));gap:12px;
+  padding:34px 18px 18px;border:1px solid rgba(255,255,255,.3);border-top:0;
+  border-radius:0 0 25px 25px;background:rgba(22,24,27,.72);color:white;
+  -webkit-backdrop-filter:blur(34px) saturate(180%);backdrop-filter:blur(34px) saturate(180%);
+  box-shadow:0 24px 60px rgba(0,0,0,.18);animation:mega-in .22s ease both;
+}
+.header-scrolled .nav-mega{background:rgba(249,249,247,.84);color:#17191b;border-color:rgba(255,255,255,.9)}
+.nav-mega-intro{padding:15px 24px 18px 12px;align-self:center}
+.nav-mega-kicker,.nav-mega-card>span{font-size:9px;letter-spacing:.16em;font-weight:700;opacity:.65}
+.nav-mega-intro h3{font-family:'Manrope',sans-serif;font-size:clamp(22px,2.3vw,31px);line-height:1.06;letter-spacing:-.055em;font-weight:500;margin:15px 0 10px}
+.nav-mega-intro p{font-size:12px;line-height:1.7;opacity:.68;margin:0;max-width:245px}
+.nav-mega-card{min-height:150px;padding:20px 18px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(255,255,255,.16);border-radius:17px;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035));transition:transform .25s,background .25s,border-color .25s}
+.header-scrolled .nav-mega-card{border-color:rgba(25,27,29,.09);background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(230,231,229,.3))}
+.nav-mega-card:hover{transform:translateY(-3px);background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.42)}
+.header-scrolled .nav-mega-card:hover{background:rgba(255,255,255,.98);border-color:rgba(25,27,29,.16)}
+.nav-mega-card>strong{font-family:'Manrope',sans-serif;font-size:clamp(21px,2vw,28px);font-weight:500;letter-spacing:-.05em}
+.nav-mega-card>small{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;opacity:.8}
+@keyframes mega-in{from{opacity:0;transform:translateY(-7px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:900px){
+  .site-header{top:10px;left:3%;width:94%;height:70px;padding:0 17px;grid-template-columns:1fr 1fr;gap:10px;border-radius:22px}
+  .logo-wordmark{width:62px;min-width:62px;height:62px}
+  .logo-wordmark img{width:60px;height:60px}
+  .desktop-nav{display:none}
+  .header-cta{display:none}
+  .header-actions{grid-column:2;gap:0}
+  .menu-button{width:42px;height:42px}
+  .nav-mega{display:none}
+}
+@media(max-width:600px){
+  .site-header{top:9px;left:3%;width:94%;height:66px;padding:0 13px;border-radius:20px}
+  .logo-wordmark{width:58px;min-width:58px;height:58px}
+  .logo-wordmark img{width:56px;height:56px}
+}
+
+
+/* Give the hover drawer its own breathing room below the floating navbar */
+@media(min-width:901px){
+  .nav-mega{
+    top:calc(100% + 12px);
+    left:0;
+    right:0;
+    border-top:1px solid rgba(255,255,255,.3);
+    border-radius:24px;
+    padding-top:20px;
+    overflow:hidden;
+  }
+  .header-scrolled .nav-mega{border-top-color:rgba(255,255,255,.9)}
+}
+
+
