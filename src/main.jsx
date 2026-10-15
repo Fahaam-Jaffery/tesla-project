@@ -112,6 +112,7 @@ function App() {
 
         <section className="fleet-carousel-section" id="fleet">
           <div className="fleet-heading section-pad"><Reveal><p className="eyebrow"><span className="eyebrow-line"/> MEET THE LINEUP</p><h2>Find your<br/><em>kind of drive.</em></h2></Reveal><Reveal delay={100}><p>Four distinct personalities. One electric future.<br/>Take a closer look around the lineup.</p></Reveal></div>
+          <div className="fleet-content-shell">
           <div className="fleet-stage-wrap" onMouseEnter={() => setFleetPaused(true)} onMouseLeave={() => setFleetPaused(false)} onFocusCapture={() => setFleetPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFleetPaused(false); }}>
             <div className="fleet-stage" style={{ '--fleet-angle': (fleetIndex * -90) + 'deg' }}>
               {fleetModels.map((item, index) => <article className={index === fleetIndex ? "fleet-card active" : "fleet-card"} key={item.name} style={{ '--card-angle': (index * 90) + 'deg' }} aria-hidden={index !== fleetIndex}>
@@ -123,6 +124,7 @@ function App() {
           </div>
           <div className="fleet-controls"><div className="fleet-pagination" aria-label="Choose a vehicle">{fleetModels.map((item,index) => <button key={item.name} aria-label={'Show ' + item.name} aria-pressed={fleetIndex===index} className={fleetIndex===index?'fleet-dot active':'fleet-dot'} onClick={() => setFleetIndex(index)}><span/></button>)}</div><div className="fleet-control-buttons"><span className="fleet-count">0{fleetIndex+1} <i/> 04</span><button onClick={() => setFleetIndex((fleetIndex+fleetModels.length-1)%fleetModels.length)} aria-label="Previous vehicle"><ChevronLeft size={19}/></button><button onClick={() => setFleetIndex((fleetIndex+1)%fleetModels.length)} aria-label="Next vehicle"><ChevronRight size={19}/></button><button onClick={() => setFleetPaused(!fleetPaused)} aria-label={fleetPaused?'Play carousel':'Pause carousel'}>{fleetPaused?<Play size={15}/>:<Pause size={15}/>}</button></div></div>
           <p className="fleet-note">Prices and lease offers are shown as supplied for this concept and may vary by market, eligibility, taxes and terms. Confirm current offers with Tesla.</p>
+          </div>
         </section>
 
         <section className="models-section" id="models">
