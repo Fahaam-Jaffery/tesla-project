@@ -236,3 +236,88 @@ body{scroll-behavior:smooth}
   .fleet-card-actions{gap:8px}
   .fleet-card-actions a,.fleet-card-actions button{min-height:36px;padding:0 10px;gap:7px;font-size:9px}
 }
+
+
+/* Restore the rotating 3D fleet while keeping the active card crisp and usable */
+.fleet-stage-wrap{
+  perspective:1500px;
+  perspective-origin:50% 45%;
+  overflow:hidden;
+}
+.fleet-stage{
+  transform:translate(-50%,-50%) rotateY(var(--fleet-angle));
+  transform-style:preserve-3d;
+  transition:transform 1.15s cubic-bezier(.2,.7,.2,1);
+  will-change:transform;
+}
+.fleet-card{
+  width:min(79.6vw,1120px);
+  height:clamp(330px,40vw,500px);
+  transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(min(47vw,640px));
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  visibility:visible;
+  opacity:.28;
+  pointer-events:none;
+  filter:none;
+  transition:opacity .55s ease;
+  will-change:opacity;
+}
+.fleet-card.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  z-index:2;
+  box-shadow:0 22px 70px #17191b1c;
+}
+.fleet-card>img{
+  transform:none!important;
+  image-rendering:auto;
+  transition:none;
+}
+.fleet-card-copy{
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  backface-visibility:hidden;
+}
+.fleet-carousel-section .fleet-heading{
+  padding-left:10.2%;
+  padding-right:10.2%;
+}
+.fleet-card-actions a,.fleet-card-actions button{
+  min-height:38px;
+  padding:0 13px;
+  gap:9px;
+  font-size:10px;
+  line-height:1;
+  white-space:nowrap;
+  position:relative;
+  z-index:4;
+}
+@media(max-width:900px){
+  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
+  .fleet-stage-wrap{perspective:1200px;height:490px}
+  .fleet-card{
+    width:86vw;
+    height:380px;
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(43vw);
+  }
+}
+@media(max-width:600px){
+  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
+  .fleet-stage-wrap{height:430px;perspective:1050px}
+  .fleet-card{
+    width:88vw;
+    height:330px;
+    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(44vw);
+  }
+  .fleet-card-copy{left:6%;max-width:88%}
+  .fleet-card-copy h3{font-size:clamp(35px,9vw,46px);margin:14px 0 10px}
+  .fleet-card-copy>p{font-size:12px;margin-bottom:17px}
+  .fleet-card-actions{gap:8px}
+  .fleet-card-actions a,.fleet-card-actions button{min-height:36px;padding:0 10px;gap:7px;font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  .fleet-stage{transition:none}
+  .fleet-card,.fleet-card>img{transition:none}
+}
