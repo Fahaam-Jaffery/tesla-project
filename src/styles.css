@@ -29,7 +29,7 @@
 @media(max-width:600px){.charging-story{height:760px;min-height:0}.charging-story-image img{object-position:60% center}.charging-story-shade{background:linear-gradient(90deg,#0a0c0ec7,#0a0c0e35 100%),linear-gradient(0deg,#080a0cb8,transparent 70%)}.charging-story-copy{left:7%;right:7%;top:13%}.charging-story-copy h2{font-size:clamp(53px,13vw,73px);margin:27px 0 20px}.charging-story-copy>div>p:not(.eyebrow){font-size:12px;max-width:300px}.charging-story-footer{left:7%;right:7%;font-size:7px}.energy-section{padding-top:82px;padding-bottom:85px}.energy-heading{grid-template-columns:1fr;gap:22px;margin-top:28px}.energy-heading h2{font-size:clamp(46px,12vw,65px)}.energy-heading>p{font-size:12px}.energy-grid{grid-template-columns:1fr;margin-top:35px;gap:12px}.energy-card{height:420px;min-height:0;max-height:none}.energy-card img{object-position:center 55%}.energy-card-bottom{padding:22px}.energy-card-bottom h3{font-size:29px}}
 
 /* Unified responsive 3D fleet carousel — one alignment rail, one geometry system */
-.fleet-carousel-section{--carousel-card-width:calc(min(100vw,1190px) - 48px);background:#f4f4f2;padding:112px 0 48px;overflow:hidden}
+.fleet-carousel-section{--carousel-card-width:calc(min(100vw,1190px) - 48px);--carousel-depth:calc((min(100vw,1190px) - 48px) / 2);background:#f4f4f2;padding:112px 0 48px;overflow:hidden}
 .fleet-content-shell{width:min(100%,1190px);box-sizing:border-box;padding-inline:24px;margin-inline:auto;display:flex;flex-direction:column;min-width:0}
 .fleet-heading,.carousel-stage,.fleet-controls,.fleet-note{width:100%;box-sizing:border-box}
 .fleet-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding:0 0 28px}
@@ -42,7 +42,7 @@
 /* True cube: every face is offset from the cube center by half its width. */
 .carousel-stage{position:relative;width:100%;height:clamp(430px,48vw,600px);min-width:0;perspective:3200px;perspective-origin:50% 45%;transform-style:preserve-3d;overflow:hidden;isolation:isolate;touch-action:pan-y}
 .carousel-track{position:absolute;inset:0;transform:rotateY(var(--fleet-angle));transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.7,.2,1);will-change:transform}
-.fleet-card{position:absolute;left:50%;top:50%;width:100%;height:clamp(330px,40vw,500px);max-width:none;overflow:hidden;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(calc(100% / 2));transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#202326;color:#fff;opacity:0;filter:saturate(.82);pointer-events:none;transition:opacity .45s ease,filter .45s ease;will-change:transform,opacity}
+.fleet-card{position:absolute;left:50%;top:50%;width:100%;height:clamp(330px,40vw,500px);max-width:none;overflow:hidden;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(var(--carousel-depth));transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#202326;color:#fff;opacity:0;filter:saturate(.82);pointer-events:none;transition:opacity .45s ease,filter .45s ease;will-change:transform,opacity}
 .fleet-card.is-active{opacity:1;pointer-events:auto;z-index:3;filter:saturate(1);box-shadow:0 22px 70px #17191b1c}
 .fleet-card.is-previous,.fleet-card.is-next{opacity:.2;pointer-events:none}
 .fleet-card.is-opposite{opacity:0;pointer-events:none}
