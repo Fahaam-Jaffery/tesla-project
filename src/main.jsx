@@ -105,7 +105,7 @@ function App() {
               {fleetModels.map((item, index) => <article className={index === fleetIndex ? "fleet-card active" : "fleet-card"} key={item.name} style={{ '--card-angle': (index * 90) + 'deg' }} aria-hidden={index !== fleetIndex}>
                 <img src={item.image} alt={item.alt} loading={index === fleetIndex ? 'eager' : 'lazy'}/>
                 <div className="fleet-card-shade"/>
-                <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index + 1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions"><a href={item.order} target="_blank" rel="noreferrer" className="fleet-order">Order Now <ArrowUpRight size={15}/></a><a href={item.learn} target="_blank" rel="noreferrer" className="fleet-learn">Learn More <ArrowRight size={15}/></a></div></div>
+                <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index + 1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions"><a href={item.order} target="_blank" rel="noreferrer" tabIndex={index === fleetIndex ? 0 : -1} className="fleet-order">Order Now <ArrowUpRight size={15}/></a><a href={item.learn} target="_blank" rel="noreferrer" tabIndex={index === fleetIndex ? 0 : -1} className="fleet-learn">Learn More <ArrowRight size={15}/></a></div></div>
               </article>)}
             </div>
           </div>
