@@ -11,10 +11,10 @@ const models = [
 ];
 
 const fleetModels = [
-  { name: 'Model Y L Premium', price: 'Starting at $61,990²', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-Y-L-Desktop-US.jpg', order: 'https://www.tesla.com/modely', learn: 'https://www.tesla.com/modely', alt: 'Tesla Model Y L Premium' },
-  { name: 'Model 3', price: 'Lease From $419/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/model3', learn: 'https://www.tesla.com/model3', alt: 'Tesla Model 3 electric sedan' },
-  { name: 'Model Y', price: 'Lease From $499/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg', order: 'https://www.tesla.com/modely', learn: '/modely', alt: 'Tesla Model Y in a snowy setting' },
-  { name: 'Cybertruck', price: 'Lease From $1,129/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Cybertruck-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/cybertruck', learn: 'https://www.tesla.com/cybertruck', alt: 'Tesla Cybertruck electric pickup' },
+  { name: 'Model Y L Premium', price: 'Explore Model Y L Premium', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Model-Y-L-Desktop-US.jpg', order: 'https://www.tesla.com/modely#L', learn: 'https://www.tesla.com/modely#L', alt: 'Tesla Model Y L Premium' },
+  { name: 'Model 3', price: 'Explore Model 3', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/model3', learn: 'https://www.tesla.com/model3', alt: 'Tesla Model 3 electric sedan' },
+  { name: 'Model Y', price: 'Explore Model Y', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg', order: 'https://www.tesla.com/modely', learn: '/modely', alt: 'Tesla Model Y' },
+  { name: 'Cybertruck', price: 'Explore Cybertruck', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Cybertruck-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/cybertruck', learn: 'https://www.tesla.com/cybertruck', alt: 'Tesla Cybertruck electric pickup' },
 ];
 
 function Reveal({ children, className = '', delay = 0 }) {
