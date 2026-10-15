@@ -47,8 +47,6 @@ function App() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('scroll', onScroll, { passive: true });
-    if (window.location.pathname.replace(/\/+$/, '') === '/modely') return <ModelYPage />;
-
   return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -67,6 +65,8 @@ function App() {
     setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  if (window.location.pathname.replace(/\/+$/, '') === '/modely') return <ModelYPage />;
 
   return (
     <>
