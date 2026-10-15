@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X, ChevronDown, ChevronLeft, ChevronRight, Pause, Play, Zap, ShieldCheck, Gauge, BatteryCharging } from 'lucide-react';
 import './styles.css';
+import ModelYPage from './ModelYPage.jsx';
 
 const models = [
   { name: 'Model S', type: 'LUXURY SEDAN', range: '410', speed: '2.4', top: '200', price: '74,990', image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2000&q=90', alt: 'Sleek electric sedan on a road' },
@@ -12,7 +13,7 @@ const models = [
 const fleetModels = [
   { name: 'Model Y L Premium', price: 'Starting at $61,990²', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-Y-L-Desktop-US.jpg', order: 'https://www.tesla.com/modely', learn: 'https://www.tesla.com/modely', alt: 'Tesla Model Y L Premium' },
   { name: 'Model 3', price: 'Lease From $419/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/model3', learn: 'https://www.tesla.com/model3', alt: 'Tesla Model 3 electric sedan' },
-  { name: 'Model Y', price: 'Lease From $499/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg', order: 'https://www.tesla.com/modely', learn: 'https://www.tesla.com/modely', alt: 'Tesla Model Y in a snowy setting' },
+  { name: 'Model Y', price: 'Lease From $499/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg', order: 'https://www.tesla.com/modely', learn: '/modely', alt: 'Tesla Model Y in a snowy setting' },
   { name: 'Cybertruck', price: 'Lease From $1,129/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Cybertruck-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/cybertruck', learn: 'https://www.tesla.com/cybertruck', alt: 'Tesla Cybertruck electric pickup' },
 ];
 
@@ -46,7 +47,9 @@ function App() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    if (window.location.pathname.replace(/\/+$/, '') === '/modely') return <ModelYPage />;
+
+  return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
@@ -79,7 +82,7 @@ function App() {
         </div>
         {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
           <div className="nav-mega-intro"><span className="nav-mega-kicker">EXPLORE TESLA</span><h3>{({vehicles:'Find your vehicle.',technology:'Built around intelligence.',charging:'Go further, effortlessly.',models:'Meet your next Tesla.'})[navHover]}</h3><p>{({vehicles:'Distinct designs. All-electric performance.',technology:'Intuitive software and thoughtful engineering.',charging:'Simple charging at home and on the road.',models:'Explore the lineup and compare the details.'})[navHover]}</p></div>
-          <a className="nav-mega-card" href="#fleet" onClick={() => setNavHover(null)}><span>01 / THE LINEUP</span><strong>Vehicles</strong><small>Explore the fleet <ArrowUpRight size={14}/></small></a>
+          <a className="nav-mega-card" href="/modely" onClick={() => setNavHover(null)}><span>01 / FEATURED MODEL</span><strong>Model Y</strong><small>Discover the vehicle <ArrowUpRight size={14}/></small></a>
           <a className="nav-mega-card" href="#technology" onClick={() => setNavHover(null)}><span>02 / THE EXPERIENCE</span><strong>Technology</strong><small>Discover what's next <ArrowUpRight size={14}/></small></a>
           <a className="nav-mega-card" href="#charging-network" onClick={() => setNavHover(null)}><span>03 / THE JOURNEY</span><strong>Charging</strong><small>Power every journey <ArrowUpRight size={14}/></small></a>
         </div>}
@@ -114,7 +117,7 @@ function App() {
               {fleetModels.map((item, index) => <article className={index === fleetIndex ? "fleet-card active" : "fleet-card"} key={item.name} style={{ '--card-angle': (index * 90) + 'deg' }} aria-hidden={index !== fleetIndex}>
                 <img src={item.image} alt={item.alt} loading={index === fleetIndex ? 'eager' : 'lazy'}/>
                 <div className="fleet-card-shade"/>
-                <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index + 1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions"><button type="button" onClick={() => window.open(item.order, "_blank", "noopener,noreferrer")} tabIndex={index === fleetIndex ? 0 : -1} className="fleet-order">Order Now <ArrowUpRight size={15}/></button><button type="button" onClick={() => window.open(item.learn, "_blank", "noopener,noreferrer")} tabIndex={index === fleetIndex ? 0 : -1} className="fleet-learn">Learn More <ArrowRight size={15}/></button></div></div>
+                <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index + 1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions"><button type="button" onClick={() => window.open(item.order, "_blank", "noopener,noreferrer")} tabIndex={index === fleetIndex ? 0 : -1} className="fleet-order">Order Now <ArrowUpRight size={15}/></button><button type="button" onClick={() => item.learn.startsWith("/") ? (window.location.href = item.learn) : window.open(item.learn, "_blank", "noopener,noreferrer")} tabIndex={index === fleetIndex ? 0 : -1} className="fleet-learn">Learn More <ArrowRight size={15}/></button></div></div>
               </article>)}
             </div>
           </div>
