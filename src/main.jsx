@@ -37,6 +37,7 @@ function App() {
   const [activeModel, setActiveModel] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [navHover, setNavHover] = useState(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [fleetIndex, setFleetIndex] = useState(0);
   const [fleetPaused, setFleetPaused] = useState(false);
@@ -66,14 +67,22 @@ function App() {
 
   return (
     <>
-      <header className={scrolled ? 'site-header header-scrolled' : 'site-header'}>
+      <header className={scrolled ? 'site-header header-scrolled' : 'site-header'} onMouseLeave={() => setNavHover(null)}>
         <a className="wordmark logo-wordmark" href="#home" aria-label="Tesla home"><img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" /></a>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="#fleet">Vehicles</a><a href="#technology">Technology</a><a href="#charging-network">Charging</a>
+          <a href="#fleet" onMouseEnter={() => setNavHover('vehicles')} onFocus={() => setNavHover('vehicles')}>Vehicles</a>
+          <a href="#technology" onMouseEnter={() => setNavHover('technology')} onFocus={() => setNavHover('technology')}>Technology</a>
+          <a href="#charging-network" onMouseEnter={() => setNavHover('charging')} onFocus={() => setNavHover('charging')}>Charging</a>
         </nav>
-        <div className="header-actions"><a className="header-cta" href="#models">Explore models <ArrowUpRight size={14}/></a>
-          <button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="Open menu"><Menu size={21}/></button>
+        <div className="header-actions"><a className="header-cta" href="#models" onMouseEnter={() => setNavHover('models')} onFocus={() => setNavHover('models')}>Explore models <ArrowUpRight size={16}/></a>
+          <button className="menu-button" onClick={() => { setNavHover(null); setMenuOpen(true); }} aria-label="Open menu"><Menu size={23}/></button>
         </div>
+        {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
+          <div className="nav-mega-intro"><span className="nav-mega-kicker">EXPLORE TESLA</span><h3>{({vehicles:'Find your vehicle.',technology:'Built around intelligence.',charging:'Go further, effortlessly.',models:'Meet your next Tesla.'})[navHover]}</h3><p>{({vehicles:'Distinct designs. All-electric performance.',technology:'Intuitive software and thoughtful engineering.',charging:'Simple charging at home and on the road.',models:'Explore the lineup and compare the details.'})[navHover]}</p></div>
+          <a className="nav-mega-card" href="#fleet" onClick={() => setNavHover(null)}><span>01 / THE LINEUP</span><strong>Vehicles</strong><small>Explore the fleet <ArrowUpRight size={14}/></small></a>
+          <a className="nav-mega-card" href="#technology" onClick={() => setNavHover(null)}><span>02 / THE EXPERIENCE</span><strong>Technology</strong><small>Discover what's next <ArrowUpRight size={14}/></small></a>
+          <a className="nav-mega-card" href="#charging-network" onClick={() => setNavHover(null)}><span>03 / THE JOURNEY</span><strong>Charging</strong><small>Power every journey <ArrowUpRight size={14}/></small></a>
+        </div>}
       </header>
 
       <main>
