@@ -125,8 +125,8 @@ function App() {
                     <img src={item.image} alt={item.alt} loading={position===0?'eager':'lazy'}/>
                     <div className="fleet-card-shade"/>
                     <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index+1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions">
-                      <button type="button" onClick={() => window.open(item.order,'_blank','noopener,noreferrer')} tabIndex={position===0?0:-1} className="fleet-order">Order Now <ArrowUpRight size={15}/></button>
-                      <button type="button" onClick={() => item.learn.startsWith('/')?(window.location.href=item.learn):window.open(item.learn,'_blank','noopener,noreferrer')} tabIndex={position===0?0:-1} className="fleet-learn">Learn More <ArrowRight size={15}/></button>
+                      <a href={item.order} target="_blank" rel="noopener noreferrer" tabIndex={position===0?0:-1} className="fleet-order">Order Now <ArrowUpRight size={15}/></a>
+                      <a href={item.learn} target={item.learn.startsWith('/') ? undefined : '_blank'} rel="noopener noreferrer" tabIndex={position===0?0:-1} className="fleet-learn">Learn More <ArrowRight size={15}/></a>
                     </div></div>
                   </article>;
                 })}
