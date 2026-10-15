@@ -54,7 +54,7 @@ function App() {
       <header className={scrolled ? 'site-header header-scrolled' : 'site-header'}>
         <a className="wordmark" href="#home" aria-label="Tesla home">TESLA<span>®</span></a>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="#models">Vehicles</a><a href="#technology">Technology</a><a href="#charging">Charging</a>
+          <a href="#models">Vehicles</a><a href="#technology">Technology</a><a href="#charging-network">Charging</a>
         </nav>
         <div className="header-actions"><a className="header-cta" href="#models">Explore models <ArrowUpRight size={14}/></a>
           <button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="Open menu"><Menu size={21}/></button>
@@ -113,12 +113,29 @@ function App() {
           <div className="technology-note"><span>02 — THE EXPERIENCE</span><span>Less friction. More freedom.</span></div>
         </section>
 
+        <section className="charging-story" id="charging-network">
+          <div className="charging-story-image"><img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=2200&q=90" alt="Electric vehicle charging at a modern charging station" loading="lazy"/><div className="charging-story-shade"/></div>
+          <div className="charging-story-copy">
+            <Reveal><p className="eyebrow light-eyebrow"><span className="eyebrow-line"/> THE JOURNEY IS THE POINT</p><h2>More freedom.<br/><em>Less planning.</em></h2><p>From charging at home to quick stops on the road, a connected charging experience helps make electric travel feel effortless.</p><a className="button button-light" href="https://www.tesla.com/charging" target="_blank" rel="noreferrer">Explore charging <ArrowUpRight size={16}/></a></Reveal>
+          </div>
+          <div className="charging-story-footer"><span>03 — CHARGING, REIMAGINED</span><span>Ready when you are.</span></div>
+        </section>
+
         <section className="values-section section-pad" id="charging">
           <Reveal><p className="eyebrow"><span className="eyebrow-line"/> BUILT FOR WHAT'S NEXT</p><h2>A better way<br/>to <em>go further.</em></h2></Reveal>
           <div className="value-grid">
             <Reveal delay={40}><article className="value-card"><div className="value-icon"><Gauge size={21}/></div><span className="value-number">01 / PERFORMANCE</span><h3>Feel everything.<br/>Except the wait.</h3><p>Instant response and smooth, quiet acceleration turn every journey into something memorable.</p><a href="#models" aria-label="Explore performance"><ArrowUpRight size={18}/></a></article></Reveal>
             <Reveal delay={110}><article className="value-card"><div className="value-icon"><BatteryCharging size={21}/></div><span className="value-number">02 / ENERGY</span><h3>Go further.<br/>Think bigger.</h3><p>Electric driving that fits into real life, with charging designed around the journey.</p><a href="https://www.tesla.com/charging" target="_blank" rel="noreferrer" aria-label="Explore charging"><ArrowUpRight size={18}/></a></article></Reveal>
             <Reveal delay={180}><article className="value-card"><div className="value-icon"><ShieldCheck size={21}/></div><span className="value-number">03 / CONFIDENCE</span><h3>Peace of mind<br/>comes standard.</h3><p>Driver-focused engineering and evolving software put confidence at the centre of the experience.</p><a href="https://www.tesla.com/safety" target="_blank" rel="noreferrer" aria-label="Explore safety"><ArrowUpRight size={18}/></a></article></Reveal>
+          </div>
+        </section>
+
+        <section className="energy-section section-pad" id="energy">
+          <Reveal><p className="eyebrow"><span className="eyebrow-line"/> ONE CONNECTED ECOSYSTEM</p><div className="energy-heading"><h2>Power beyond<br/><em>the driveway.</em></h2><p>Electric vehicles are one part of a bigger idea. Explore energy products designed to work together at home and at scale.</p></div></Reveal>
+          <div className="energy-grid">
+            <Reveal delay={40}><a className="energy-card" href="https://www.tesla.com/solarpanels" target="_blank" rel="noreferrer"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1000&q=85" alt="Solar panels collecting energy from sunlight" loading="lazy"/><span className="energy-card-index">01 / SOLAR</span><div className="energy-card-bottom"><div><h3>Solar Panels</h3><p>Turn sunlight into energy for your home.</p></div><span className="energy-arrow"><ArrowUpRight size={18}/></span></div></a></Reveal>
+            <Reveal delay={110}><a className="energy-card" href="https://www.tesla.com/powerwall" target="_blank" rel="noreferrer"><img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1000&q=85" alt="Modern home at dusk with lights on" loading="lazy"/><span className="energy-card-index">02 / STORAGE</span><div className="energy-card-bottom"><div><h3>Powerwall</h3><p>Keep energy available when you need it.</p></div><span className="energy-arrow"><ArrowUpRight size={18}/></span></div></a></Reveal>
+            <Reveal delay={180}><a className="energy-card" href="https://www.tesla.com/megapack" target="_blank" rel="noreferrer"><img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1000&q=85" alt="Power infrastructure at dusk" loading="lazy"/><span className="energy-card-index">03 / GRID SCALE</span><div className="energy-card-bottom"><div><h3>Megapack</h3><p>Large-scale storage for a more flexible grid.</p></div><span className="energy-arrow"><ArrowUpRight size={18}/></span></div></a></Reveal>
           </div>
         </section>
 
@@ -130,9 +147,9 @@ function App() {
         </section>
       </main>
 
-      <footer className="site-footer"><a className="wordmark footer-mark" href="#home">TESLA<span>®</span></a><span className="footer-note">ACCELERATING THE FUTURE.</span><div className="footer-links"><a href="#models">Vehicles</a><a href="#technology">Technology</a><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Tesla.com <ArrowUpRight size={12}/></a></div><span className="copyright">© {new Date().getFullYear()} CONCEPT EXPERIENCE</span></footer>
+      <footer className="site-footer"><a className="wordmark footer-mark" href="#home">TESLA<span>®</span></a><span className="footer-note">ACCELERATING THE FUTURE.</span><div className="footer-links"><a href="#models">Vehicles</a><a href="#technology">Technology</a><a href="#energy">Energy</a><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Tesla.com <ArrowUpRight size={12}/></a></div><span className="copyright">© {new Date().getFullYear()} CONCEPT EXPERIENCE</span></footer>
 
-      {menuOpen && <div className="menu-overlay"><div className="menu-top"><a className="wordmark" href="#home" onClick={() => setMenuOpen(false)}>TESLA<span>®</span></a><button className="close-menu" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={22}/></button></div><nav className="mobile-nav"><button onClick={() => scrollTo('models')}><span>01</span>Vehicles<ArrowUpRight/></button><button onClick={() => scrollTo('technology')}><span>02</span>Technology<ArrowUpRight/></button><button onClick={() => scrollTo('charging')}><span>03</span>Charging<ArrowUpRight/></button></nav><div className="menu-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Visit Tesla.com <ArrowUpRight size={14}/></a></div></div>}
+      {menuOpen && <div className="menu-overlay"><div className="menu-top"><a className="wordmark" href="#home" onClick={() => setMenuOpen(false)}>TESLA<span>®</span></a><button className="close-menu" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={22}/></button></div><nav className="mobile-nav"><button onClick={() => scrollTo('models')}><span>01</span>Vehicles<ArrowUpRight/></button><button onClick={() => scrollTo('technology')}><span>02</span>Technology<ArrowUpRight/></button><button onClick={() => scrollTo('charging-network')}><span>03</span>Charging<ArrowUpRight/></button><button onClick={() => scrollTo('energy')}><span>04</span>Energy<ArrowUpRight/></button></nav><div className="menu-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Visit Tesla.com <ArrowUpRight size={14}/></a></div></div>}
     </>
   );
 }
