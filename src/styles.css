@@ -118,7 +118,7 @@ body{scroll-behavior:smooth}
 .header-scrolled .menu-button{border-color:rgba(20,22,24,.12);background:rgba(255,255,255,.52)}
 .menu-button:hover{background:rgba(255,255,255,.3);transform:scale(1.03)}
 .nav-mega{
-  position:absolute;top:calc(100% - 2px);left:0;right:0;z-index:-1;
+  position:absolute;top:calc(100% - 2px);left:0;right:0;z-index:2;
   display:grid;grid-template-columns:1.2fr repeat(3,minmax(0,1fr));gap:12px;
   padding:34px 18px 18px;border:1px solid rgba(255,255,255,.3);border-top:0;
   border-radius:0 0 25px 25px;background:rgba(22,24,27,.72);color:white;
