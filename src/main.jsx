@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X, ChevronDown, Zap, ShieldCheck, Gauge, BatteryCharging } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X, ChevronDown, ChevronLeft, ChevronRight, Pause, Play, Zap, ShieldCheck, Gauge, BatteryCharging } from 'lucide-react';
 import './styles.css';
 
 const models = [
   { name: 'Model S', type: 'LUXURY SEDAN', range: '410', speed: '2.4', top: '200', price: '74,990', image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2000&q=90', alt: 'Sleek electric sedan on a road' },
   { name: 'Model 3', type: 'ELECTRIC SEDAN', range: '363', speed: '2.9', top: '162', price: '38,990', image: 'https://images.unsplash.com/photo-1561580125-028ee3bd62eb?auto=format&fit=crop&w=2000&q=90', alt: 'Modern electric car in a minimal setting' },
   { name: 'Model X', type: 'ELECTRIC SUV', range: '335', speed: '2.5', top: '163', price: '79,990', image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=2000&q=90', alt: 'Electric vehicle photographed outdoors' },
+];
+
+const fleetModels = [
+  { name: 'Model Y L Premium', price: 'Starting at $61,990²', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-Y-L-Desktop-US.jpg', order: 'https://www.tesla.com/modely', learn: 'https://www.tesla.com/modely', alt: 'Tesla Model Y L Premium' },
+  { name: 'Model 3', price: 'Lease From $419/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/model3', learn: 'https://www.tesla.com/model3', alt: 'Tesla Model 3 electric sedan' },
+  { name: 'Model Y', price: 'Lease From $499/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg', order: 'https://www.tesla.com/modely', learn: 'https://www.tesla.com/modely', alt: 'Tesla Model Y in a snowy setting' },
+  { name: 'Cybertruck', price: 'Lease From $1,129/mo', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Cybertruck-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/cybertruck', learn: 'https://www.tesla.com/cybertruck', alt: 'Tesla Cybertruck electric pickup' },
 ];
 
 function Reveal({ children, className = '', delay = 0 }) {
@@ -31,6 +38,8 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [fleetIndex, setFleetIndex] = useState(0);
+  const [fleetPaused, setFleetPaused] = useState(false);
   const model = models[activeModel];
 
   useEffect(() => {
@@ -38,6 +47,12 @@ function App() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    if (fleetPaused) return;
+    const timer = window.setInterval(() => setFleetIndex((current) => (current + 1) % fleetModels.length), 5200);
+    return () => window.clearInterval(timer);
+  }, [fleetPaused]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -54,7 +69,7 @@ function App() {
       <header className={scrolled ? 'site-header header-scrolled' : 'site-header'}>
         <a className="wordmark" href="#home" aria-label="Tesla home">TESLA<span>®</span></a>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="#models">Vehicles</a><a href="#technology">Technology</a><a href="#charging-network">Charging</a>
+          <a href="#fleet">Vehicles</a><a href="#technology">Technology</a><a href="#charging-network">Charging</a>
         </nav>
         <div className="header-actions"><a className="header-cta" href="#models">Explore models <ArrowUpRight size={14}/></a>
           <button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="Open menu"><Menu size={21}/></button>
@@ -81,6 +96,21 @@ function App() {
             <Reveal delay={130}><div className="intro-body"><p>Every detail has a purpose. Every journey opens a possibility. Meet a new generation of electric vehicles designed to make the extraordinary feel effortless.</p><a className="inline-link" href="#technology">What drives us <ArrowUpRight size={16}/></a></div></Reveal>
           </div>
           <Reveal className="intro-image-wrap"><img className="intro-image" src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=2200&q=90" alt="Electric vehicle in an open landscape" loading="lazy"/><div className="image-caption"><span>01 / THE ART OF MOVEMENT</span><span>Form follows feeling.</span></div></Reveal>
+        </section>
+
+        <section className="fleet-carousel-section" id="fleet">
+          <div className="fleet-heading section-pad"><Reveal><p className="eyebrow"><span className="eyebrow-line"/> MEET THE LINEUP</p><h2>Find your<br/><em>kind of drive.</em></h2></Reveal><Reveal delay={100}><p>Four distinct personalities. One electric future.<br/>Take a closer look around the lineup.</p></Reveal></div>
+          <div className="fleet-stage-wrap" onMouseEnter={() => setFleetPaused(true)} onMouseLeave={() => setFleetPaused(false)} onFocusCapture={() => setFleetPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFleetPaused(false); }}>
+            <div className="fleet-stage" style={{ '--fleet-angle': (fleetIndex * -90) + 'deg' }}>
+              {fleetModels.map((item, index) => <article className="fleet-card" key={item.name} style={{ '--card-angle': (index * 90) + 'deg' }} aria-hidden={index !== fleetIndex}>
+                <img src={item.image} alt={item.alt} loading={index === fleetIndex ? 'eager' : 'lazy'}/>
+                <div className="fleet-card-shade"/>
+                <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index + 1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions"><a href={item.order} target="_blank" rel="noreferrer" className="fleet-order">Order Now <ArrowUpRight size={15}/></a><a href={item.learn} target="_blank" rel="noreferrer" className="fleet-learn">Learn More <ArrowRight size={15}/></a></div></div>
+              </article>)}
+            </div>
+          </div>
+          <div className="fleet-controls"><div className="fleet-pagination" aria-label="Choose a vehicle">{fleetModels.map((item,index) => <button key={item.name} aria-label={'Show ' + item.name} aria-pressed={fleetIndex===index} className={fleetIndex===index?'fleet-dot active':'fleet-dot'} onClick={() => setFleetIndex(index)}><span/></button>)}</div><div className="fleet-control-buttons"><span className="fleet-count">0{fleetIndex+1} <i/> 04</span><button onClick={() => setFleetIndex((fleetIndex+fleetModels.length-1)%fleetModels.length)} aria-label="Previous vehicle"><ChevronLeft size={19}/></button><button onClick={() => setFleetIndex((fleetIndex+1)%fleetModels.length)} aria-label="Next vehicle"><ChevronRight size={19}/></button><button onClick={() => setFleetPaused(!fleetPaused)} aria-label={fleetPaused?'Play carousel':'Pause carousel'}>{fleetPaused?<Play size={15}/>:<Pause size={15}/>}</button></div></div>
+          <p className="fleet-note">Prices and lease offers are shown as supplied for this concept and may vary by market, eligibility, taxes and terms. Confirm current offers with Tesla.</p>
         </section>
 
         <section className="models-section" id="models">
@@ -149,7 +179,7 @@ function App() {
 
       <footer className="site-footer"><a className="wordmark footer-mark" href="#home">TESLA<span>®</span></a><span className="footer-note">ACCELERATING THE FUTURE.</span><div className="footer-links"><a href="#models">Vehicles</a><a href="#technology">Technology</a><a href="#energy">Energy</a><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Tesla.com <ArrowUpRight size={12}/></a></div><span className="copyright">© {new Date().getFullYear()} CONCEPT EXPERIENCE</span></footer>
 
-      {menuOpen && <div className="menu-overlay"><div className="menu-top"><a className="wordmark" href="#home" onClick={() => setMenuOpen(false)}>TESLA<span>®</span></a><button className="close-menu" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={22}/></button></div><nav className="mobile-nav"><button onClick={() => scrollTo('models')}><span>01</span>Vehicles<ArrowUpRight/></button><button onClick={() => scrollTo('technology')}><span>02</span>Technology<ArrowUpRight/></button><button onClick={() => scrollTo('charging-network')}><span>03</span>Charging<ArrowUpRight/></button><button onClick={() => scrollTo('energy')}><span>04</span>Energy<ArrowUpRight/></button></nav><div className="menu-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Visit Tesla.com <ArrowUpRight size={14}/></a></div></div>}
+      {menuOpen && <div className="menu-overlay"><div className="menu-top"><a className="wordmark" href="#home" onClick={() => setMenuOpen(false)}>TESLA<span>®</span></a><button className="close-menu" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={22}/></button></div><nav className="mobile-nav"><button onClick={() => scrollTo('fleet')}><span>01</span>Vehicles<ArrowUpRight/></button><button onClick={() => scrollTo('technology')}><span>02</span>Technology<ArrowUpRight/></button><button onClick={() => scrollTo('charging-network')}><span>03</span>Charging<ArrowUpRight/></button><button onClick={() => scrollTo('energy')}><span>04</span>Energy<ArrowUpRight/></button></nav><div className="menu-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Visit Tesla.com <ArrowUpRight size={14}/></a></div></div>}
     </>
   );
 }
