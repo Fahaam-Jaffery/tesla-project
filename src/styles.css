@@ -28,48 +28,98 @@
 @media(max-width:900px){.charging-story{height:90vw;min-height:640px}.charging-story-copy{left:7%;top:15%}.energy-section{padding-top:95px;padding-bottom:95px}.energy-grid{gap:10px}.energy-card{min-height:330px}.energy-card-bottom{padding:18px}.energy-card-index{padding:18px 18px 0}.energy-card-bottom h3{font-size:25px}.energy-heading{gap:6%}}
 @media(max-width:600px){.charging-story{height:760px;min-height:0}.charging-story-image img{object-position:60% center}.charging-story-shade{background:linear-gradient(90deg,#0a0c0ec7,#0a0c0e35 100%),linear-gradient(0deg,#080a0cb8,transparent 70%)}.charging-story-copy{left:7%;right:7%;top:13%}.charging-story-copy h2{font-size:clamp(53px,13vw,73px);margin:27px 0 20px}.charging-story-copy>div>p:not(.eyebrow){font-size:12px;max-width:300px}.charging-story-footer{left:7%;right:7%;font-size:7px}.energy-section{padding-top:82px;padding-bottom:85px}.energy-heading{grid-template-columns:1fr;gap:22px;margin-top:28px}.energy-heading h2{font-size:clamp(46px,12vw,65px)}.energy-heading>p{font-size:12px}.energy-grid{grid-template-columns:1fr;margin-top:35px;gap:12px}.energy-card{height:420px;min-height:0;max-height:none}.energy-card img{object-position:center 55%}.energy-card-bottom{padding:22px}.energy-card-bottom h3{font-size:29px}}
 
-/* 360-degree rotating vehicle carousel */
-.fleet-carousel-section{background:#f4f4f2;padding:112px 0 48px;overflow:hidden}
-.fleet-heading{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:28px}
+/* Unified responsive 3D fleet carousel — one alignment rail, one geometry system */
+.fleet-carousel-section{--carousel-card-width:680px;background:#f4f4f2;padding:112px 24px 48px;overflow:hidden}
+.fleet-content-shell{width:min(100%,1190px);margin-inline:auto;display:flex;flex-direction:column;min-width:0}
+.fleet-heading{width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding:0 0 28px}
 .fleet-heading .eyebrow{margin-bottom:27px}
 .fleet-heading h2{font-family:'Manrope',sans-serif;font-size:clamp(48px,6vw,80px);font-weight:500;line-height:.98;letter-spacing:-.075em;margin:0}
 .fleet-heading h2 em{font-style:normal;color:#a6a8a8}
 .fleet-heading>div+div{max-width:350px}
 .fleet-heading>div+div>p{font-size:13px;line-height:1.9;color:#6b6f71;margin:0 0 5px}
-.fleet-stage-wrap{position:relative;perspective:1500px;perspective-origin:50% 45%;height:clamp(430px,48vw,600px);overflow:hidden;touch-action:pan-y}
-.fleet-stage{position:absolute;left:50%;top:50%;width:100%;height:100%;transform:translate(-50%,-50%) rotateY(var(--fleet-angle));transform-style:preserve-3d;transition:transform 1.15s cubic-bezier(.2,.7,.2,1);will-change:transform}
-.fleet-card{position:absolute;left:50%;top:50%;width:min(74vw,960px);height:clamp(330px,40vw,500px);overflow:hidden;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(min(44vw,560px));transform-style:preserve-3d;backface-visibility:hidden;background:#202326;color:white;opacity:.74;transition:opacity .6s,filter .6s;filter:saturate(.8)}
-.fleet-card.active{opacity:1;filter:saturate(1);box-shadow:0 22px 70px #17191b1c}
-.fleet-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%;transition:transform 1s}
-.fleet-card.active>img{transform:scale(1.015)}
-.fleet-card-shade{position:absolute;inset:0;background:linear-gradient(90deg,#090b0dcc 0%,#090b0d62 43%,transparent 82%),linear-gradient(0deg,#090b0d65,transparent 45%);pointer-events:none}
-.fleet-card-copy{position:absolute;left:6%;top:50%;transform:translateY(-50%);max-width:75%;z-index:1}
+
+/* Perspective lives on the direct card stage; card width and radius share one variable. */
+.carousel-stage{position:relative;width:100%;height:clamp(430px,48vw,600px);min-width:0;perspective:1200px;perspective-origin:50% 45%;transform-style:preserve-3d;overflow:hidden;isolation:isolate;touch-action:pan-y}
+.carousel-track{position:absolute;inset:0;transform:rotateY(var(--fleet-angle));transform-style:preserve-3d;transition:transform 1.05s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.fleet-card{position:absolute;left:50%;top:50%;width:var(--carousel-card-width);height:clamp(330px,40vw,500px);max-width:none;overflow:hidden;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(calc(var(--carousel-card-width)/2));transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#202326;color:#fff;opacity:0;filter:saturate(.82);pointer-events:none;transition:opacity .4s ease;will-change:opacity}
+.fleet-card.is-active{opacity:1;pointer-events:auto;z-index:3;filter:saturate(1);box-shadow:0 22px 70px #17191b1c}
+.fleet-card.is-previous,.fleet-card.is-next{opacity:.22}
+.fleet-card.is-opposite{opacity:0}
+.fleet-card>img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 55%;transform:none}
+.fleet-card-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,#090b0dcc 0%,#090b0d62 43%,transparent 82%),linear-gradient(0deg,#090b0d65,transparent 45%);pointer-events:none}
+.fleet-card-copy{position:absolute;z-index:2;left:6%;right:6%;top:50%;max-width:620px;transform:translateY(-50%);backface-visibility:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .fleet-card-kicker{font-size:8px;letter-spacing:.18em;color:#ffffffb9;font-weight:700}
 .fleet-card-copy h3{font-family:'Manrope',sans-serif;font-size:clamp(37px,5.3vw,68px);font-weight:500;letter-spacing:-.07em;line-height:1.02;margin:20px 0 13px}
 .fleet-card-copy>p{font-size:14px;font-weight:500;color:#ffffffe6;margin-bottom:26px}
 .fleet-card-actions{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
-.fleet-card-actions a,.fleet-card-actions button{display:inline-flex;align-items:center;justify-content:center;gap:15px;min-height:43px;padding:0 17px;font-size:10px;font-weight:700;transition:background .2s,color .2s,transform .2s;border-radius:0}
-.fleet-card-actions a:hover,.fleet-card-actions button:hover{transform:translateY(-2px)}
+.fleet-card-actions button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:43px;padding:0 15px;font-size:10px;font-weight:700;white-space:nowrap;border-radius:0;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.fleet-card-actions button:hover{transform:translateY(-2px)}
 .fleet-order{background:#f7f7f5;color:#17191b;border:0}
 .fleet-order:hover{background:#fff}
-.fleet-learn{border:1px solid #ffffffa8;color:white;background:#ffffff12;backdrop-filter:blur(8px)}
+.fleet-learn{border:1px solid #ffffffa8;color:#fff;background:#ffffff12;backdrop-filter:blur(8px)}
 .fleet-learn:hover{background:#fff;color:#17191b}
-.fleet-controls{display:flex;align-items:center;justify-content:space-between;padding:22px 10.2% 0}
+.fleet-card-actions button:focus-visible,.fleet-control-buttons button:focus-visible,.fleet-dot:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.fleet-controls{width:100%;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 0 0}
 .fleet-pagination{display:flex;align-items:center;gap:7px}
-.fleet-dot{height:25px;width:25px;display:grid;place-items:center;border:0;background:transparent;padding:0}
+.fleet-dot{height:25px;width:25px;flex:0 0 25px;display:grid;place-items:center;border:0;background:transparent;padding:0}
 .fleet-dot span{display:block;width:5px;height:5px;border-radius:10px;background:#b6b8b8;transition:width .3s,background .3s}
 .fleet-dot.active span{width:23px;background:var(--red)}
-.fleet-control-buttons{display:flex;align-items:center;gap:8px}
-.fleet-count{font-size:9px;letter-spacing:.15em;color:#777a7d;display:flex;align-items:center;gap:10px;margin-right:13px}
+.fleet-control-buttons{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.fleet-count{font-size:9px;letter-spacing:.15em;color:#777a7d;display:flex;align-items:center;gap:10px;margin-right:13px;white-space:nowrap}
 .fleet-count i{display:block;width:22px;height:1px;background:#b6b8b8}
-.fleet-control-buttons button{width:37px;height:37px;border:1px solid #d4d5d3;border-radius:50%;background:transparent;color:var(--ink);display:grid;place-items:center;transition:background .2s,border-color .2s,color .2s}
+.fleet-control-buttons button{width:37px;height:37px;flex:0 0 37px;border:1px solid #d4d5d3;border-radius:50%;background:transparent;color:var(--ink);display:grid;place-items:center;transition:background .2s,border-color .2s,color .2s}
 .fleet-control-buttons button:hover{background:var(--ink);border-color:var(--ink);color:white}
-.fleet-note{font-size:9px;line-height:1.7;color:#898b8b;padding:17px 10.2% 0;margin:0}
-@media(max-width:900px){.fleet-carousel-section{padding-top:90px}.fleet-heading{gap:25px}.fleet-stage-wrap{height:490px}.fleet-card{width:78vw;height:380px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(40vw)}.fleet-controls{padding-left:7%;padding-right:7%}.fleet-note{padding-left:7%;padding-right:7%}}
-@media(max-width:600px){.fleet-carousel-section{padding-top:76px;padding-bottom:36px}.fleet-heading{display:block;padding-bottom:20px}.fleet-heading .eyebrow{margin-bottom:24px}.fleet-heading h2{font-size:clamp(46px,12vw,65px)}.fleet-heading>div+div{margin-top:22px}.fleet-heading>div+div>p{font-size:12px}.fleet-stage-wrap{height:450px;perspective:1050px}.fleet-stage{width:100%}.fleet-card{width:84vw;height:345px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(44vw)}.fleet-card-copy{left:7%;max-width:86%}.fleet-card-copy h3{font-size:clamp(35px,9vw,48px);margin:17px 0 11px}.fleet-card-copy>p{font-size:12px;margin-bottom:20px}.fleet-card-actions{gap:8px}.fleet-card-actions a,.fleet-card-actions button{min-height:40px;padding:0 12px;gap:9px;font-size:9px}.fleet-card-shade{background:linear-gradient(90deg,#090b0ddf 0%,#090b0d7a 62%,#090b0d1f 100%),linear-gradient(0deg,#090b0d4d,transparent 50%)}.fleet-controls{padding-top:16px}.fleet-count{margin-right:4px;gap:7px}.fleet-count i{width:13px}.fleet-control-buttons{gap:5px}.fleet-control-buttons button{width:32px;height:32px}.fleet-note{font-size:8px;padding-top:14px}}
-@media(prefers-reduced-motion:reduce){.fleet-stage{transition:none}.fleet-card,.fleet-card>img{transition:none}}
+.fleet-note{width:100%;font-size:9px;line-height:1.7;color:#898b8b;padding:17px 0 0;margin:0}
 
-/* Smoother navigation and a subtle, custom scrollbar */
+@media(max-width:1100px) and (min-width:901px){
+  .fleet-carousel-section{--carousel-card-width:560px}
+  .carousel-stage{height:490px}
+  .fleet-card{height:380px}
+  .fleet-heading{gap:28px}
+}
+@media(max-width:900px){
+  .fleet-carousel-section{--carousel-card-width:500px;padding:90px 7% 40px}
+  .fleet-heading{gap:25px}
+  .carousel-stage{height:470px}
+  .fleet-card{height:clamp(320px,42vw,380px)}
+  .fleet-controls{padding-top:18px}
+}
+@media(max-width:600px){
+  .fleet-carousel-section{--carousel-card-width:min(260px,calc(100vw - 145px));padding:76px 7% 36px}
+  .fleet-heading{display:block;padding-bottom:20px}
+  .fleet-heading .eyebrow{margin-bottom:24px}
+  .fleet-heading h2{font-size:clamp(46px,12vw,65px)}
+  .fleet-heading>div+div{margin-top:22px}
+  .fleet-heading>div+div>p{font-size:12px}
+  .carousel-stage{height:390px}
+  .fleet-card{height:300px}
+  .fleet-card-copy{left:7%;right:7%;max-width:none;top:48%}
+  .fleet-card-kicker{font-size:7px;letter-spacing:.14em}
+  .fleet-card-copy h3{font-size:clamp(29px,8.4vw,39px);line-height:1.02;margin:12px 0 9px;overflow-wrap:anywhere}
+  .fleet-card-copy>p{font-size:11px;line-height:1.5;margin-bottom:14px}
+  .fleet-card-actions{gap:7px}
+  .fleet-card-actions button{min-height:34px;padding:0 9px;gap:6px;font-size:8px;white-space:normal}
+  .fleet-card-actions svg{width:13px;height:13px;flex:0 0 auto}
+  .fleet-controls{gap:8px;padding-top:16px}
+  .fleet-pagination{gap:3px}
+  .fleet-dot{width:21px;height:24px;flex-basis:21px}
+  .fleet-dot.active span{width:17px}
+  .fleet-count{font-size:8px;gap:5px;margin-right:0}
+  .fleet-count i{width:10px}
+  .fleet-control-buttons{gap:4px}
+  .fleet-control-buttons button{width:30px;height:30px;flex-basis:30px}
+  .fleet-note{font-size:8px;padding-top:14px}
+}
+@media(max-width:380px){
+  .fleet-carousel-section{--carousel-card-width:calc(100vw - 145px)}
+  .carousel-stage{height:370px}
+  .fleet-card{height:285px}
+  .fleet-controls{gap:5px}
+  .fleet-count{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){.carousel-track,.fleet-card,.fleet-dot span{transition:none}}
+
+/* Keep the page scrollbar understated. */
 html{scroll-behavior:smooth;overscroll-behavior-y:contain}
 body{scroll-behavior:smooth}
 *{scrollbar-width:thin;scrollbar-color:#858787 #e7e7e4}
@@ -77,514 +127,3 @@ body{scroll-behavior:smooth}
 *::-webkit-scrollbar-track{background:#e7e7e4}
 *::-webkit-scrollbar-thumb{background:#858787;border:2px solid #e7e7e4;border-radius:10px}
 *::-webkit-scrollbar-thumb:hover{background:#5d6062}
-.fleet-card-actions button{font:inherit;cursor:pointer;border-radius:0}
-
-/* Larger official Tesla T mark in the navigation */
-.logo-wordmark{display:flex;align-items:center;justify-content:flex-start;width:100px;min-width:100px;height:96px;overflow:visible}
-.logo-wordmark img{display:block;width:96px;height:96px;max-width:none;object-fit:contain;filter:brightness(0) invert(1);transition:opacity .2s}
-.header-scrolled .logo-wordmark img{filter:none;opacity:.92}
-.logo-wordmark:hover img{opacity:.65}
-.menu-top .logo-wordmark img{filter:none;width:96px;height:96px}
-@media(max-width:900px){.logo-wordmark{width:90px;min-width:90px;height:90px}.logo-wordmark img{width:90px;height:90px}}
-
-
-/* Premium iPhone-inspired liquid-glass navigation */
-.site-header{
-  top:14px;left:3%;width:94%;height:82px;padding:0 25px;
-  grid-template-columns:100px minmax(0,1fr) 200px;gap:20px;
-  border:1px solid rgba(255,255,255,.26);border-radius:25px;
-  background:rgba(20,22,25,.24);color:#fff;
-  -webkit-backdrop-filter:blur(28px) saturate(185%);backdrop-filter:blur(28px) saturate(185%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 12px 38px rgba(0,0,0,.10);
-  transition:background .3s,border-color .3s,box-shadow .3s,transform .3s;
-}
-.site-header.header-scrolled{
-  background:rgba(248,248,246,.78);color:#17191b;border-color:rgba(255,255,255,.82);
-  -webkit-backdrop-filter:blur(30px) saturate(190%);backdrop-filter:blur(30px) saturate(190%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 12px 36px rgba(20,22,24,.09);
-}
-.logo-wordmark{width:72px;min-width:72px;height:72px}
-.logo-wordmark img{width:68px;height:68px;max-width:none}
-.header-scrolled .logo-wordmark img{filter:none}
-.desktop-nav{height:100%;align-items:center;gap:clamp(24px,3.1vw,48px)}
-.desktop-nav a,.header-cta{font-size:14px;font-weight:650;letter-spacing:-.025em;opacity:.94;white-space:nowrap}
-.desktop-nav a{position:relative;padding:12px 0;transition:opacity .2s,transform .2s}
-.desktop-nav a:after{content:'';position:absolute;left:0;right:100%;bottom:5px;height:1px;background:currentColor;transition:right .25s}
-.desktop-nav a:hover{opacity:1;transform:translateY(-1px)}
-.desktop-nav a:hover:after{right:0}
-.header-actions{gap:20px}
-.header-cta{gap:9px}
-.menu-button{width:44px;height:44px;border:1px solid rgba(255,255,255,.28);border-radius:15px;background:rgba(255,255,255,.12);transition:background .2s,border-color .2s,transform .2s}
-.header-scrolled .menu-button{border-color:rgba(20,22,24,.12);background:rgba(255,255,255,.52)}
-.menu-button:hover{background:rgba(255,255,255,.3);transform:scale(1.03)}
-.nav-mega{
-  position:absolute;top:calc(100% - 2px);left:0;right:0;z-index:2;
-  display:grid;grid-template-columns:1.2fr repeat(3,minmax(0,1fr));gap:12px;
-  padding:34px 18px 18px;border:1px solid rgba(255,255,255,.3);border-top:0;
-  border-radius:0 0 25px 25px;background:rgba(22,24,27,.72);color:white;
-  -webkit-backdrop-filter:blur(34px) saturate(180%);backdrop-filter:blur(34px) saturate(180%);
-  box-shadow:0 24px 60px rgba(0,0,0,.18);animation:mega-in .22s ease both;
-}
-.header-scrolled .nav-mega{background:rgba(249,249,247,.84);color:#17191b;border-color:rgba(255,255,255,.9)}
-.nav-mega-intro{padding:15px 24px 18px 12px;align-self:center}
-.nav-mega-kicker,.nav-mega-card>span{font-size:9px;letter-spacing:.16em;font-weight:700;opacity:.65}
-.nav-mega-intro h3{font-family:'Manrope',sans-serif;font-size:clamp(22px,2.3vw,31px);line-height:1.06;letter-spacing:-.055em;font-weight:500;margin:15px 0 10px}
-.nav-mega-intro p{font-size:12px;line-height:1.7;opacity:.68;margin:0;max-width:245px}
-.nav-mega-card{min-height:150px;padding:20px 18px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(255,255,255,.16);border-radius:17px;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035));transition:transform .25s,background .25s,border-color .25s}
-.header-scrolled .nav-mega-card{border-color:rgba(25,27,29,.09);background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(230,231,229,.3))}
-.nav-mega-card:hover{transform:translateY(-3px);background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.42)}
-.header-scrolled .nav-mega-card:hover{background:rgba(255,255,255,.98);border-color:rgba(25,27,29,.16)}
-.nav-mega-card>strong{font-family:'Manrope',sans-serif;font-size:clamp(21px,2vw,28px);font-weight:500;letter-spacing:-.05em}
-.nav-mega-card>small{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;opacity:.8}
-@keyframes mega-in{from{opacity:0;transform:translateY(-7px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
-@media(max-width:900px){
-  .site-header{top:10px;left:3%;width:94%;height:70px;padding:0 17px;grid-template-columns:1fr 1fr;gap:10px;border-radius:22px}
-  .logo-wordmark{width:62px;min-width:62px;height:62px}
-  .logo-wordmark img{width:60px;height:60px}
-  .desktop-nav{display:none}
-  .header-cta{display:none}
-  .header-actions{grid-column:2;gap:0}
-  .menu-button{width:42px;height:42px}
-  .nav-mega{display:none}
-}
-@media(max-width:600px){
-  .site-header{top:9px;left:3%;width:94%;height:66px;padding:0 13px;border-radius:20px}
-  .logo-wordmark{width:58px;min-width:58px;height:58px}
-  .logo-wordmark img{width:56px;height:56px}
-}
-
-
-/* Give the hover drawer its own breathing room below the floating navbar */
-@media(min-width:901px){
-  .nav-mega{
-    top:calc(100% + 12px);
-    left:0;
-    right:0;
-    border-top:1px solid rgba(255,255,255,.3);
-    border-radius:24px;
-    padding-top:20px;
-    overflow:hidden;
-  }
-  .header-scrolled .nav-mega{border-top-color:rgba(255,255,255,.9)}
-}
-
-
-/* Fleet carousel clarity + reliable active-card interaction */
-.fleet-stage-wrap{perspective:none;overflow:hidden}
-.fleet-stage{
-  transform:translate(-50%,-50%);
-  transform-style:flat;
-  transition:none;
-  will-change:auto;
-}
-.fleet-card{
-  transform:translate(-50%,-50%);
-  transform-style:flat;
-  backface-visibility:visible;
-  filter:none;
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:opacity .42s ease,visibility .42s ease;
-  will-change:opacity;
-}
-.fleet-card.active{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-  z-index:2;
-  filter:none;
-}
-.fleet-card>img{
-  image-rendering:auto;
-  transform:none!important;
-  transition:none;
-}
-.fleet-card-copy{
-  transform:translateY(-50%);
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-.fleet-card-actions a,.fleet-card-actions button{
-  min-height:38px;
-  padding:0 13px;
-  gap:9px;
-  font-size:10px;
-  line-height:1;
-  white-space:nowrap;
-  backdrop-filter:none;
-  -webkit-backdrop-filter:none;
-}
-.fleet-card-actions button{cursor:pointer;position:relative;z-index:3}
-.fleet-card-actions a:focus-visible,.fleet-card-actions button:focus-visible,
-.fleet-control-buttons button:focus-visible,.fleet-dot:focus-visible{
-  outline:2px solid var(--red);
-  outline-offset:3px;
-}
-@media(max-width:900px){
-  .fleet-card{width:78vw;height:380px;transform:translate(-50%,-50%)}
-  .fleet-card-copy{max-width:82%}
-  .fleet-card-actions a,.fleet-card-actions button{min-height:38px;padding:0 12px}
-}
-@media(max-width:600px){
-  .fleet-stage-wrap{height:430px;perspective:none}
-  .fleet-stage{width:100%;height:100%}
-  .fleet-card{width:88vw;height:330px;transform:translate(-50%,-50%)}
-  .fleet-card-copy{left:6%;max-width:88%}
-  .fleet-card-copy h3{font-size:clamp(35px,9vw,46px);margin:14px 0 10px}
-  .fleet-card-copy>p{font-size:12px;margin-bottom:17px}
-  .fleet-card-actions{gap:8px}
-  .fleet-card-actions a,.fleet-card-actions button{min-height:36px;padding:0 10px;gap:7px;font-size:9px}
-}
-
-
-/* Restore the rotating 3D fleet while keeping the active card crisp and usable */
-.fleet-stage-wrap{
-  perspective:1500px;
-  perspective-origin:50% 45%;
-  overflow:hidden;
-}
-.fleet-stage{
-  transform:translate(-50%,-50%) rotateY(var(--fleet-angle));
-  transform-style:preserve-3d;
-  transition:transform 1.15s cubic-bezier(.2,.7,.2,1);
-  will-change:transform;
-}
-.fleet-card{
-  width:min(79.6vw,1120px);
-  height:clamp(330px,40vw,500px);
-  transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(min(47vw,640px));
-  transform-style:preserve-3d;
-  backface-visibility:hidden;
-  visibility:visible;
-  opacity:.28;
-  pointer-events:none;
-  filter:none;
-  transition:opacity .55s ease;
-  will-change:opacity;
-}
-.fleet-card.active{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-  z-index:2;
-  box-shadow:0 22px 70px #17191b1c;
-}
-.fleet-card>img{
-  transform:none!important;
-  image-rendering:auto;
-  transition:none;
-}
-.fleet-card-copy{
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-  backface-visibility:hidden;
-}
-.fleet-carousel-section .fleet-heading{
-  padding-left:10.2%;
-  padding-right:10.2%;
-}
-.fleet-card-actions a,.fleet-card-actions button{
-  min-height:38px;
-  padding:0 13px;
-  gap:9px;
-  font-size:10px;
-  line-height:1;
-  white-space:nowrap;
-  position:relative;
-  z-index:4;
-}
-@media(max-width:900px){
-  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
-  .fleet-stage-wrap{perspective:1200px;height:490px}
-  .fleet-card{
-    width:86vw;
-    height:380px;
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(43vw);
-  }
-}
-@media(max-width:600px){
-  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
-  .fleet-stage-wrap{height:430px;perspective:1050px}
-  .fleet-card{
-    width:88vw;
-    height:330px;
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(44vw);
-  }
-  .fleet-card-copy{left:6%;max-width:88%}
-  .fleet-card-copy h3{font-size:clamp(35px,9vw,46px);margin:14px 0 10px}
-  .fleet-card-copy>p{font-size:12px;margin-bottom:17px}
-  .fleet-card-actions{gap:8px}
-  .fleet-card-actions a,.fleet-card-actions button{min-height:36px;padding:0 10px;gap:7px;font-size:9px}
-}
-@media(prefers-reduced-motion:reduce){
-  .fleet-stage{transition:none}
-  .fleet-card,.fleet-card>img{transition:none}
-}
-
-
-/* Final fleet sizing: align cards to the heading content and keep mobile copy inside */
-.fleet-carousel-section .fleet-heading{padding-left:10.2%;padding-right:10.2%}
-.fleet-card{width:79.6vw;max-width:none}
-.fleet-card-copy{left:6%;right:6%;max-width:620px}
-@media(max-width:1500px) and (min-width:901px){
-  .fleet-card{width:79.6vw}
-}
-@media(max-width:900px){
-  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
-  .fleet-card{width:86vw;height:clamp(320px,42vw,380px)}
-  .fleet-card-copy{left:6%;right:6%;max-width:82%}
-}
-@media(max-width:600px){
-  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
-  .fleet-stage-wrap{height:390px}
-  .fleet-card{width:86vw;height:300px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(43vw)}
-  .fleet-card-copy{left:6%;right:6%;max-width:none;top:48%}
-  .fleet-card-kicker{font-size:7px;letter-spacing:.14em}
-  .fleet-card-copy h3{font-size:clamp(29px,8.4vw,39px);line-height:1.02;margin:12px 0 9px;overflow-wrap:anywhere}
-  .fleet-card-copy>p{font-size:11px;line-height:1.5;margin-bottom:14px}
-  .fleet-card-actions{display:flex;flex-wrap:wrap;gap:7px;max-width:100%}
-  .fleet-card-actions a,.fleet-card-actions button{min-height:34px;max-width:100%;padding:0 9px;gap:6px;font-size:8px;white-space:normal}
-  .fleet-card-actions svg{width:13px;height:13px;flex:0 0 auto}
-  .fleet-controls{padding-left:7%;padding-right:7%;gap:12px}
-  .fleet-pagination{gap:3px}
-  .fleet-dot{width:21px;height:24px}
-  .fleet-dot.active span{width:17px}
-  .fleet-count{font-size:8px;gap:5px;margin-right:0}
-  .fleet-count i{width:10px}
-  .fleet-control-buttons{gap:4px}
-  .fleet-control-buttons button{width:30px;height:30px}
-  .fleet-note{padding-left:7%;padding-right:7%;font-size:8px}
-}
-@media(max-width:380px){
-  .fleet-stage-wrap{height:370px}
-  .fleet-card{height:285px}
-  .fleet-card-copy h3{font-size:29px}
-  .fleet-card-actions a,.fleet-card-actions button{font-size:7.5px;padding:0 7px}
-  .fleet-controls{gap:6px}
-}
-
-
-/* Geometry correction: prevent 3D perspective from scaling the active card beyond the viewport */
-.fleet-stage-wrap{perspective:2200px;overflow:hidden}
-.fleet-card{width:58vw;max-width:none;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(24vw)}
-@media(min-width:1501px){
-  .fleet-card{width: min(58vw, 920px);transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(min(24vw, 390px))}
-}
-@media(max-width:900px){
-  .fleet-stage-wrap{perspective:1600px}
-  .fleet-card{width:70vw;height:clamp(320px,42vw,380px);transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(22vw)}
-}
-@media(max-width:600px){
-  .fleet-stage-wrap{height:390px;perspective:1200px}
-  .fleet-card{width:70vw;height:300px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(18vw)}
-  .fleet-card-copy{left:7%;right:7%;max-width:none}
-}
-@media(max-width:380px){
-  .fleet-stage-wrap{height:370px}
-  .fleet-card{width:70vw;height:285px;transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(18vw)}
-}
-
-
-/* Fleet carousel: match the heading's content edges, remove overlays, enforce foreground layers */
-.fleet-carousel-section .fleet-heading{
-  padding-left:max(10.2%,calc((100% - 1190px)/2));
-  padding-right:max(10.2%,calc((100% - 1190px)/2));
-}
-.fleet-stage-wrap{perspective:1800px;perspective-origin:50% 45%;overflow:hidden}
-.fleet-stage{
-  transform:translate(-50%,-50%) rotateY(var(--fleet-angle));
-  transform-style:preserve-3d;
-}
-.fleet-card{
-  width:min(68vw,960px);
-  max-width:none;
-  transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(18vw);
-  isolation:isolate;
-  overflow:hidden;
-}
-.fleet-card>img{z-index:0}
-.fleet-card-shade{
-  z-index:1;
-  background:transparent!important;
-  pointer-events:none;
-}
-.fleet-card-copy{
-  position:absolute;
-  z-index:10!important;
-  isolation:isolate;
-  pointer-events:auto;
-}
-.fleet-card-actions{position:relative;z-index:12!important}
-.fleet-card-actions a,.fleet-card-actions button{
-  position:relative;
-  z-index:13!important;
-  pointer-events:auto;
-}
-.fleet-card.active{z-index:5}
-@media(max-width:1500px) and (min-width:901px){
-  .fleet-carousel-section .fleet-heading{padding-left:10.2%;padding-right:10.2%}
-}
-@media(min-width:1501px){
-  .fleet-carousel-section .fleet-heading{
-    padding-left:max(10.2%,calc((100% - 1190px)/2));
-    padding-right:max(10.2%,calc((100% - 1190px)/2));
-  }
-}
-@media(max-width:900px){
-  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
-  .fleet-stage-wrap{perspective:1600px}
-  .fleet-card{
-    width:75vw;
-    height:clamp(320px,42vw,380px);
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(22vw);
-  }
-}
-@media(max-width:600px){
-  .fleet-carousel-section .fleet-heading{padding-left:7%;padding-right:7%}
-  .fleet-stage-wrap{height:390px;perspective:1200px}
-  .fleet-card{
-    width:81vw;
-    height:300px;
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(18vw);
-  }
-  .fleet-card-copy{left:7%;right:7%;top:48%;max-width:none}
-  .fleet-card-kicker{font-size:7px;letter-spacing:.14em}
-  .fleet-card-copy h3{font-size:clamp(29px,8.4vw,39px);line-height:1.02;margin:12px 0 9px;overflow-wrap:anywhere}
-  .fleet-card-copy>p{font-size:11px;line-height:1.5;margin-bottom:14px}
-  .fleet-card-actions{display:flex;flex-wrap:wrap;gap:7px;max-width:100%}
-  .fleet-card-actions a,.fleet-card-actions button{min-height:34px;max-width:100%;padding:0 9px;gap:6px;font-size:8px;white-space:normal}
-  .fleet-card-actions svg{width:13px;height:13px;flex:0 0 auto}
-}
-@media(max-width:380px){
-  .fleet-stage-wrap{height:370px}
-  .fleet-card{height:285px}
-  .fleet-card-copy h3{font-size:29px}
-  .fleet-card-actions a,.fleet-card-actions button{font-size:7.5px;padding:0 7px}
-}
-
-
-/* Fleet final correction: align the controls with the heading and give each 3D face room to rotate */
-.fleet-carousel-section .fleet-controls,
-.fleet-carousel-section .fleet-note{
-  padding-left:max(10.2%,calc((100% - 1190px)/2));
-  padding-right:max(10.2%,calc((100% - 1190px)/2));
-}
-.fleet-stage-wrap{
-  perspective:2800px;
-  perspective-origin:50% 45%;
-  overflow:hidden;
-}
-.fleet-card{
-  width:min(62vw,960px);
-  transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(min(45vw,680px));
-  backface-visibility:hidden;
-}
-.fleet-card.active{z-index:5}
-@media(max-width:1500px) and (min-width:901px){
-  .fleet-carousel-section .fleet-controls,
-  .fleet-carousel-section .fleet-note{
-    padding-left:10.2%;
-    padding-right:10.2%;
-  }
-}
-@media(max-width:900px){
-  .fleet-carousel-section .fleet-controls,
-  .fleet-carousel-section .fleet-note{
-    padding-left:7%;
-    padding-right:7%;
-  }
-  .fleet-stage-wrap{perspective:2000px}
-  .fleet-card{
-    width:70vw;
-    height:clamp(320px,42vw,380px);
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(48vw);
-  }
-}
-@media(max-width:600px){
-  .fleet-stage-wrap{height:390px;perspective:1700px}
-  .fleet-card{
-    width:70vw;
-    height:300px;
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(47vw);
-  }
-  .fleet-controls{gap:8px}
-  .fleet-pagination{gap:3px}
-  .fleet-dot{width:21px;height:24px}
-  .fleet-dot.active span{width:17px}
-  .fleet-count{font-size:8px;gap:5px;margin-right:0}
-  .fleet-count i{width:10px}
-  .fleet-control-buttons{gap:4px}
-  .fleet-control-buttons button{width:30px;height:30px}
-  .fleet-note{font-size:8px}
-}
-@media(max-width:380px){
-  .fleet-stage-wrap{height:370px}
-  .fleet-card{height:285px}
-  .fleet-controls{gap:5px}
-}
-
-
-/* Unified fleet composition: one shared content rail for carousel, controls and note.
-   Each 90-degree face is exactly one rail-width wide and sits half a width from center,
-   so adjacent faces meet edge-to-edge instead of leaving gaps or cutting into each other. */
-.fleet-content-shell{
-  width:min(79.6vw,1190px);
-  margin:0 auto;
-  position:relative;
-}
-.fleet-content-shell .fleet-stage-wrap{
-  width:100%;
-  perspective:2400px;
-  perspective-origin:50% 45%;
-  overflow:hidden;
-}
-.fleet-content-shell .fleet-stage{width:100%}
-.fleet-content-shell .fleet-card{
-  width:100%;
-  max-width:none;
-  transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(calc(min(79.6vw,1190px) / 2));
-  backface-visibility:hidden;
-}
-.fleet-content-shell .fleet-controls,
-.fleet-content-shell .fleet-note{
-  width:100%;
-  box-sizing:border-box;
-  padding-left:0;
-  padding-right:0;
-}
-@media(min-width:1501px){
-  .fleet-content-shell{width:min(calc(100% - 80px),1190px)}
-  .fleet-content-shell .fleet-card{
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(595px);
-  }
-}
-@media(max-width:1500px) and (min-width:901px){
-  .fleet-content-shell{width:79.6vw}
-  .fleet-content-shell .fleet-card{
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(39.8vw);
-  }
-}
-@media(max-width:900px){
-  .fleet-content-shell{width:86vw}
-  .fleet-content-shell .fleet-stage-wrap{perspective:1900px}
-  .fleet-content-shell .fleet-card{
-    width:100%;
-    height:clamp(320px,42vw,380px);
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(43vw);
-  }
-}
-@media(max-width:600px){
-  .fleet-content-shell{width:86vw}
-  .fleet-content-shell .fleet-stage-wrap{height:390px;perspective:1500px}
-  .fleet-content-shell .fleet-card{
-    height:300px;
-    transform:translate(-50%,-50%) rotateY(var(--card-angle)) translateZ(43vw);
-  }
-  .fleet-content-shell .fleet-controls{padding-top:18px;gap:8px}
-  .fleet-content-shell .fleet-note{padding-top:14px}
-}
-@media(max-width:380px){
-  .fleet-content-shell .fleet-stage-wrap{height:370px}
-  .fleet-content-shell .fleet-card{height:285px}
-}
