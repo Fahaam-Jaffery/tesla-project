@@ -1,0 +1,15 @@
+# Place Roadster assets here
+# Copy all .avif files from roadster-assets.zip into this folder:
+#   Roadster-01-Hero.avif
+#   Roadster-02-Pilot.avif
+#   Roadster-03-Carousel-Slide-1-Desktop.avif
+#   Roadster-03-Carousel-Slide-2-Desktop.avif
+#   Roadster-03-Carousel-Slide-3-Desktop.avif
+#   Roadster-03-Carousel-Slide-4-Desktop.avif
+#   Roadster-03-Carousel-Slide-5-Desktop.avif
+#   Roadster-04-World-Desktop.avif
+#   Roadster-05-Gravity.avif
+#   Roadster-06-Augments.avif
+#   Roadster-07-End.avif
+#
+# Paths are referenced by src/roadsterAssets.js as /roadster/*.avif
