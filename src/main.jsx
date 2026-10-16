@@ -127,11 +127,11 @@ function App() {
               <Reveal delay={100}><p>Distinct personalities. One electric future.<br/>Take a closer look around the lineup.</p></Reveal>
             </div>
             <div className={`carousel-stage${fleetSwipe.direction ? ` swipe-${fleetSwipe.direction}-${fleetSwipe.tick % 2}` : ""}`} onMouseEnter={() => setFleetPaused(true)} onMouseLeave={() => setFleetPaused(false)} onFocusCapture={() => setFleetPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFleetPaused(false); }}>
-              <div className="carousel-track" style={{'--fleet-angle': (fleetIndex * -90) + 'deg'}}>
+              <div className="carousel-track" style={{'--fleet-angle': (fleetIndex * -(360 / fleetModels.length)) + 'deg'}}>
                 {fleetModels.map((item,index) => {
                   const position=(index-fleetIndex+fleetModels.length)%fleetModels.length;
                   const state=position===0?'is-active':position===1?'is-next':position===fleetModels.length-1?'is-previous':'is-opposite';
-                  return <article className={'fleet-card '+state} key={item.name} style={{'--card-angle':(index*90)+'deg'}} aria-hidden={position!==0}>
+                  return <article className={'fleet-card '+state} key={item.name} style={{'--card-angle':(index*(360 / fleetModels.length))+'deg'}} aria-hidden={position!==0}>
                     <img src={item.image} alt={item.alt} loading={position===0?'eager':'lazy'}/>
                     <div className="fleet-card-shade"/>
                     <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index+1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions">
