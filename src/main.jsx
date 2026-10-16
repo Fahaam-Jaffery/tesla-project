@@ -204,7 +204,10 @@ function App() {
 
   useEffect(() => {
     if (fleetPaused) return;
-    const timer = window.setInterval(() => setFleetIndex((current) => (current + 1) % fleetModels.length), 5200);
+    const timer = window.setInterval(() => {
+      setFleetSwipe((current) => ({ direction: 'next', tick: current.tick + 1 }));
+      setFleetIndex((current) => (current + 1) % fleetModels.length);
+    }, 5200);
     return () => window.clearInterval(timer);
   }, [fleetPaused]);
 
@@ -263,11 +266,11 @@ function App() {
               <Reveal delay={100}><p>Distinct personalities. One electric future.<br/>Take a closer look around the lineup.</p></Reveal>
             </div>
             <div className={`carousel-stage${fleetSwipe.direction ? ` swipe-${fleetSwipe.direction}-${fleetSwipe.tick % 2}` : ""}`} onMouseEnter={() => setFleetPaused(true)} onMouseLeave={() => setFleetPaused(false)} onFocusCapture={() => setFleetPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFleetPaused(false); }}>
-              <div className="carousel-track" style={{'--fleet-angle': (fleetIndex * -(360 / fleetModels.length)) + 'deg'}}>
+              <div className="carousel-track">
                 {fleetModels.map((item,index) => {
                   const position=(index-fleetIndex+fleetModels.length)%fleetModels.length;
-                  const state=position===0?'is-active':position===1?'is-next':position===fleetModels.length-1?'is-previous':'is-opposite';
-                  return <article className={'fleet-card '+state} key={item.name} style={{'--card-angle':(index*(360 / fleetModels.length))+'deg'}} aria-hidden={position!==0}>
+                  const state=position===0?'is-active':'is-hidden';
+                  return <article className={'fleet-card '+state} key={item.name} aria-hidden={position!==0}>
                     <img src={item.image} alt={item.alt} loading={position===0?'eager':'lazy'}/>
                     <div className="fleet-card-shade"/>
                     <div className="fleet-card-copy"><span className="fleet-card-kicker">TESLA / 0{index+1}</span><h3>{item.name}</h3><p>{item.price}</p><div className="fleet-card-actions">
@@ -279,7 +282,7 @@ function App() {
               </div>
             </div>
             <div className="fleet-controls">
-              <div className="fleet-pagination" aria-label="Choose a vehicle">{fleetModels.map((item,index)=><button key={item.name} aria-label={'Show '+item.name} aria-pressed={fleetIndex===index} className={fleetIndex===index?'fleet-dot active':'fleet-dot'} onClick={() => setFleetIndex(index)}><span/></button>)}</div>
+              <div className="fleet-pagination" aria-label="Choose a vehicle">{fleetModels.map((item,index)=><button key={item.name} aria-label={'Show '+item.name} aria-pressed={fleetIndex===index} className={fleetIndex===index?'fleet-dot active':'fleet-dot'} onClick={() => { setFleetSwipe((current) => ({ direction: index >= fleetIndex ? 'next' : 'previous', tick: current.tick + 1 })); setFleetIndex(index); }}><span/></button>)}</div>
               <div className="fleet-control-buttons"><span className="fleet-count">0{fleetIndex+1} <i/> 0{fleetModels.length}</span><button onClick={() => moveFleet("previous")} aria-label="Previous vehicle"><ChevronLeft size={19}/></button><button onClick={() => moveFleet("next")} aria-label="Next vehicle"><ChevronRight size={19}/></button><button onClick={() => setFleetPaused(!fleetPaused)} aria-label={fleetPaused?'Play carousel':'Pause carousel'}>{fleetPaused?<Play size={15}/>:<Pause size={15}/>}</button></div>
             </div>
             <p className="fleet-note">Prices and lease offers are shown as supplied for this concept and may vary by market, eligibility, taxes and terms. Confirm current offers with Tesla.</p>
