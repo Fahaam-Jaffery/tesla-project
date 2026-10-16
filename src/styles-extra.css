@@ -180,3 +180,28 @@
 @media (prefers-reduced-motion: reduce) {
   .site-header .nav-mega { animation: none; }
 }
+
+
+/* Energy cards: use real image elements so they render reliably, with the original three-card layout. */
+.energy-card-image {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 220px;
+  overflow: hidden;
+  background: #e9eae7;
+}
+.energy-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.energy-card:hover .energy-card-image img { transform: scale(1.035); }
+@media (max-width: 900px) {
+  .energy-grid { grid-template-columns: 1fr; gap: 14px; }
+  .energy-card { min-height: 360px; }
+  .energy-card-image, .energy-card-image img { min-height: 250px; }
+}
