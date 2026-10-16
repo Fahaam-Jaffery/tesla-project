@@ -45,7 +45,7 @@ const heroStories = [
     description: 'Versatility, refined. Space to go wherever life takes you.',
     href: '/modely',
     image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-Y-L-Desktop-US.jpg',
-    video: ''
+    video: 'https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Model-Y-Standard-Everything-Desktop-NA.mp4'
   },
   {
     name: 'Model 3',
@@ -54,7 +54,7 @@ const heroStories = [
     description: 'Crisp design. Instant response. Pure electric driving.',
     href: 'https://www.tesla.com/model3',
     image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg',
-    video: ''
+    video: 'https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Model-3-More-Than-The-Basics-Desktop-LHD-US.mp4'
   },
   {
     name: 'Roadster',
