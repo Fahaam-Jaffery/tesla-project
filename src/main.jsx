@@ -42,6 +42,11 @@ function App() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [fleetIndex, setFleetIndex] = useState(0);
   const [fleetPaused, setFleetPaused] = useState(false);
+  const [fleetSwipe, setFleetSwipe] = useState({ direction: '', tick: 0 });
+  const moveFleet = (direction) => {
+    setFleetSwipe((current) => ({ direction, tick: current.tick + 1 }));
+    setFleetIndex((current) => (current + (direction === 'next' ? 1 : fleetModels.length - 1)) % fleetModels.length);
+  };
   const model = models[activeModel];
 
   useEffect(() => {
@@ -116,7 +121,7 @@ function App() {
               <Reveal><p className="eyebrow"><span className="eyebrow-line"/> MEET THE LINEUP</p><h2>Find your<br/><em>kind of drive.</em></h2></Reveal>
               <Reveal delay={100}><p>Four distinct personalities. One electric future.<br/>Take a closer look around the lineup.</p></Reveal>
             </div>
-            <div className="carousel-stage" onMouseEnter={() => setFleetPaused(true)} onMouseLeave={() => setFleetPaused(false)} onFocusCapture={() => setFleetPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFleetPaused(false); }}>
+            <div className={`carousel-stage${fleetSwipe.direction ? ` swipe-${fleetSwipe.direction}-${fleetSwipe.tick % 2}` : ""}`} onMouseEnter={() => setFleetPaused(true)} onMouseLeave={() => setFleetPaused(false)} onFocusCapture={() => setFleetPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFleetPaused(false); }}>
               <div className="carousel-track" style={{'--fleet-angle': (fleetIndex * -90) + 'deg'}}>
                 {fleetModels.map((item,index) => {
                   const position=(index-fleetIndex+fleetModels.length)%fleetModels.length;
@@ -134,7 +139,7 @@ function App() {
             </div>
             <div className="fleet-controls">
               <div className="fleet-pagination" aria-label="Choose a vehicle">{fleetModels.map((item,index)=><button key={item.name} aria-label={'Show '+item.name} aria-pressed={fleetIndex===index} className={fleetIndex===index?'fleet-dot active':'fleet-dot'} onClick={() => setFleetIndex(index)}><span/></button>)}</div>
-              <div className="fleet-control-buttons"><span className="fleet-count">0{fleetIndex+1} <i/> 04</span><button onClick={() => setFleetIndex((fleetIndex+fleetModels.length-1)%fleetModels.length)} aria-label="Previous vehicle"><ChevronLeft size={19}/></button><button onClick={() => setFleetIndex((fleetIndex+1)%fleetModels.length)} aria-label="Next vehicle"><ChevronRight size={19}/></button><button onClick={() => setFleetPaused(!fleetPaused)} aria-label={fleetPaused?'Play carousel':'Pause carousel'}>{fleetPaused?<Play size={15}/>:<Pause size={15}/>}</button></div>
+              <div className="fleet-control-buttons"><span className="fleet-count">0{fleetIndex+1} <i/> 04</span><button onClick={() => moveFleet("previous")} aria-label="Previous vehicle"><ChevronLeft size={19}/></button><button onClick={() => moveFleet("next")} aria-label="Next vehicle"><ChevronRight size={19}/></button><button onClick={() => setFleetPaused(!fleetPaused)} aria-label={fleetPaused?'Play carousel':'Pause carousel'}>{fleetPaused?<Play size={15}/>:<Pause size={15}/>}</button></div>
             </div>
             <p className="fleet-note">Prices and lease offers are shown as supplied for this concept and may vary by market, eligibility, taxes and terms. Confirm current offers with Tesla.</p>
           </div>
