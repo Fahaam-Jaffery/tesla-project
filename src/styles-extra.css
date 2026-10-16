@@ -12,3 +12,42 @@
 .disclaimer{padding-left:max(24px,calc((100% - 1190px)/2 + 24px));padding-right:max(24px,calc((100% - 1190px)/2 + 24px))}
 .site-footer{padding-left:max(24px,calc((100% - 1190px)/2 + 24px));padding-right:max(24px,calc((100% - 1190px)/2 + 24px))}
 }
+
+
+/* Carousel: distribute every vehicle evenly around the rotating ring and reveal each new active card. */
+.carousel-track { transform: rotateY(var(--fleet-angle, 0deg)); transition: transform 900ms cubic-bezier(.22,.72,.2,1); }
+.carousel-stage[class*="swipe-next-"] .fleet-card.is-active { animation: fleet-swipe-next 680ms cubic-bezier(.22,.72,.2,1) both; }
+.carousel-stage[class*="swipe-previous-"] .fleet-card.is-active { animation: fleet-swipe-previous 680ms cubic-bezier(.22,.72,.2,1) both; }
+@keyframes fleet-swipe-next { from { clip-path: inset(0 0 0 100%); opacity: .45; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+@keyframes fleet-swipe-previous { from { clip-path: inset(0 100% 0 0); opacity: .45; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+
+/* Liquid-glass navigation: restore the floating, softly blurred pill treatment. */
+.site-header { grid-template-columns: minmax(120px,1fr) auto minmax(180px,1fr); }
+.desktop-nav {
+  justify-self: center;
+  gap: 4px;
+  padding: 7px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 999px;
+  background: rgba(22,24,27,.24);
+  -webkit-backdrop-filter: blur(22px) saturate(155%);
+  backdrop-filter: blur(22px) saturate(155%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 8px 28px rgba(0,0,0,.08);
+}
+.desktop-nav a { padding: 10px 16px; border-radius: 999px; transition: background .25s, opacity .2s, color .25s; }
+.desktop-nav a:hover, .desktop-nav a:focus-visible { background: rgba(255,255,255,.16); opacity: 1; outline: none; }
+.header-scrolled .desktop-nav { background: rgba(255,255,255,.56); border-color: rgba(255,255,255,.75); box-shadow: inset 0 1px 0 #ffffff, 0 8px 28px rgba(15,20,25,.08); }
+.header-scrolled .desktop-nav a:hover, .header-scrolled .desktop-nav a:focus-visible { background: rgba(20,22,25,.07); }
+.header-cta { padding: 10px 14px; border: 1px solid rgba(255,255,255,.24); border-radius: 999px; background: rgba(255,255,255,.1); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.header-scrolled .header-cta { background: rgba(255,255,255,.6); border-color: rgba(20,22,25,.08); }
+.menu-button { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; background: rgba(255,255,255,.1); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.header-scrolled .menu-button { border-color: rgba(20,22,25,.1); background: rgba(255,255,255,.62); }
+@media (max-width: 900px) {
+  .site-header { grid-template-columns: 1fr auto; }
+  .desktop-nav { display: none; }
+  .header-actions { gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track { transition: none; }
+  .carousel-stage[class*="swipe-"] .fleet-card.is-active { animation: none; }
+}
