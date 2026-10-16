@@ -1,15 +1,24 @@
-const hero = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEAwgMg8f8D///8WfhwB8+ErK42A=';
+/**
+ * Roadster visual assets.
+ * Place the files from roadster-assets.zip into public/roadster/
+ * so these paths resolve at runtime (Vite serves public/ at /).
+ */
+const BASE = '/roadster';
 
 export const roadsterAssets = {
-  hero,
-  pilot: hero,
-  slide3: hero,
-  world: hero,
-  gravity: hero,
-  augments: hero,
-  end: hero,
+  hero: `${BASE}/Roadster-01-Hero.avif`,
+  pilot: `${BASE}/Roadster-02-Pilot.avif`,
+  slide1: `${BASE}/Roadster-03-Carousel-Slide-1-Desktop.avif`,
+  slide2: `${BASE}/Roadster-03-Carousel-Slide-2-Desktop.avif`,
+  slide3: `${BASE}/Roadster-03-Carousel-Slide-3-Desktop.avif`,
+  slide4: `${BASE}/Roadster-03-Carousel-Slide-4-Desktop.avif`,
+  slide5: `${BASE}/Roadster-03-Carousel-Slide-5-Desktop.avif`,
+  world: `${BASE}/Roadster-04-World-Desktop.avif`,
+  gravity: `${BASE}/Roadster-05-Gravity.avif`,
+  augments: `${BASE}/Roadster-06-Augments.avif`,
+  end: `${BASE}/Roadster-07-End.avif`,
 };
 
 export function roadsterSrc(key) {
-  return roadsterAssets[key] || hero;
+  return roadsterAssets[key] || roadsterAssets.hero;
 }
