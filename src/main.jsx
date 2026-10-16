@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X, ChevronDown, ChevronLeft, ChevronRight, Pause, Play, Zap, ShieldCheck, Gauge, BatteryCharging } from 'lucide-react';
 import './styles.css';
+import './styles-extra.css';
 import ModelYPage from './ModelYPage.jsx';
 import RoadsterPage from './RoadsterPage.jsx';
 
