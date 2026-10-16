@@ -543,3 +543,13 @@
   .fleet-card.is-active,
   .carousel-stage[class*="swipe-"] .fleet-card.is-active { animation: none !important; }
 }
+
+
+/* Keep the MEET THE LINEUP eyebrow consistent with the other section labels. */
+.fleet-heading .eyebrow {
+  font-size: 9px;
+  letter-spacing: .19em;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #6d7072;
+}
