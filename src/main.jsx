@@ -198,10 +198,7 @@ function App() {
         </section>
 
         <section className="energy-section section-pad" id="energy">
-          <div className="energy-heading">
-            <Reveal><p className="eyebrow"><span className="eyebrow-line"/> ENERGY FOR EVERYTHING</p><h2>Power your world<br/><em>from the sun.</em></h2></Reveal>
-            <Reveal delay={100}><p>Generate, store, and use energy on your terms. Explore the technology helping homes and communities move toward a more sustainable future.</p></Reveal>
-          </div>
+          <Reveal><p className="eyebrow"><span className="eyebrow-line"/> ENERGY FOR EVERYTHING</p><h2>Power your world<br/><em>from the sun.</em></h2></Reveal>
           <div className="energy-grid">
             <Reveal delay={40}><a className="energy-card" href="https://www.tesla.com/solarpanels" target="_blank" rel="noreferrer"><div className="energy-card-image"><img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_1200/Homepage-SolarPanels-Desktop-US.jpg" alt="Solar panels on a modern home" loading="lazy" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=85'; }}/></div><div className="energy-card-bottom"><div><h3>Solar Panels</h3><p>Produce clean energy for your home.</p></div><span className="energy-arrow"><ArrowUpRight size={18}/></span></div></a></Reveal>
             <Reveal delay={100}><a className="energy-card" href="https://www.tesla.com/powerwall" target="_blank" rel="noreferrer"><div className="energy-card-image"><img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_1200/Homepage-Powerwall-Desktop-US.jpg" alt="Home energy storage with Powerwall" loading="lazy" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=85'; }}/></div><div className="energy-card-bottom"><div><h3>Powerwall</h3><p>Store energy and power through outages.</p></div><span className="energy-arrow"><ArrowUpRight size={18}/></span></div></a></Reveal>
