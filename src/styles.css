@@ -219,3 +219,10 @@ body{scroll-behavior:smooth}
 }
 
 
+
+/* Directional swipe reveal triggered by fleet arrow controls; preserves card transforms. */
+@keyframes fleet-swipe-in-from-right{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0)}}
+@keyframes fleet-swipe-in-from-left{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
+.carousel-stage.swipe-next-0 .fleet-card.is-active,.carousel-stage.swipe-next-1 .fleet-card.is-active{animation:fleet-swipe-in-from-right .48s cubic-bezier(.22,.7,.25,1) both}
+.carousel-stage.swipe-previous-0 .fleet-card.is-active,.carousel-stage.swipe-previous-1 .fleet-card.is-active{animation:fleet-swipe-in-from-left .48s cubic-bezier(.22,.7,.25,1) both}
+@media(prefers-reduced-motion:reduce){.carousel-stage[class*="swipe-"] .fleet-card.is-active{animation:none}}
