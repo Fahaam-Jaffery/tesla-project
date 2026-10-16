@@ -79,6 +79,11 @@ function HeroStoryShowcase({ onExplore }) {
     setVideoFailed(false);
     setActive(current => (current + 1) % heroStories.length);
   };
+  const navigateStory = direction => {
+    setProgress(0);
+    setVideoFailed(false);
+    setActive(current => (current + direction + heroStories.length) % heroStories.length);
+  };
 
   useEffect(() => {
     setProgress(0);
@@ -147,6 +152,12 @@ function HeroStoryShowcase({ onExplore }) {
         />}
       </div>
       <div className="hero-story-shade" />
+      <button className="hero-story-arrow hero-story-arrow-prev" onClick={() => navigateStory(-1)} aria-label={`Previous model: ${heroStories[(active + heroStories.length - 1) % heroStories.length].name}`} title="Previous model">
+        <ChevronLeft size={22} strokeWidth={1.6} />
+      </button>
+      <button className="hero-story-arrow hero-story-arrow-next" onClick={() => navigateStory(1)} aria-label={`Next model: ${heroStories[(active + 1) % heroStories.length].name}`} title="Next model">
+        <ChevronRight size={22} strokeWidth={1.6} />
+      </button>
       <div className="hero-story-progress" role="group" aria-label="Choose a featured Tesla model">
         {heroStories.map((item, index) => (
           <button key={item.name} className="hero-story-segment" onClick={() => { setActive(index); setProgress(0); setVideoFailed(false); }} aria-label={'Show ' + item.name} aria-pressed={active === index}>
