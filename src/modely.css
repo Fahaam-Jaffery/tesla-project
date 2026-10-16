@@ -230,3 +230,22 @@
   }
   .my-range-copy>p{line-height:1.95;margin-bottom:24px}
 }
+
+
+/* Shared floating glass navigation, matching the homepage and Roadster. */
+.model-y-page .site-header .logo-wordmark img{width:65px;height:65px;object-fit:contain;filter:brightness(0) invert(1)}
+.model-y-page .site-header.header-scrolled .logo-wordmark img{filter:none}
+.model-y-page .site-header .desktop-nav{display:flex;justify-content:center;gap:clamp(25px,4vw,55px);padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}
+.model-y-page .site-header .desktop-nav a{padding:10px 12px;border-radius:999px;font-size:13px;font-weight:650;opacity:.94;transition:background .25s,color .25s,opacity .25s,transform .25s}
+.model-y-page .site-header .desktop-nav a:hover,.model-y-page .site-header .desktop-nav a:focus-visible{background:rgba(255,255,255,.17);opacity:1;outline:none}
+.model-y-page .site-header.header-scrolled .desktop-nav a:hover,.model-y-page .site-header.header-scrolled .desktop-nav a:focus-visible{background:rgba(20,22,25,.07)}
+.model-y-page .site-header .header-actions{display:flex;justify-content:flex-end;align-items:center;gap:15px}
+.model-y-page .site-header .header-cta{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:0 14px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(255,255,255,.1);font-size:13px;font-weight:650;backdrop-filter:blur(18px)}
+.model-y-page .site-header.header-scrolled .header-cta{border-color:rgba(20,22,25,.08);background:rgba(255,255,255,.5)}
+.model-y-page .site-header .menu-button{width:42px;height:42px;padding:0;border:1px solid rgba(255,255,255,.34);border-radius:15px;background:rgba(255,255,255,.12);color:inherit;display:grid;place-items:center;backdrop-filter:blur(18px)}
+.model-y-page .site-header.header-scrolled .menu-button{border-color:rgba(20,22,25,.12);background:rgba(255,255,255,.58)}
+.model-y-page .site-header .nav-mega{position:absolute;top:calc(100% + 10px);left:0;right:0;display:grid;grid-template-columns:1.1fr repeat(3,minmax(0,1fr));gap:12px;padding:22px;border:1px solid rgba(255,255,255,.55);border-radius:25px;background:rgba(248,248,245,.88);color:#17191b;backdrop-filter:blur(30px) saturate(175%);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 22px 60px rgba(0,0,0,.16);overflow:hidden;animation:glass-drawer-in .24s cubic-bezier(.2,.7,.2,1) both}
+.model-y-page .site-header .nav-mega-intro{padding:14px 16px;align-self:center}
+.model-y-page .site-header .nav-mega-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;padding:20px;border:1px solid rgba(255,255,255,.8);border-radius:19px;background:rgba(255,255,255,.46);color:#17191b;box-shadow:inset 0 1px 0 rgba(255,255,255,.8);backdrop-filter:blur(18px);transition:transform .25s,background .25s,border-color .25s,box-shadow .25s}
+.model-y-page .site-header .nav-mega-card:hover,.model-y-page .site-header .nav-mega-card:focus-visible{transform:translateY(-3px);border-color:#fff;background:rgba(255,255,255,.9);box-shadow:inset 0 1px 0 #fff,0 12px 28px rgba(20,24,25,.08);outline:none}
+@media(max-width:900px){.model-y-page .site-header{top:9px;left:3%;width:94%;height:66px;padding:0 13px;grid-template-columns:1fr auto;border-radius:20px}.model-y-page .site-header .logo-wordmark img{width:55px;height:55px}.model-y-page .site-header .desktop-nav,.model-y-page .site-header .header-cta,.model-y-page .site-header .nav-mega{display:none}}
