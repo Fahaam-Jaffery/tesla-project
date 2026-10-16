@@ -120,6 +120,7 @@ const trims = [
 export default function RoadsterPage() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navHover, setNavHover] = useState(null);
   const [activeTrim, setActiveTrim] = useState('thrust');
 
   useEffect(() => {
@@ -154,23 +155,29 @@ export default function RoadsterPage() {
 
   return (
     <div className="roadster-page">
-      <header className={scrolled ? 'site-header header-scrolled' : 'site-header'} onMouseLeave={() => {}}>
+      <header className={scrolled ? 'site-header header-scrolled' : 'site-header'} onMouseLeave={() => setNavHover(null)}>
         <a className="wordmark logo-wordmark" href="/" aria-label="Tesla home">
           <img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" />
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="/" >Home</a>
-          <a href="#engineering" onClick={(e) => { e.preventDefault(); scrollTo('engineering'); }}>Engineering</a>
-          <a href="#trims" onClick={(e) => { e.preventDefault(); scrollTo('trims'); }}>Configurations</a>
+          <a href="/" onMouseEnter={() => setNavHover("home")} onFocus={() => setNavHover("home")}>Home</a>
+          <a href="#engineering" onMouseEnter={() => setNavHover("engineering")} onFocus={() => setNavHover("engineering")} onClick={(e) => { e.preventDefault(); scrollTo('engineering'); }}>Engineering</a>
+          <a href="#trims" onMouseEnter={() => setNavHover("trims")} onFocus={() => setNavHover("trims")} onClick={(e) => { e.preventDefault(); scrollTo('trims'); }}>Configurations</a>
         </nav>
         <div className="header-actions">
-          <a className="header-cta" href="#trims" onClick={(e) => { e.preventDefault(); scrollTo('trims'); }}>
+          <a className="header-cta" href="#trims" onMouseEnter={() => setNavHover("trims")} onFocus={() => setNavHover("trims")} onClick={(e) => { e.preventDefault(); scrollTo('trims'); }}>
             Explore Roadster <ArrowUpRight size={16} />
           </a>
-          <button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="Open menu">
+          <button className="menu-button" onClick={() => { setNavHover(null); setMenuOpen(true); }} aria-label="Open menu">
             <Menu size={23} />
           </button>
         </div>
+        {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
+          <div className="nav-mega-intro"><span className="nav-mega-kicker">ROADSTER / EXPLORE</span><h3>{({home:"A different way forward.",engineering:"Built at the edge of possible.",trims:"Find your configuration."})[navHover]}</h3><p>Explore the Tesla concept experience, from electric performance to the details behind the design.</p></div>
+          <a className="nav-mega-card" href="/"><span>01 / HOME</span><strong>Tesla</strong><small>Return to the main experience <ArrowUpRight size={14}/></small></a>
+          <a className="nav-mega-card" href="/modely"><span>02 / MODEL Y</span><strong>Model Y</strong><small>Discover the electric SUV <ArrowUpRight size={14}/></small></a>
+          <a className="nav-mega-card" href="#trims" onClick={(e) => { e.preventDefault(); setNavHover(null); scrollTo("trims"); }}><span>03 / CONFIGURATIONS</span><strong>Roadster</strong><small>Explore available concept trims <ArrowUpRight size={14}/></small></a>
+        </div>}
       </header>
 
       {menuOpen && (
