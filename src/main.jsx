@@ -63,7 +63,7 @@ const heroStories = [
     description: 'An uncompromising vision of electric performance.',
     href: '/roadster',
     image: '/roadster/Roadster-01-Hero.avif',
-    video: ''
+    video: 'https://res.cloudinary.com/i10zdpsr/video/upload/v1792171702/Roadster-01-Video.mp4'
   }
 ];
 
