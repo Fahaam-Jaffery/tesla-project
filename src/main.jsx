@@ -37,6 +37,139 @@ function Reveal({ children, className = '', delay = 0 }) {
   return <div ref={ref} className={`reveal ${className}`} style={{ '--delay': `${delay}ms` }}>{children}</div>;
 }
 
+const heroStories = [
+  {
+    name: 'Model Y',
+    eyebrow: '01 / ELECTRIC SUV',
+    title: <>Built for<br/><span>every journey.</span></>,
+    description: 'Versatility, refined. Space to go wherever life takes you.',
+    href: '/modely',
+    image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-Y-L-Desktop-US.jpg',
+    video: ''
+  },
+  {
+    name: 'Model 3',
+    eyebrow: '02 / ELECTRIC SEDAN',
+    title: <>A new kind<br/><span>of momentum.</span></>,
+    description: 'Crisp design. Instant response. Pure electric driving.',
+    href: 'https://www.tesla.com/model3',
+    image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg',
+    video: ''
+  },
+  {
+    name: 'Roadster',
+    eyebrow: '03 / ALL ELECTRIC SUPERCAR',
+    title: <>Beyond the<br/><span>expected.</span></>,
+    description: 'An uncompromising vision of electric performance.',
+    href: '/roadster',
+    image: '/roadster/Roadster-01-Hero.avif',
+    video: ''
+  }
+];
+
+function HeroStoryShowcase({ onExplore }) {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const videoRef = useRef(null);
+  const story = heroStories[active];
+  const advance = () => {
+    setProgress(0);
+    setVideoFailed(false);
+    setActive(current => (current + 1) % heroStories.length);
+  };
+
+  useEffect(() => {
+    setProgress(0);
+    setVideoFailed(false);
+    const video = videoRef.current;
+    if (video && story.video && !paused) {
+      video.currentTime = 0;
+      const playPromise = video.play();
+      if (playPromise?.catch) playPromise.catch(() => setVideoFailed(true));
+    } else if (video) {
+      video.pause();
+    }
+  }, [active, paused, story.video]);
+
+  useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) setPaused(true);
+  }, []);
+
+  useEffect(() => {
+    if (paused || (story.video && !videoFailed)) return;
+    const started = Date.now();
+    const initialProgress = progress;
+    const interval = window.setInterval(() => {
+      const next = initialProgress + ((Date.now() - started) / 9000) * 100;
+      if (next >= 100) {
+        window.clearInterval(interval);
+        advance();
+      } else {
+        setProgress(next);
+      }
+    }, 80);
+    return () => window.clearInterval(interval);
+  }, [active, paused, story.video, videoFailed]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !story.video) return;
+    if (paused) video.pause();
+    else video.play().catch(() => setVideoFailed(true));
+  }, [paused, active, story.video]);
+
+  const updateVideoProgress = event => {
+    const video = event.currentTarget;
+    if (Number.isFinite(video.duration) && video.duration > 0) {
+      setProgress((video.currentTime / video.duration) * 100);
+    }
+  };
+
+  return (
+    <>
+      <div className="hero-story-media" key={story.name}>
+        <img className="hero-story-poster" src={story.image} alt="" aria-hidden="true" />
+        {story.video && !videoFailed && <video
+          ref={videoRef}
+          className="hero-story-video"
+          src={story.video}
+          poster={story.image}
+          muted
+          playsInline
+          autoPlay={!paused}
+          preload={active === 0 ? 'auto' : 'metadata'}
+          onTimeUpdate={updateVideoProgress}
+          onEnded={advance}
+          onError={() => setVideoFailed(true)}
+          aria-label={story.name + ' cinematic showcase'}
+        />}
+      </div>
+      <div className="hero-story-shade" />
+      <div className="hero-story-progress" role="group" aria-label="Choose a featured Tesla model">
+        {heroStories.map((item, index) => (
+          <button key={item.name} className="hero-story-segment" onClick={() => { setActive(index); setProgress(0); setVideoFailed(false); }} aria-label={'Show ' + item.name} aria-pressed={active === index}>
+            <span className={index < active ? 'is-complete' : index === active ? 'is-current' : ''} style={index === active ? { '--story-progress': progress + '%' } : undefined} />
+          </button>
+        ))}
+        <button className="hero-story-pause" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Resume model showcase' : 'Pause model showcase'} title={paused ? 'Resume showcase' : 'Pause showcase'}>
+          {paused ? <Play size={13} fill="currentColor" /> : <Pause size={13} />}
+        </button>
+      </div>
+      <div className="hero-copy hero-story-copy" key={story.name + '-copy'}>
+        <p className="eyebrow light-eyebrow"><span className="eyebrow-line"/> {story.eyebrow}</p>
+        <h1>{story.title}</h1>
+        <p className="hero-subtitle">{story.description}</p>
+        <div className="hero-actions">
+          <a className="button button-light" href={story.href}>Explore {story.name} <ArrowUpRight size={16}/></a>
+          <button className="text-button light-text" onClick={onExplore}>Discover the lineup <ArrowDown size={15}/></button>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function App() {
   const [activeModel, setActiveModel] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -99,17 +232,9 @@ function App() {
       </header>
 
       <main>
-        <section className="hero" id="home">
-          <div className="hero-image" />
-          <div className="hero-shade" />
-          <div className="hero-copy">
-            <Reveal><p className="eyebrow light-eyebrow"><span className="eyebrow-line"/> THE FUTURE, IN MOTION</p></Reveal>
-            <Reveal delay={100}><h1>Electric.<br/><span>Uncompromised.</span></h1></Reveal>
-            <Reveal delay={180}><p className="hero-subtitle">A different way forward. Engineered around you, powered by possibility.</p></Reveal>
-            <Reveal delay={260}><div className="hero-actions"><button className="button button-light" onClick={() => scrollTo('models')}>Explore vehicles <ArrowRight size={16}/></button><button className="text-button light-text" onClick={() => scrollTo('technology')}>Discover the vision <ArrowDown size={15}/></button></div></Reveal>
-          </div>
-          <div className="hero-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><span className="scroll-cue"><span/> SCROLL TO EXPLORE</span><span>01 — 04</span></div>
-          <div className="hero-index"><span>01</span><i/></div>
+        <section className="hero hero-story-hero" id="home">
+          <HeroStoryShowcase onExplore={() => scrollTo('models')} />
+          <div className="hero-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><span className="scroll-cue"><span/> SCROLL TO EXPLORE</span><span>01 — 03</span></div>
         </section>
 
         <section className="intro section-pad">
