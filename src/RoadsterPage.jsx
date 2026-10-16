@@ -331,7 +331,7 @@ export default function RoadsterPage() {
                 <em>own the horizon.</em>
               </h2>
               <p className="rd-section-lede">
-                From road-ready excellence to invite-only rocket performance — choose the Roadster that matches your ambition.
+                Explore illustrative configurations for this fan-made concept page. These are not confirmed Tesla trims or reservation offers.
               </p>
             </RdReveal>
 
