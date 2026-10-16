@@ -519,7 +519,8 @@
 
 .rd-trim-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(0, 560px);
+  justify-content: center;
   gap: 16px;
   margin-top: 36px;
 }
