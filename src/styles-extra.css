@@ -373,3 +373,173 @@
 @media (prefers-reduced-motion: reduce) {
   .carousel-track { will-change: auto; }
 }
+
+
+/* Meet the Lineup — clean editorial layout and swipe-reveal carousel (no 3D ring). */
+.fleet-carousel-section {
+  padding: 112px 0 88px;
+  overflow: clip;
+}
+.fleet-content-shell {
+  width: min(100%, 1190px);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+.fleet-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  margin-bottom: 42px;
+}
+.fleet-heading > .reveal { min-width: 0; }
+.fleet-heading .eyebrow { margin-bottom: 28px; }
+.fleet-heading h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(48px, 5.8vw, 76px);
+  font-weight: 500;
+  letter-spacing: -.075em;
+  line-height: .99;
+  margin: 0;
+}
+.fleet-heading h2 em { font-style: normal; color: rgba(255,255,255,.48); }
+.fleet-heading > .reveal:last-child { max-width: 330px; padding-bottom: 5px; }
+.fleet-heading > .reveal:last-child p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: #a3a5a6;
+  margin: 0;
+}
+.carousel-stage {
+  height: clamp(360px, 43vw, 540px);
+  position: relative;
+  perspective: none !important;
+  isolation: isolate;
+  overflow: hidden;
+}
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: none !important;
+  transform-style: flat !important;
+  transition: none !important;
+}
+.fleet-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  transform: none !important;
+  transform-style: flat !important;
+  backface-visibility: visible;
+  transition: none;
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.fleet-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+}
+.fleet-card.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+  clip-path: inset(0 0 0 0);
+  animation: fleet-swipe-reveal-next 680ms cubic-bezier(.22,.72,.2,1) both;
+}
+.carousel-stage[class*="swipe-previous-"] .fleet-card.is-active {
+  animation-name: fleet-swipe-reveal-previous;
+}
+.carousel-stage[class*="swipe-next-"] .fleet-card.is-active {
+  animation-name: fleet-swipe-reveal-next;
+}
+@keyframes fleet-swipe-reveal-next {
+  from { clip-path: inset(0 0 0 100%); opacity: .8; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+@keyframes fleet-swipe-reveal-previous {
+  from { clip-path: inset(0 100% 0 0); opacity: .8; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+.fleet-card-shade { z-index: 1; }
+.fleet-card-copy {
+  z-index: 2;
+  left: clamp(20px, 3.2vw, 42px);
+  right: clamp(20px, 3.2vw, 42px);
+  bottom: clamp(20px, 3.2vw, 42px);
+}
+.fleet-card-copy h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 500;
+  letter-spacing: -.06em;
+  line-height: 1.05;
+  margin: 10px 0 7px;
+}
+.fleet-card-copy p { font-size: 13px; margin-bottom: 17px; }
+.fleet-controls {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin-top: 30px;
+  min-height: 42px;
+}
+.fleet-pagination { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.fleet-dot { flex: 0 0 28px; width: 28px; height: 3px; }
+.fleet-control-buttons { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.fleet-control-buttons button { flex: 0 0 38px; width: 38px; height: 38px; }
+.fleet-note {
+  max-width: 650px;
+  margin: 25px 0 0;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #85888a;
+}
+@media (max-width: 900px) {
+  .fleet-carousel-section { padding: 88px 0 76px; }
+  .fleet-content-shell { padding-inline: 7%; }
+  .fleet-heading { align-items: flex-start; gap: 24px; margin-bottom: 32px; }
+  .fleet-heading .eyebrow { margin-bottom: 24px; }
+  .fleet-heading h2 { font-size: clamp(44px, 6.5vw, 64px); }
+  .fleet-heading > .reveal:last-child { max-width: 280px; }
+  .carousel-stage { height: clamp(340px, 53vw, 440px); }
+}
+@media (max-width: 600px) {
+  .fleet-carousel-section { padding: 76px 0 64px; }
+  .fleet-content-shell { padding-inline: 7%; }
+  .fleet-heading { display: block; margin-bottom: 28px; }
+  .fleet-heading .eyebrow { margin-bottom: 24px; }
+  .fleet-heading h2 { font-size: clamp(46px, 12vw, 65px); }
+  .fleet-heading > .reveal:last-child { max-width: 320px; padding: 21px 0 0; }
+  .fleet-heading > .reveal:last-child p { font-size: 12px; }
+  .carousel-stage { height: 370px; }
+  .fleet-card-copy { left: 17px; right: 17px; bottom: 17px; }
+  .fleet-card-copy h3 { font-size: clamp(28px, 8vw, 38px); }
+  .fleet-card-copy p { font-size: 11px; margin-bottom: 13px; }
+  .fleet-card-actions { gap: 8px; }
+  .fleet-order, .fleet-learn { padding: 10px 11px; font-size: 10px; }
+  .fleet-controls { flex-direction: column; align-items: stretch; gap: 18px; margin-top: 24px; }
+  .fleet-pagination { justify-content: flex-start; gap: 9px; }
+  .fleet-control-buttons { justify-content: flex-start; gap: 9px; }
+  .fleet-control-buttons button { flex-basis: 36px; width: 36px; height: 36px; }
+  .fleet-count { margin-right: 4px; }
+  .fleet-note { margin-top: 22px; font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fleet-card.is-active,
+  .carousel-stage[class*="swipe-"] .fleet-card.is-active { animation: none !important; }
+}
