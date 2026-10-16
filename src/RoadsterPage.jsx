@@ -142,43 +142,43 @@ export default function RoadsterPage() {
 
   return (
     <div className="roadster-page">
-      <header className={scrolled ? 'rd-header rd-header-scrolled' : 'rd-header'}>
-        <a className="rd-logo" href="/" aria-label="Tesla home">
+      <header className={scrolled ? 'site-header header-scrolled' : 'site-header'} onMouseLeave={() => {}}>
+        <a className="wordmark logo-wordmark" href="/" aria-label="Tesla home">
           <img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" />
         </a>
-        <nav className="rd-nav" aria-label="Roadster navigation">
+        <nav className="desktop-nav" aria-label="Main navigation">
+          <a href="/" >Home</a>
           <a href="#engineering" onClick={(e) => { e.preventDefault(); scrollTo('engineering'); }}>Engineering</a>
-          <a href="#trims" onClick={(e) => { e.preventDefault(); scrollTo('trims'); }}>Trims</a>
-          <a href="#world" onClick={(e) => { e.preventDefault(); scrollTo('world'); }}>Experience</a>
+          <a href="#trims" onClick={(e) => { e.preventDefault(); scrollTo('trims'); }}>Configurations</a>
         </nav>
-        <div className="rd-header-actions">
-          <a className="rd-header-cta" href="#trims" onClick={(e) => { e.preventDefault(); scrollTo('trims'); }}>
-            Configure <ArrowUpRight size={14} />
+        <div className="header-actions">
+          <a className="header-cta" href="#trims" onClick={(e) => { e.preventDefault(); scrollTo('trims'); }}>
+            Explore Roadster <ArrowUpRight size={16} />
           </a>
-          <button className="rd-menu-btn" onClick={() => setMenuOpen(true)} aria-label="Open menu">
-            <Menu size={22} />
+          <button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="Open menu">
+            <Menu size={23} />
           </button>
         </div>
       </header>
 
       {menuOpen && (
-        <div className="rd-menu-overlay">
-          <div className="rd-menu-top">
-            <a className="rd-logo" href="/" onClick={() => setMenuOpen(false)}>
+        <div className="menu-overlay">
+          <div className="menu-top">
+            <a className="wordmark logo-wordmark" href="/" onClick={() => setMenuOpen(false)} aria-label="Tesla home">
               <img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" />
             </a>
-            <button className="rd-menu-btn" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+            <button className="close-menu" onClick={() => setMenuOpen(false)} aria-label="Close menu">
               <X size={22} />
             </button>
           </div>
-          <nav className="rd-mobile-nav">
-            <button onClick={() => scrollTo('engineering')}><span>01</span>Engineering</button>
-            <button onClick={() => scrollTo('trims')}><span>02</span>Trims</button>
-            <button onClick={() => scrollTo('world')}><span>03</span>Experience</button>
-            <a href="/"><span>04</span>Home</a>
+          <nav className="mobile-nav" aria-label="Site navigation">
+            <button onClick={() => { setMenuOpen(false); window.location.href = '/'; }}><span>01</span>Home <ArrowUpRight size={18} /></button>
+            <button onClick={() => scrollTo('engineering')}><span>02</span>Engineering <ArrowUpRight size={18} /></button>
+            <button onClick={() => scrollTo('trims')}><span>03</span>Configurations <ArrowUpRight size={18} /></button>
+            <button onClick={() => scrollTo('world')}><span>04</span>Experience <ArrowUpRight size={18} /></button>
           </nav>
-          <div className="rd-menu-bottom">
-            <span>A TRUE PILOT’S CAR</span>
+          <div className="menu-bottom">
+            <span>ROADSTER · CONCEPT EXPERIENCE</span>
             <a href="/">Back to Tesla <ArrowUpRight size={14} /></a>
           </div>
         </div>
