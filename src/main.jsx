@@ -13,7 +13,7 @@ const models = [
 ];
 
 const fleetModels = [
-  { name: 'Roadster', price: 'Explore Roadster', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Model-Y-L-Desktop-US.jpg', order: '/roadster', learn: '/roadster', alt: 'Tesla Roadster' },
+  { name: 'Roadster', price: 'Explore Roadster', image: '/roadster/Roadster-01-Hero.avif', order: '/roadster', learn: '/roadster', alt: 'Tesla Roadster concept' },
   { name: 'Model Y L Premium', price: 'Explore Model Y L Premium', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Model-Y-L-Desktop-US.jpg', order: 'https://www.tesla.com/modely#L', learn: 'https://www.tesla.com/modely#L', alt: 'Tesla Model Y L Premium' },
   { name: 'Model 3', price: 'Explore Model 3', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/model3', learn: 'https://www.tesla.com/model3', alt: 'Tesla Model 3 electric sedan' },
   { name: 'Model Y', price: 'Explore Model Y', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg', order: 'https://www.tesla.com/modely', learn: '/modely', alt: 'Tesla Model Y' },
@@ -92,7 +92,7 @@ function App() {
         </div>
         {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
           <div className="nav-mega-intro"><span className="nav-mega-kicker">EXPLORE TESLA</span><h3>{({vehicles:'Find your vehicle.',technology:'Built around intelligence.',charging:'Go further, effortlessly.',models:'Meet your next Tesla.'})[navHover]}</h3><p>{({vehicles:'Distinct designs. All-electric performance.',technology:'Intuitive software and thoughtful engineering.',charging:'Simple charging at home and on the road.',models:'Explore the lineup and compare the details.'})[navHover]}</p></div>
-          <a className="nav-mega-card" href="/roadster" onClick={() => setNavHover(null)}><span>01 / FEATURED</span><strong>Roadster</strong><small>A true pilot’s car <ArrowUpRight size={14}/></small></a>
+          <a className="nav-mega-card" href="/roadster" onClick={() => setNavHover(null)}><span>01 / FEATURED</span><strong>Roadster</strong><small>Explore the Roadster concept <ArrowUpRight size={14}/></small></a>
           <a className="nav-mega-card" href="/modely" onClick={() => setNavHover(null)}><span>02 / MODEL Y</span><strong>Model Y</strong><small>Discover the vehicle <ArrowUpRight size={14}/></small></a>
           <a className="nav-mega-card" href="#technology" onClick={() => setNavHover(null)}><span>03 / THE EXPERIENCE</span><strong>Technology</strong><small>Discover what's next <ArrowUpRight size={14}/></small></a>
         </div>}
@@ -100,15 +100,15 @@ function App() {
 
       <main>
         <section className="hero" id="home">
-          <div className="hero-image hero-roadster" />
+          <div className="hero-image" />
           <div className="hero-shade" />
           <div className="hero-copy">
-            <Reveal><p className="eyebrow light-eyebrow"><span className="eyebrow-line"/> ROADSTER · 2026</p></Reveal>
-            <Reveal delay={100}><h1>A True<br/><span>Pilot’s Car.</span></h1></Reveal>
-            <Reveal delay={180}><p className="hero-subtitle">The quickest production vehicle ever conceived. Active aero, cold-gas thrusters, aerospace mass control.</p></Reveal>
-            <Reveal delay={260}><div className="hero-actions"><a className="button button-light" href="/roadster">Explore Roadster <ArrowRight size={16}/></a><button className="text-button light-text" onClick={() => scrollTo('fleet')}>View the lineup <ArrowDown size={15}/></button></div></Reveal>
+            <Reveal><p className="eyebrow light-eyebrow"><span className="eyebrow-line"/> THE FUTURE, IN MOTION</p></Reveal>
+            <Reveal delay={100}><h1>Electric.<br/><span>Uncompromised.</span></h1></Reveal>
+            <Reveal delay={180}><p className="hero-subtitle">A different way forward. Engineered around you, powered by possibility.</p></Reveal>
+            <Reveal delay={260}><div className="hero-actions"><button className="button button-light" onClick={() => scrollTo('models')}>Explore vehicles <ArrowRight size={16}/></button><button className="text-button light-text" onClick={() => scrollTo('technology')}>Discover the vision <ArrowDown size={15}/></button></div></Reveal>
           </div>
-          <div className="hero-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><span className="scroll-cue"><span/> SCROLL TO EXPLORE</span><span>01 — ROADSTER</span></div>
+          <div className="hero-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><span className="scroll-cue"><span/> SCROLL TO EXPLORE</span><span>01 — 04</span></div>
           <div className="hero-index"><span>01</span><i/></div>
         </section>
 
