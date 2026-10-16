@@ -1,18 +1,15 @@
-import hero from './img_hero.js';
-import pilot from './img_pilot.js';
-import gravity from './img_gravity.js';
-import end from './img_end.js';
+const hero = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEAwgMg8f8D///8WfhwB8+ErK42A=';
 
 export const roadsterAssets = {
-  'Roadster-01-Hero.jpg': hero,
-  'Roadster-02-Pilot.jpg': pilot,
-  'Roadster-03-Carousel-Slide-1-Desktop.jpg': pilot,
-  'Roadster-03-Carousel-Slide-2-Desktop.jpg': hero,
-  'Roadster-05-Gravity.jpg': gravity,
-  'Roadster-06-Augments.jpg': end,
-  'Roadster-07-End.jpg': end,
+  hero,
+  pilot: hero,
+  slide3: hero,
+  world: hero,
+  gravity: hero,
+  augments: hero,
+  end: hero,
 };
 
-export function roadsterSrc(name) {
-  return roadsterAssets[name] || hero;
+export function roadsterSrc(key) {
+  return roadsterAssets[key] || hero;
 }
