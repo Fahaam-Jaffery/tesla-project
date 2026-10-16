@@ -350,7 +350,7 @@ export default function RoadsterPage() {
             </div>
 
             <div className="rd-trim-grid">
-              {trims.map((t) => (
+              {trims.filter((t) => t.id === activeTrim).map((t) => (
                 <article
                   key={t.id}
                   className={`rd-trim-card${t.featured ? ' is-featured' : ''}${activeTrim === t.id ? ' is-active' : ''}`}
@@ -378,9 +378,9 @@ export default function RoadsterPage() {
                       <li key={f}>{f}</li>
                     ))}
                   </ul>
-                  <button className="rd-btn rd-btn-dark">
-                    Reserve {t.name} <ArrowRight size={14} />
-                  </button>
+                  <a className="rd-btn rd-btn-dark" href="https://www.tesla.com/roadster" target="_blank" rel="noopener noreferrer">
+                    Check official updates <ArrowRight size={14} />
+                  </a>
                 </article>
               ))}
             </div>
