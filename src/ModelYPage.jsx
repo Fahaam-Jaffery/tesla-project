@@ -48,6 +48,33 @@ const storySets = {
   ]
 };
 
+const gallerySets = {
+  standard: STANDARD_GALLERY.map((src, index) => ({ src, label:'STANDARD / VIEW ' + String(index + 1).padStart(2, '0'), alt:'Model Y Standard gallery view ' + (index + 1) })),
+  premium: [
+    { src:'/models/model-y/variants/premium/Model-Y-Premium.avif', label:'PREMIUM / CONFIGURATION', alt:'Model Y Premium configuration' },
+    { src:'/models/model-y/variants/premium/Model-Y-Premium%20(2).avif', label:'PREMIUM / DETAIL 02', alt:'Model Y Premium gallery detail 2' },
+    { src:'/models/model-y/variants/premium/Model-Y-Premium%20Exterior.avif', label:'PREMIUM / EXTERIOR', alt:'Model Y Premium exterior' },
+    { src:'/models/model-y/variants/premium/Model-Y-Premium%20Exterior%20(2).avif', label:'PREMIUM / EXTERIOR DETAIL', alt:'Model Y Premium exterior detail' },
+    { src:'/models/model-y/variants/premium/Model-Y-Premium%20Exterior%20(3).avif', label:'PREMIUM / EXTERIOR VIEW', alt:'Model Y Premium exterior view' },
+    { src:'/models/model-y/variants/premium/Model-Y-Premium-Remote.avif', label:'PREMIUM / REMOTE FEATURES', alt:'Model Y Premium remote features' }
+  ],
+  long: [
+    { src:'/models/model-y/variants/long/Model-Y-L.avif', label:'MODEL Y L / CONFIGURATION', alt:'Model Y L configuration' },
+    { src:'/models/model-y/variants/long/Model-Y-L%20(2).avif', label:'MODEL Y L / DETAIL 02', alt:'Model Y L gallery detail 2' },
+    { src:'/models/model-y/variants/long/Model-Y-L%20(3).avif', label:'MODEL Y L / DETAIL 03', alt:'Model Y L gallery detail 3' },
+    { src:'/models/model-y/variants/long/Model-Y-L%20(4).avif', label:'MODEL Y L / DETAIL 04', alt:'Model Y L gallery detail 4' },
+    { src:'/models/model-y/variants/long/Model-Y-L-Interior.avif', label:'MODEL Y L / INTERIOR', alt:'Model Y L interior' },
+    { src:'/models/model-y/variants/long/Model-Y-L-Interior%20(2).avif', label:'MODEL Y L / CABIN DETAIL', alt:'Model Y L cabin detail' }
+  ],
+  performance: [
+    { src:'/models/model-y/variants/performance/Model-Y-Performance.avif', label:'PERFORMANCE / CONFIGURATION', alt:'Model Y Performance configuration' },
+    { src:'/models/model-y/variants/performance/Model-Y-Performance%20(2).avif', label:'PERFORMANCE / DETAIL 02', alt:'Model Y Performance gallery detail 2' },
+    { src:'/models/model-y/variants/performance/Model-Y-Performance%20(3).avif', label:'PERFORMANCE / DETAIL 03', alt:'Model Y Performance gallery detail 3' },
+    { src:'/models/model-y/variants/performance/Model-Y-Performance-Energy.avif', label:'PERFORMANCE / ENERGY', alt:'Model Y Performance energy and power detail' },
+    { src:'/models/model-y/variants/performance/Model-Y-Performance-Suspension.avif', label:'PERFORMANCE / SUSPENSION', alt:'Model Y Performance suspension detail' }
+  ]
+};
+
 function Reveal({ children, className = '', delay = 0 }) {
   const [visible, setVisible] = useState(false);
   const nodeRef = React.useRef(null);
@@ -78,6 +105,7 @@ export default function ModelYPage() {
         ? '/models/model-y/variants/performance/Model-Y-Performance.avif'
         : CABIN;
   const cabinAlt = activeVariant === 'long' ? 'Model Y L six-seat cabin' : active.name + ' cabin and interior experience';
+  const galleryItems = gallerySets[activeVariant] || gallerySets.standard;
   const interiorStory = {
     standard: { eyebrow:'02 / EVERYDAY COMFORT', lineOne:'Settle in.', lineTwo:'Spread out.', copy:'A calm, practical cabin keeps the focus on the drive, with flexible space for daily errands, weekend plans and everything in between.' },
     premium: { eyebrow:'02 / REFINED COMFORT', lineOne:'The details.', lineTwo:'Make the difference.', copy:'The Premium experience is about making more of every trip, pairing Model Y practicality with a more considered mix of comfort and connected convenience.' },
@@ -138,6 +166,14 @@ export default function ModelYPage() {
       <section className="product-spec-strip my-highlight-strip" aria-label="Model Y highlights"><div><strong>{active.range}</strong><span>{active.rangeLabel}</span></div><div><strong>{active.speed}</strong><span>{active.speedLabel}</span></div><div><strong>5-Star</strong><span>NHTSA SAFETY RATING*</span></div><div><strong>{active.cargo}</strong><span>STORAGE / MODEL DEPENDENT</span></div><p>*Safety ratings and specifications vary by model, year and market. Figures shown are reference values from Tesla’s U.S. product information, not a local-market offer.</p></section>
 
       <section className="product-section my-design-section" id="my-design"><Reveal className="product-section-head"><p className="product-eyebrow dark">01 / DESIGN THAT DOES MORE</p><div className="product-head-grid"><h2>Every line.<br/><em>Purposefully drawn.</em></h2><p>Aerodynamic proportions, clean surfaces and distinctive lighting bring together form and function. Nothing needs to shout to make a statement.</p></div></Reveal><div className="my-story-grid">{stories.map((story,index) => <Reveal key={story.number} className={'my-story-card my-story-card-' + index} delay={index*100}><div className="my-story-image"><img src={story.image} onError={(event) => fallbackImage(event, story.fallback)} alt={story.alt} loading="lazy"/><span>{story.number} / {story.eyebrow}</span></div><div className="my-story-copy"><h3>{story.title}</h3><p>{story.copy}</p></div></Reveal>)}</div></section>
+
+      <section className="product-section my-gallery-section" aria-label={active.name + ' image gallery'}>
+        <Reveal className="product-section-head">
+          <p className="product-eyebrow dark">IMAGE LIBRARY / {active.name.toUpperCase()}</p>
+          <div className="product-head-grid"><h2>Every angle.<br/><em>Every detail.</em></h2><p>Switch configurations above to explore the imagery available for each Model Y variant. Each image stays connected to its own model folder.</p></div>
+        </Reveal>
+        <div className="my-asset-gallery">{galleryItems.map((item,index) => <figure className="my-asset-gallery-item" key={item.src}><div className="my-asset-gallery-image"><img src={item.src} onError={(event) => fallbackImage(event, active.image)} alt={item.alt} loading="lazy"/><span>0{index + 1}</span></div><figcaption>{item.label}</figcaption></figure>)}</div>
+      </section>
 
       <section className="product-immersive my-interior" id="my-comfort"><img src={cabinImage} onError={(event) => fallbackImage(event, CABIN_FALLBACK)} alt={cabinAlt} loading="lazy"/><div className="product-immersive-shade"/><div className="product-immersive-copy"><p className="product-eyebrow">{interiorStory.eyebrow}</p><h2>{interiorStory.lineOne}<br/><em>{interiorStory.lineTwo}</em></h2><p>{interiorStory.copy}</p><a className="product-btn product-btn-glass" href="#my-features">Explore cabin features <ArrowRight size={15}/></a></div><span className="product-image-note">A QUIETER SPACE FOR THE ROAD AHEAD.</span></section>
 
