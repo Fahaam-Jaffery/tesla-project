@@ -28,8 +28,7 @@ public/models/model-y/
     │   ├── Model-Y-L (3).avif
     │   ├── Model-Y-L (4).avif
     │   ├── Model-Y-L-Interior.avif
-    │   ├── Model-Y-L-Interior (2).avif
-    │   └── Model-Y-L (3).avif
+    │   └── Model-Y-L-Interior (2).avif
     └── performance/
         ├── Model-Y-Performance.avif
         ├── Model-Y-Performance (2).avif
