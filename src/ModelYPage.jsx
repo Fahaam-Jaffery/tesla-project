@@ -9,16 +9,17 @@ const DETAIL = 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_au
 
 function Reveal({ children, className = '', delay = 0 }) {
   const [visible, setVisible] = useState(false);
+  const nodeRef = React.useRef(null);
   useEffect(() => {
-    const node = document.querySelector('[data-reveal-id="' + className + delay + '"]');
+    const node = nodeRef.current;
     if (!node || !('IntersectionObserver' in window)) { setVisible(true); return; }
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) { setVisible(true); observer.disconnect(); }
     }, { threshold: 0.12 });
     observer.observe(node);
     return () => observer.disconnect();
-  }, [className, delay]);
-  return <div data-reveal-id={className + delay} className={'product-reveal ' + className + (visible ? ' is-visible' : '')} style={{ '--reveal-delay': delay + 'ms' }}>{children}</div>;
+  }, []);
+  return <div ref={nodeRef} className={'product-reveal ' + className + (visible ? ' is-visible' : '')} style={{ '--reveal-delay': delay + 'ms' }}>{children}</div>;
 }
 
 export default function ModelYPage() {
