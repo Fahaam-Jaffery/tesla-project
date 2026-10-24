@@ -203,3 +203,36 @@
 .model-y-page .my-asset-gallery-item figcaption{padding:12px 2px 0;color:#737879;font-size:8px;letter-spacing:.12em;line-height:1.5}
 @media(max-width:900px){.model-y-page .my-asset-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
 @media(max-width:520px){.model-y-page .my-asset-gallery{grid-template-columns:1fr}.model-y-page .my-asset-gallery-image{aspect-ratio:1.4}}
+
+
+/* Editorial masonry gallery: varied image heights, consistent gutters */
+.model-y-page .my-asset-gallery{display:block;columns:3;column-gap:14px}
+.model-y-page .my-asset-gallery-item{display:inline-block;width:100%;margin:0 0 20px;break-inside:avoid;vertical-align:top}
+.model-y-page .my-asset-gallery-image{position:relative;display:grid;place-items:center;aspect-ratio:auto;min-height:190px;overflow:hidden;background:#e2e4e1;border:1px solid #d9dbd7}
+.model-y-page .my-asset-gallery-item:nth-child(3n + 1) .my-asset-gallery-image{aspect-ratio:1.12}
+.model-y-page .my-asset-gallery-item:nth-child(3n + 2) .my-asset-gallery-image{aspect-ratio:1.42}
+.model-y-page .my-asset-gallery-item:nth-child(3n) .my-asset-gallery-image{aspect-ratio:1.22}
+.model-y-page .my-asset-gallery-image img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .65s cubic-bezier(.2,.7,.2,1)}
+.model-y-page .my-asset-gallery-item:hover .my-asset-gallery-image img{transform:scale(1.04)}
+.model-y-page .my-asset-gallery-item figcaption{padding:11px 2px 0;color:#737879;font-size:8px;letter-spacing:.12em;line-height:1.5}
+.model-y-page .my-specs-dashboard{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:16px;align-items:stretch}
+.model-y-page .my-specs-dashboard .my-specs-panel{height:100%;box-sizing:border-box}
+.model-y-page .my-specs-telemetry{position:relative;overflow:hidden;padding:clamp(22px,3vw,34px);background:linear-gradient(145deg,#17191b 0%,#0b0c0d 72%);color:#f4f4f2;border:1px solid #333538;min-width:0}
+.model-y-page .my-specs-telemetry:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 31px,#ffffff08 32px),repeating-linear-gradient(90deg,transparent 0,transparent 31px,#ffffff08 32px);mask-image:linear-gradient(to bottom,black,transparent 90%);pointer-events:none}
+.model-y-page .my-telemetry-head{position:relative;display:flex;align-items:center;gap:8px;padding-bottom:18px;border-bottom:1px solid #ffffff20;font-size:8px;letter-spacing:.13em;color:#a6a8aa}
+.model-y-page .my-live-dot{width:6px;height:6px;border-radius:50%;background:#ed3038;box-shadow:0 0 12px #ed3038;display:inline-block;margin-left:auto}
+.model-y-page .my-telemetry-intro{position:relative;padding:23px 0 25px}
+.model-y-page .my-telemetry-intro>span{display:block;color:#ed4248;font-size:8px;letter-spacing:.16em;margin-bottom:13px}
+.model-y-page .my-telemetry-intro>strong{display:block;font-size:clamp(28px,3.2vw,42px);line-height:.98;font-weight:500;letter-spacing:-.06em}
+.model-y-page .my-telemetry-intro>strong em{font-style:normal;color:#a7a9ac}
+.model-y-page .my-telemetry-intro>p{font-size:11px;line-height:1.6;color:#a6a8aa;margin:12px 0 0}
+.model-y-page .my-telemetry-metric{position:relative;padding:15px 0 17px;border-top:1px solid #ffffff18}
+.model-y-page .my-telemetry-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:11px}
+.model-y-page .my-telemetry-label>span{font-size:8px;letter-spacing:.12em;color:#c0c1c3}
+.model-y-page .my-telemetry-label>strong{font-size:13px;font-weight:500;color:#fff;text-align:right}
+.model-y-page .my-telemetry-track{height:5px;background:#ffffff18;overflow:hidden;position:relative}
+.model-y-page .my-telemetry-track>span{display:block;height:100%;background:linear-gradient(90deg,#9d111b,#f23840);box-shadow:0 0 14px #ed30384d;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.model-y-page .my-telemetry-scale{display:flex;justify-content:space-between;margin-top:7px;color:#777a7d;font-size:7px;letter-spacing:.1em}
+.model-y-page .my-telemetry-foot{position:relative;display:flex;justify-content:space-between;gap:8px;padding-top:18px;color:#777a7d;font-size:7px;letter-spacing:.1em}
+@media(max-width:900px){.model-y-page .my-asset-gallery{columns:2}.model-y-page .my-specs-dashboard{grid-template-columns:1fr}.model-y-page .my-specs-telemetry{min-height:0}}
+@media(max-width:520px){.model-y-page .my-asset-gallery{columns:1}.model-y-page .my-asset-gallery-item{margin-bottom:16px}.model-y-page .my-asset-gallery-image{min-height:220px}.model-y-page .my-specs-dashboard{gap:12px}.model-y-page .my-telemetry-intro>strong{font-size:34px}}
