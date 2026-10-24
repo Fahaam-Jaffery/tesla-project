@@ -4,8 +4,8 @@ import './product-pages.css';
 import './modely.css';
 
 const HERO = 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/learn_new_model_y_hero.jpg';
-const CABIN = 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-Y-Interior-Desktop.jpg';
-const DETAIL = 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-Y-Performance-Desktop.jpg';
+const CABIN = 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=2200&q=85';
+const DETAIL = 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg';
 
 function Reveal({ children, className = '', delay = 0 }) {
   const [visible, setVisible] = useState(false);
