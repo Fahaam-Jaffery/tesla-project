@@ -1279,3 +1279,73 @@
 @media (prefers-reduced-motion: reduce) {
   .roadster-page .rd-reveal { opacity: 1; transform: none; transition: none; }
 }
+
+
+/* Roadster action controls use the same shape, rhythm and feedback as Model Y. */
+.roadster-page .rd-btn,
+.roadster-page .rd-text-btn {
+  position: relative;
+  isolation: isolate;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 20px;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .28s ease, background .28s ease, border-color .28s ease, box-shadow .28s ease, transform .28s cubic-bezier(.2,.7,.2,1);
+}
+.roadster-page .rd-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.2) 48%, transparent 75%);
+  transform: translateX(-120%);
+  transition: transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.roadster-page .rd-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.72);
+  box-shadow: 0 10px 26px rgba(0,0,0,.16), inset 0 1px rgba(255,255,255,.2);
+}
+.roadster-page .rd-btn:hover::before { transform: translateX(120%); }
+.roadster-page .rd-btn:active,
+.roadster-page .rd-text-btn:active { transform: translateY(0) scale(.98); }
+.roadster-page .rd-btn-light {
+  color: #111820;
+  background: #f4f6f7;
+  border-color: #f4f6f7;
+  box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+.roadster-page .rd-btn-light:hover { background: #dcecff; border-color: #dcecff; }
+.roadster-page .rd-btn:not(.rd-btn-light),
+.roadster-page .rd-text-btn {
+  color: #f5f7fa;
+  background: rgba(255,255,255,.075);
+  border-color: rgba(255,255,255,.25);
+  backdrop-filter: blur(18px) saturate(150%);
+}
+.roadster-page .rd-text-btn:hover {
+  transform: translateY(-2px);
+  color: #fff;
+  background: rgba(255,255,255,.13);
+  border-color: rgba(255,255,255,.62);
+}
+.roadster-page .rd-btn svg,
+.roadster-page .rd-text-btn svg { flex: 0 0 auto; transition: transform .28s cubic-bezier(.2,.7,.2,1); }
+.roadster-page .rd-btn:hover svg,
+.roadster-page .rd-text-btn:hover svg { transform: translateX(3px); }
+@media (max-width: 680px) {
+  .roadster-page .rd-btn,
+  .roadster-page .rd-text-btn { min-height: 47px; padding-inline: 17px; }
+}
