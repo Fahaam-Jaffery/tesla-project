@@ -521,3 +521,254 @@
   .model-y-page .my-film::before,
   .model-y-page .my-range::before { animation: none; }
 }
+
+/* Unified page design system — Model Y */
+.model-y-page {
+  --page-content: 1180px;
+  --page-gutter: clamp(22px, 5.6vw, 80px);
+  --page-ink: #f4f5f6;
+  --page-muted: rgba(244,245,246,.68);
+  --page-line: rgba(255,255,255,.14);
+  --page-accent: #77b8ff;
+}
+.model-y-page main > section:not(.my-hero) { scroll-margin-top: 104px; }
+.model-y-page .my-title { left: max(var(--page-gutter), calc((100% - var(--page-content)) / 2)); width: min(82%, 960px); }
+.model-y-page .my-title > p {
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .18em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.model-y-page .my-title h1 {
+  font-size: clamp(88px, 12.8vw, 174px);
+  line-height: .82;
+  letter-spacing: -.095em;
+  font-weight: 500;
+  margin-bottom: clamp(28px, 4vw, 46px);
+  text-wrap: nowrap;
+}
+.model-y-page .my-title h1 span { color: var(--page-accent); }
+.model-y-page .my-pill,
+.roadster-page .rd-btn,
+.roadster-page .rd-text-btn {
+  position: relative;
+  isolation: isolate;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 20px;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .28s ease, background .28s ease, border-color .28s ease, box-shadow .28s ease, transform .28s cubic-bezier(.2,.7,.2,1);
+}
+.model-y-page .my-pill::before,
+.roadster-page .rd-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.2) 48%, transparent 75%);
+  transform: translateX(-120%);
+  transition: transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.model-y-page .my-pill:hover,
+.roadster-page .rd-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.72);
+  box-shadow: 0 10px 26px rgba(0,0,0,.16), inset 0 1px rgba(255,255,255,.2);
+}
+.model-y-page .my-pill:hover::before,
+.roadster-page .rd-btn:hover::before { transform: translateX(120%); }
+.model-y-page .my-pill:active,
+.roadster-page .rd-btn:active,
+.roadster-page .rd-text-btn:active { transform: translateY(0) scale(.98); }
+.model-y-page .my-pill.bright,
+.roadster-page .rd-btn-light {
+  color: #111820;
+  background: #f4f6f7;
+  border-color: #f4f6f7;
+  box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+.model-y-page .my-pill.bright:hover,
+.roadster-page .rd-btn-light:hover { background: #dcecff; border-color: #dcecff; }
+.model-y-page .my-pill:not(.bright),
+.roadster-page .rd-btn:not(.rd-btn-light) {
+  color: #f5f7fa;
+  background: rgba(255,255,255,.075);
+  backdrop-filter: blur(18px) saturate(150%);
+}
+.roadster-page .rd-text-btn {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  padding-inline: 6px;
+}
+.roadster-page .rd-text-btn:hover { transform: translateX(3px); color: #a9d2ff; }
+.model-y-page .my-pill svg,
+.roadster-page .rd-btn svg,
+.roadster-page .rd-text-btn svg { flex: 0 0 auto; transition: transform .28s cubic-bezier(.2,.7,.2,1); }
+.model-y-page .my-pill:hover svg,
+.roadster-page .rd-btn:hover svg,
+.roadster-page .rd-text-btn:hover svg { transform: translateX(3px); }
+.model-y-page :is(a,button,input,[tabindex]):focus-visible,
+.roadster-page :is(a,button,input,[tabindex]):focus-visible {
+  outline: 2px solid #8bc5ff;
+  outline-offset: 4px;
+}
+.model-y-page .my-film-heading,
+.model-y-page .my-heading,
+.model-y-page .my-range-copy,
+.model-y-page .my-build-heading { min-width: 0; }
+.model-y-page .my-film-heading h2,
+.model-y-page .my-heading h2,
+.model-y-page .my-interior h2,
+.model-y-page .my-config h2,
+.model-y-page .my-range-copy h2,
+.model-y-page .my-build-heading h2,
+.model-y-page .my-finale-content h2 {
+  font-size: clamp(50px, 6.5vw, 88px);
+  line-height: .94;
+  letter-spacing: -.085em;
+  font-weight: 500;
+  text-wrap: balance;
+  max-width: 100%;
+}
+.model-y-page .my-film-heading > span,
+.model-y-page .my-heading > span,
+.model-y-page .my-build-top,
+.model-y-page .my-finale-top,
+.model-y-page .my-finale-bottom {
+  font-size: 9px;
+  line-height: 1.6;
+  letter-spacing: .17em;
+  font-weight: 650;
+}
+.model-y-page .my-heading { align-items: end; }
+.model-y-page .my-heading > p,
+.model-y-page .my-film-heading > p,
+.model-y-page .my-range-copy > p,
+.model-y-page .my-finale-content > p {
+  max-width: 440px;
+  font-size: 13px;
+  line-height: 1.85;
+  letter-spacing: 0;
+  word-spacing: 0;
+  text-wrap: pretty;
+}
+.model-y-page .my-specs { gap: 0; }
+.model-y-page .my-specs > div { padding-inline: clamp(14px, 2vw, 30px); min-width: 0; }
+.model-y-page .my-specs > div:first-child { padding-left: 0; }
+.model-y-page .my-specs b { font-size: clamp(30px, 3.5vw, 46px); line-height: 1; letter-spacing: -.07em; }
+.model-y-page .my-specs > div > span { font-size: 8px; line-height: 1.5; letter-spacing: .14em; }
+.model-y-page .my-cards article,
+.model-y-page .my-build-car,
+.model-y-page .my-build-panel,
+.model-y-page .my-range-panel,
+.roadster-page .rd-eng-card,
+.roadster-page .rd-trim-card {
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s, background .35s, box-shadow .35s;
+}
+.model-y-page .my-cards article:hover,
+.roadster-page .rd-eng-card:hover,
+.roadster-page .rd-trim-card:hover { transform: translateY(-4px); }
+.model-y-page .my-photo img,
+.model-y-page .my-interior > img,
+.model-y-page .my-finale-image,
+.roadster-page .rd-intro-visual img,
+.roadster-page .rd-gallery-item img {
+  transition: transform .9s cubic-bezier(.2,.7,.2,1), filter .6s ease;
+}
+.model-y-page .my-photo:hover img,
+.model-y-page .my-interior:hover > img,
+.roadster-page .rd-intro-visual:hover img,
+.roadster-page .rd-gallery-item:hover img { transform: scale(1.025); }
+.model-y-page .my-build-car > img { transition: transform .6s cubic-bezier(.2,.7,.2,1), filter .4s ease; }
+.model-y-page .my-build-car:hover > img { transform: scale(1.025); }
+.model-y-page .my-player-center { transition: transform .3s cubic-bezier(.2,.7,.2,1), background .3s, border-color .3s; }
+.model-y-page .my-player-center:hover { transform: translate(-50%,-50%) scale(1.07); border-color: #fff; }
+.model-y-page .my-player-controls button { transition: background .2s, color .2s, transform .2s; }
+.model-y-page .my-player-controls button:hover { transform: scale(1.06); }
+.model-y-page .my-config button,
+.model-y-page .my-wheel-options button,
+.model-y-page .my-range button { transition: background .24s, color .24s, border-color .24s, transform .24s, box-shadow .24s; }
+.model-y-page .my-config button:hover,
+.model-y-page .my-wheel-options button:hover,
+.model-y-page .my-range button:hover { transform: translateY(-1px); }
+.model-y-page .my-mobile {
+  position: fixed;
+  z-index: 19;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  padding: 100px max(7%, calc((100% - 1180px)/2));
+  color: #f5f7fa;
+  background: rgba(8,11,16,.91);
+  -webkit-backdrop-filter: blur(30px) saturate(150%);
+  backdrop-filter: blur(30px) saturate(150%);
+  animation: page-menu-in .38s cubic-bezier(.2,.7,.2,1) both;
+}
+.model-y-page .my-mobile a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 19px 0;
+  border-bottom: 1px solid rgba(255,255,255,.13);
+  color: inherit;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 500;
+  letter-spacing: -.06em;
+  line-height: 1.1;
+  text-transform: capitalize;
+  transition: color .25s, padding-left .25s;
+}
+.model-y-page .my-mobile a:hover { color: #a9d2ff; padding-left: 8px; }
+@keyframes page-menu-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 900px) {
+  .model-y-page .my-title { left: 7%; width: 86%; bottom: 132px; top: auto; }
+  .model-y-page .my-title h1 { font-size: clamp(76px, 16vw, 132px); }
+  .model-y-page .my-title > div { gap: 10px; }
+  .model-y-page .my-heading { grid-template-columns: minmax(0, 1fr) minmax(220px, .85fr); }
+  .model-y-page .my-heading h2,
+  .model-y-page .my-film-heading h2,
+  .model-y-page .my-interior h2,
+  .model-y-page .my-config h2,
+  .model-y-page .my-range-copy h2,
+  .model-y-page .my-build-heading h2,
+  .model-y-page .my-finale-content h2 { font-size: clamp(46px, 7vw, 68px); }
+}
+@media (max-width: 600px) {
+  .model-y-page .my-title { bottom: 124px; }
+  .model-y-page .my-title h1 { font-size: clamp(68px, 18.8vw, 106px); letter-spacing: -.085em; }
+  .model-y-page .my-title > p { font-size: 9px; letter-spacing: .16em; }
+  .model-y-page .my-title > div { align-items: stretch; flex-direction: column; width: min(100%, 280px); }
+  .model-y-page .my-pill { justify-content: space-between; min-height: 47px; }
+  .model-y-page .my-specs > div { padding-inline: 12px; }
+  .model-y-page .my-heading { grid-template-columns: minmax(0,1fr); }
+  .model-y-page .my-heading h2,
+  .model-y-page .my-film-heading h2,
+  .model-y-page .my-interior h2,
+  .model-y-page .my-config h2,
+  .model-y-page .my-range-copy h2,
+  .model-y-page .my-build-heading h2,
+  .model-y-page .my-finale-content h2 { font-size: clamp(44px, 12vw, 62px); }
+  .model-y-page .my-specs b { font-size: clamp(27px, 8vw, 35px); }
+  .model-y-page .my-mobile { padding-top: 94px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .model-y-page *,
+  .roadster-page * { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
