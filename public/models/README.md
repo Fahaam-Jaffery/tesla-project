@@ -1,94 +1,74 @@
 # Vehicle image library
 
-Add model photography under this folder. Keep original files grouped by model and variant; the UI uses predictable paths so images can be mapped without guessing filenames.
+Keep original vehicle photography grouped by model and variant. The Model Y page is wired to the AVIF files already uploaded to this repository; it does **not** require converting them to WebP or creating a second Standard folder.
 
-## Model Y (already wired into the Model Y page)
+## Model Y asset map
 
 ```text
-public/
-└── models/
-    └── model-y/
-        ├── hero.webp
-        ├── exterior.webp
-        ├── interior.webp
-        └── variants/
-            ├── standard/
-            │   ├── exterior.webp
-            │   ├── interior.webp
-            │   ├── front.webp
-            │   └── rear.webp
-            ├── premium/
-            │   ├── exterior.webp
-            │   ├── interior.webp
-            │   ├── front.webp
-            │   └── rear.webp
-            ├── long/
-            │   ├── exterior.webp
-            │   ├── interior.webp
-            │   ├── front.webp
-            │   └── rear.webp
-            └── performance/
-                ├── exterior.webp
-                ├── interior.webp
-                ├── front.webp
-                └── rear.webp
+public/models/model-y/
+├── Model-Y-Standard.avif
+├── Model-Y-Standard (2).avif
+├── Model-Y-Standard (3).avif
+├── Model-Y-Standard (4).avif
+├── Model-Y-Standard (5).avif
+├── Model-Y-Standard (6).avif
+├── Model-Y-Standard (7).avif
+├── Model-Y-Standard (8).avif
+└── variants/
+    ├── premium/
+    │   ├── Model-Y-Premium.avif
+    │   ├── Model-Y-Premium (2).avif
+    │   ├── Model-Y-Premium Exterior.avif
+    │   ├── Model-Y-Premium Exterior (2).avif
+    │   ├── Model-Y-Premium Exterior (3).avif
+    │   └── Model-Y-Premium-Remote.avif
+    ├── long/
+    │   ├── Model-Y-L.avif
+    │   ├── Model-Y-L (2).avif
+    │   ├── Model-Y-L (3).avif
+    │   ├── Model-Y-L (4).avif
+    │   ├── Model-Y-L-Interior.avif
+    │   ├── Model-Y-L-Interior (2).avif
+    │   └── Model-Y-L (3).avif
+    └── performance/
+        ├── Model-Y-Performance.avif
+        ├── Model-Y-Performance (2).avif
+        ├── Model-Y-Performance (3).avif
+        ├── Model-Y-Performance-Energy.avif
+        └── Model-Y-Performance-Suspension.avif
 ```
 
-The Model Y page currently looks for these exact files:
+### How the page uses the assets
 
-- `/models/model-y/hero.webp` — hero and final CTA image
-- `/models/model-y/exterior.webp` — exterior / safety image
-- `/models/model-y/interior.webp` — cabin image
-- `/models/model-y/variants/standard/exterior.webp`
-- `/models/model-y/variants/premium/exterior.webp`
-- `/models/model-y/variants/long/exterior.webp`
-- `/models/model-y/variants/performance/exterior.webp`
+- **Standard:** images in `public/models/model-y/` are the default Model Y library.
+- **Premium:** uses the Premium exterior imagery and the explicitly named remote-feature image for its connected-convenience story.
+- **Long:** uses the explicitly named interior images to tell the six-seat / long-wheelbase space story.
+- **Performance:** uses the explicitly named Energy and Suspension images for its power-delivery and chassis-control stories.
+- Selecting a variant updates its card, reference specifications, story imagery and immersive section copy.
+- The page includes remote fallbacks for missing/unavailable images.
 
-If a local file has not been added yet, the page falls back to a remote image, so an empty image folder will not break the page.
+The numbered Standard images and several numbered Premium/Long/Performance files do not identify their exact subject in the filename alone. Keep those original names until their visual content is confirmed; do not rename them based on guesses.
 
 ## Future models
 
-Use the same convention for other models:
+For other model pages, keep a separate folder per model and use the model's real variant names, for example:
 
 ```text
-models/
+public/models/
 ├── model-3/
-│   ├── hero.webp
-│   ├── exterior.webp
-│   ├── interior.webp
 │   └── variants/
-│       ├── standard/exterior.webp
-│       ├── premium/exterior.webp
-│       └── performance/exterior.webp
 ├── model-s/
-│   ├── hero.webp
-│   ├── exterior.webp
-│   ├── interior.webp
 │   └── variants/
-│       ├── standard/exterior.webp
-│       └── plaid/exterior.webp
 ├── model-x/
-│   ├── hero.webp
-│   ├── exterior.webp
-│   ├── interior.webp
 │   └── variants/
-│       ├── standard/exterior.webp
-│       └── plaid/exterior.webp
 └── roadster/
-    ├── hero.webp
-    ├── exterior.webp
-    ├── interior.webp
     └── variants/
-        └── founder-series/exterior.webp
 ```
 
-### Image naming rules
+### Asset guidelines
 
-- Use lowercase names and hyphens only; avoid spaces, parentheses and names such as `final-final-2.webp`.
-- Prefer WebP or AVIF for website photography. Keep a sensible source resolution (around 1600–2400 px wide for large images).
-- Use consistent framing across variants so switching between cards feels intentional.
-- Suggested roles: `hero.webp`, `exterior.webp`, `interior.webp`, `front.webp`, `rear.webp`, `wheel.webp`, `detail-01.webp`.
-- Put each image in its model/variant folder rather than uploading everything into one shared folder.
-- Adding a file here makes it available at the matching public URL; it does not automatically connect a new model/variant to the UI. The corresponding page/config must reference the exact path.
-
-When you're ready, add the files to GitHub in the matching folders (or upload them to this folder in your editor). Tell me which model and variant folders you populated and I can wire the additional angles into the interactive galleries.
+- Keep original AVIF/WebP files if they are supported by the project’s browser targets.
+- Prefer descriptive filenames when the subject is known, e.g. `exterior-front.avif`, `interior-second-row.avif`, `wheel-detail.avif`, `suspension.avif`.
+- Keep distinct variant imagery in its own variant directory.
+- Adding an image file makes it available at its matching public URL; the corresponding page/config must still reference that exact path.
+- In browser URLs, the `public/` prefix is omitted: `public/models/model-y/example.avif` is served from `/models/model-y/example.avif`.
