@@ -236,3 +236,166 @@
 .model-y-page .my-telemetry-foot{position:relative;display:flex;justify-content:space-between;gap:8px;padding-top:18px;color:#777a7d;font-size:7px;letter-spacing:.1em}
 @media(max-width:900px){.model-y-page .my-asset-gallery{columns:2}.model-y-page .my-specs-dashboard{grid-template-columns:1fr}.model-y-page .my-specs-telemetry{min-height:0}}
 @media(max-width:520px){.model-y-page .my-asset-gallery{columns:1}.model-y-page .my-asset-gallery-item{margin-bottom:16px}.model-y-page .my-asset-gallery-image{min-height:220px}.model-y-page .my-specs-dashboard{gap:12px}.model-y-page .my-telemetry-intro>strong{font-size:34px}}
+
+
+/* Verified gallery + spec dashboard refinement */
+.model-y-page .my-gallery-section .my-asset-gallery{
+  display:block;
+  columns:3 260px;
+  column-gap:18px;
+  width:100%;
+}
+.model-y-page .my-gallery-section .my-asset-gallery-item{
+  display:inline-block;
+  width:100%;
+  margin:0 0 18px;
+  break-inside:avoid;
+  vertical-align:top;
+}
+.model-y-page .my-gallery-section .my-asset-gallery-image{
+  display:block;
+  position:relative;
+  width:100%;
+  min-height:0;
+  aspect-ratio:unset;
+  overflow:hidden;
+  isolation:isolate;
+  background:#d9dbd9;
+  border:1px solid #cdd0cd;
+}
+.model-y-page .my-gallery-section .my-asset-gallery-item:nth-child(4n + 1) .my-asset-gallery-image{aspect-ratio:4 / 3}
+.model-y-page .my-gallery-section .my-asset-gallery-item:nth-child(4n + 2) .my-asset-gallery-image{aspect-ratio:3 / 4}
+.model-y-page .my-gallery-section .my-asset-gallery-item:nth-child(4n + 3) .my-asset-gallery-image{aspect-ratio:1 / 1}
+.model-y-page .my-gallery-section .my-asset-gallery-item:nth-child(4n) .my-asset-gallery-image{aspect-ratio:5 / 4}
+.model-y-page .my-gallery-section .my-asset-gallery-image img{
+  display:block;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  mix-blend-mode:normal;
+  transform:scale(1.001);
+  transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s ease;
+}
+.model-y-page .my-gallery-section .my-asset-gallery-item:hover .my-asset-gallery-image img{
+  transform:scale(1.055);
+  filter:contrast(1.035);
+}
+.model-y-page .my-gallery-section .my-asset-gallery-image:after{
+  content:"";
+  position:absolute;
+  inset:45% 0 0;
+  pointer-events:none;
+  background:linear-gradient(0deg,#080a0c35,transparent);
+}
+.model-y-page .my-gallery-section .my-asset-gallery-image>span{
+  z-index:1;
+  top:13px;
+  left:13px;
+  width:30px;
+  height:30px;
+  border-color:#ffffff90;
+  background:#11141770;
+  color:#fff;
+}
+.model-y-page .my-gallery-section .my-asset-gallery-item figcaption{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-height:32px;
+  padding:10px 1px 0;
+  color:#666c6e;
+  font-size:8px;
+  line-height:1.6;
+  letter-spacing:.13em;
+}
+.model-y-page .my-gallery-section .my-asset-gallery-item figcaption:before{
+  content:"";
+  flex:0 0 15px;
+  height:1px;
+  background:#e82127;
+}
+.model-y-page .my-specs-dashboard{
+  grid-template-columns:minmax(0,1fr) minmax(340px,.82fr);
+  gap:18px;
+  align-items:stretch;
+}
+.model-y-page .my-specs-dashboard .my-specs-panel{
+  height:100%;
+  min-width:0;
+  padding:clamp(22px,3vw,38px);
+  background:#f8f8f6;
+  border:1px solid #d9dbd7;
+}
+.model-y-page .my-specs-telemetry{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  padding:clamp(24px,3.2vw,40px);
+  border:1px solid #3b3d40;
+  background:
+    radial-gradient(ellipse at 92% 4%,#e821271c,transparent 42%),
+    linear-gradient(145deg,#17191c 0%,#0b0c0e 78%);
+  box-shadow:0 22px 60px #15171918;
+}
+.model-y-page .my-telemetry-head{
+  gap:10px;
+  min-height:26px;
+  font-size:8px;
+  letter-spacing:.14em;
+}
+.model-y-page .my-live-dot{flex:0 0 6px;margin-left:auto}
+.model-y-page .my-telemetry-intro{padding:30px 0 28px}
+.model-y-page .my-telemetry-intro>span{display:flex;align-items:center;gap:9px}
+.model-y-page .my-telemetry-intro>span:before{content:"";width:18px;height:1px;background:#e82127}
+.model-y-page .my-telemetry-intro>strong{font-size:clamp(34px,3.6vw,48px);line-height:.96;letter-spacing:-.07em}
+.model-y-page .my-telemetry-intro>p{max-width:250px;font-size:11px;color:#aeb0b3}
+.model-y-page .my-telemetry-metric{padding:18px 0 20px}
+.model-y-page .my-telemetry-label{align-items:center;margin-bottom:13px}
+.model-y-page .my-telemetry-label>span{font-size:8px;letter-spacing:.14em;color:#b9bbbe}
+.model-y-page .my-telemetry-label>strong{font-size:14px;font-variant-numeric:tabular-nums}
+.model-y-page .my-telemetry-track{
+  height:8px;
+  overflow:hidden;
+  border:1px solid #ffffff12;
+  background:repeating-linear-gradient(90deg,#ffffff12 0,#ffffff12 1px,transparent 1px,transparent 10%);
+}
+.model-y-page .my-telemetry-track>span{
+  position:relative;
+  background:linear-gradient(90deg,#8d0d16 0%,#d71925 68%,#ff4b51 100%);
+  box-shadow:0 0 18px #e8212759;
+}
+.model-y-page .my-telemetry-track>span:after{
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:2px;
+  height:100%;
+  background:#fff;
+  box-shadow:0 0 8px #fff;
+}
+.model-y-page .my-telemetry-scale{margin-top:9px;font-size:7px;color:#898c90}
+.model-y-page .my-telemetry-foot{
+  margin-top:auto;
+  border-top:1px solid #ffffff1a;
+  padding-top:19px;
+  color:#777b80;
+}
+@media(max-width:900px){
+  .model-y-page .my-gallery-section .my-asset-gallery{columns:2}
+  .model-y-page .my-specs-dashboard{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:520px){
+  .model-y-page .my-gallery-section .my-asset-gallery{columns:1}
+  .model-y-page .my-gallery-section .my-asset-gallery-item{margin-bottom:15px}
+  .model-y-page .my-gallery-section .my-asset-gallery-image{min-height:0}
+  .model-y-page .my-specs-dashboard{gap:12px}
+  .model-y-page .my-telemetry-intro>strong{font-size:37px}
+}
+@media(prefers-reduced-motion:reduce){
+  .model-y-page .my-gallery-section .my-asset-gallery-image img,
+  .model-y-page .my-telemetry-track>span{transition:none}
+}
