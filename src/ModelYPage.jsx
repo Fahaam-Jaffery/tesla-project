@@ -3,25 +3,50 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X, Gauge, ShieldCheck, Batte
 import './product-pages.css';
 import './modely.css';
 
-const HERO = '/models/model-y/hero.webp';
+const STANDARD = '/models/model-y/Model-Y-Standard.avif';
+const STANDARD_GALLERY = [
+  STANDARD,
+  '/models/model-y/Model-Y-Standard%20(2).avif',
+  '/models/model-y/Model-Y-Standard%20(3).avif',
+  '/models/model-y/Model-Y-Standard%20(4).avif',
+  '/models/model-y/Model-Y-Standard%20(5).avif',
+  '/models/model-y/Model-Y-Standard%20(6).avif',
+  '/models/model-y/Model-Y-Standard%20(7).avif',
+  '/models/model-y/Model-Y-Standard%20(8).avif'
+];
+const HERO = STANDARD;
 const HERO_FALLBACK = 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/learn_new_model_y_hero.jpg';
-const EXTERIOR = '/models/model-y/exterior.webp';
+const EXTERIOR = STANDARD_GALLERY[1];
 const EXTERIOR_FALLBACK = 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg';
-const CABIN = '/models/model-y/interior.webp';
+const CABIN = STANDARD_GALLERY[2];
 const CABIN_FALLBACK = 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=2200&q=85';
 const fallbackImage = (event, fallback) => { event.currentTarget.onerror = null; event.currentTarget.src = fallback; };
 
 const variants = [
-  { id:'standard', name:'Model Y', note:'Everyday versatility', range:'321 mi', rangeLabel:'EPA EST. RANGE', speed:'5.9 s', speedLabel:'0–60 MPH', cargo:'74 cu ft', drive:'Rear-Wheel Drive', seats:'5 seats', image:'/models/model-y/variants/standard/exterior.webp' },
-  { id:'premium', name:'Model Y Premium', note:'More comfort, more range', range:'327 mi', rangeLabel:'EPA EST. RANGE', speed:'4.3 s', speedLabel:'0–60 MPH', cargo:'76 cu ft', drive:'Dual Motor All-Wheel Drive', seats:'Up to 7 seats', image:'/models/model-y/variants/premium/exterior.webp' },
-  { id:'long', name:'Model Y L Premium', note:'Long-wheelbase space', range:'332 mi', rangeLabel:'EPA EST. RANGE', speed:'6 seats', speedLabel:'SEATING', cargo:'Long wheelbase', drive:'Dual Motor All-Wheel Drive', seats:'6 seats', image:'/models/model-y/variants/long/exterior.webp' },
-  { id:'performance', name:'Model Y Performance', note:'The sharper edge', range:'306 mi', rangeLabel:'EPA EST. RANGE', speed:'3.3 s', speedLabel:'0–60 MPH', cargo:'76 cu ft', drive:'Dual Motor All-Wheel Drive', seats:'5 seats', image:'/models/model-y/variants/performance/exterior.webp' }
+  { id:'standard', name:'Model Y Standard', note:'Everyday versatility', range:'321 mi', rangeLabel:'EPA EST. RANGE', speed:'5.9 s', speedLabel:'0–60 MPH', cargo:'74 cu ft', drive:'Rear-Wheel Drive', seats:'5 seats', image:STANDARD },
+  { id:'premium', name:'Model Y Premium', note:'Comfort and connected convenience', range:'327 mi', rangeLabel:'EPA EST. RANGE', speed:'4.3 s', speedLabel:'0–60 MPH', cargo:'76 cu ft', drive:'Dual Motor All-Wheel Drive', seats:'Up to 7 seats', image:'/models/model-y/variants/premium/Model-Y-Premium%20Exterior.avif' },
+  { id:'long', name:'Model Y L Premium', note:'Long-wheelbase space for six', range:'332 mi', rangeLabel:'EPA EST. RANGE', speed:'6 seats', speedLabel:'SEATING', cargo:'Long wheelbase', drive:'Dual Motor All-Wheel Drive', seats:'6 seats', image:'/models/model-y/variants/long/Model-Y-L.avif' },
+  { id:'performance', name:'Model Y Performance', note:'Chassis, grip and acceleration', range:'306 mi', rangeLabel:'EPA EST. RANGE', speed:'3.3 s', speedLabel:'0–60 MPH', cargo:'76 cu ft', drive:'Dual Motor All-Wheel Drive', seats:'5 seats', image:'/models/model-y/variants/performance/Model-Y-Performance.avif' }
 ];
 
-const stories = [
-  { number:'01', title:'Sculpted exterior', copy:'Every angle is considered for aesthetics and aerodynamics. Clean lines, a confident stance and distinctive lighting give Model Y its unmistakable profile.', image:EXTERIOR, fallback:EXTERIOR_FALLBACK, alt:'Tesla Model Y exterior', eyebrow:'FORM WITH FUNCTION' },
-  { number:'02', title:'Premium comfort', copy:'An open cabin, all-glass roof and thoughtful storage make room for everyday errands, weekend escapes and everything in between.', image:CABIN, fallback:CABIN_FALLBACK, alt:'Minimalist electric vehicle cabin', eyebrow:'ROOM TO RESET' }
-];
+const storySets = {
+  standard: [
+    { number:'01', title:'Designed for everyday life', copy:'A clean, aerodynamic silhouette pairs with the flexible utility that makes Model Y fit naturally into daily routines, weekend plans and the unexpected.', image:STANDARD_GALLERY[3], fallback:EXTERIOR_FALLBACK, alt:'Model Y Standard product detail', eyebrow:'EVERYDAY VERSATILITY' },
+    { number:'02', title:'Room to make it yours', copy:'A minimal cabin and adaptable space put the focus on the drive, the people coming along and everything that needs to come with you.', image:STANDARD_GALLERY[4], fallback:CABIN_FALLBACK, alt:'Model Y Standard cabin and utility detail', eyebrow:'SPACE THAT ADAPTS' }
+  ],
+  premium: [
+    { number:'01', title:'Premium, in the details', copy:'The Premium configuration builds on Model Y’s purposeful shape with an elevated equipment story. The exterior remains unmistakably Model Y; the difference is in the considered details.', image:'/models/model-y/variants/premium/Model-Y-Premium%20Exterior.avif', fallback:EXTERIOR_FALLBACK, alt:'Model Y Premium exterior', eyebrow:'A MORE REFINED DRIVE' },
+    { number:'02', title:'Convenience beyond the cabin', copy:'Connected features can make the car feel closer even when you are away. Remote functions and availability depend on the vehicle, region and app configuration.', image:'/models/model-y/variants/premium/Model-Y-Premium-Remote.avif', fallback:CABIN_FALLBACK, alt:'Model Y Premium remote feature', eyebrow:'CONNECTED CONVENIENCE' }
+  ],
+  long: [
+    { number:'01', title:'More room for the whole crew', copy:'The long-wheelbase Model Y L is built around six-seat flexibility, giving passengers a more spacious way to travel together without losing the practical SUV format.', image:'/models/model-y/variants/long/Model-Y-L-Interior.avif', fallback:CABIN_FALLBACK, alt:'Model Y L interior', eyebrow:'SIX-SEAT FLEXIBILITY' },
+    { number:'02', title:'Space you can feel', copy:'A longer cabin changes the rhythm of the journey: more room between rows, easier group trips and a layout shaped around carrying people comfortably.', image:'/models/model-y/variants/long/Model-Y-L-Interior%20(2).avif', fallback:CABIN_FALLBACK, alt:'Model Y L interior space detail', eyebrow:'MADE FOR THE LONG HAUL' }
+  ],
+  performance: [
+    { number:'01', title:'Energy, delivered instantly', copy:'Dual-motor all-wheel drive and performance-focused calibration are designed to translate electric power into immediate, controlled response. Actual performance varies by configuration and conditions.', image:'/models/model-y/variants/performance/Model-Y-Performance-Energy.avif', fallback:EXTERIOR_FALLBACK, alt:'Model Y Performance energy and power detail', eyebrow:'ELECTRIC RESPONSE' },
+    { number:'02', title:'Control is part of the performance', copy:'Suspension tuning is a key part of the Performance story, balancing sharper responses with stability and composure when the road starts to curve.', image:'/models/model-y/variants/performance/Model-Y-Performance-Suspension.avif', fallback:EXTERIOR_FALLBACK, alt:'Model Y Performance suspension detail', eyebrow:'CHASSIS & CONTROL' }
+  ]
+};
 
 function Reveal({ children, className = '', delay = 0 }) {
   const [visible, setVisible] = useState(false);
@@ -43,7 +68,16 @@ export default function ModelYPage() {
   const [scrolled, setScrolled] = useState(false);
   const [activeVariant, setActiveVariant] = useState('premium');
   const [expandedFeature, setExpandedFeature] = useState('comfort');
-  const active = variants.find(item => item.id === activeVariant) || variants[1];
+  const active = variants.find(item => item.id === activeVariant) || variants[0];
+  const stories = storySets[activeVariant] || storySets.standard;
+  const cabinImage = activeVariant === 'long'
+    ? '/models/model-y/variants/long/Model-Y-L-Interior.avif'
+    : activeVariant === 'premium'
+      ? '/models/model-y/variants/premium/Model-Y-Premium.avif'
+      : activeVariant === 'performance'
+        ? '/models/model-y/variants/performance/Model-Y-Performance.avif'
+        : CABIN;
+  const cabinAlt = activeVariant === 'long' ? 'Model Y L six-seat cabin' : active.name + ' cabin and interior experience';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -99,7 +133,7 @@ export default function ModelYPage() {
 
       <section className="product-section my-design-section" id="my-design"><Reveal className="product-section-head"><p className="product-eyebrow dark">01 / DESIGN THAT DOES MORE</p><div className="product-head-grid"><h2>Every line.<br/><em>Purposefully drawn.</em></h2><p>Aerodynamic proportions, clean surfaces and distinctive lighting bring together form and function. Nothing needs to shout to make a statement.</p></div></Reveal><div className="my-story-grid">{stories.map((story,index) => <Reveal key={story.number} className={'my-story-card my-story-card-' + index} delay={index*100}><div className="my-story-image"><img src={story.image} onError={(event) => fallbackImage(event, story.fallback)} alt={story.alt} loading="lazy"/><span>{story.number} / {story.eyebrow}</span></div><div className="my-story-copy"><h3>{story.title}</h3><p>{story.copy}</p></div></Reveal>)}</div></section>
 
-      <section className="product-immersive my-interior" id="my-comfort"><img src={CABIN} onError={(event) => fallbackImage(event, CABIN_FALLBACK)} alt="Open minimalist electric vehicle cabin" loading="lazy"/><div className="product-immersive-shade"/><div className="product-immersive-copy"><p className="product-eyebrow">02 / YOUR SPACE, REIMAGINED</p><h2>Settle in.<br/><em>Spread out.</em></h2><p>A calm, connected cabin gives the whole crew room to reset—whether the day calls for a school run or the long way home.</p><a className="product-btn product-btn-glass" href="#my-features">Explore cabin features <ArrowRight size={15}/></a></div><span className="product-image-note">A QUIETER SPACE FOR THE ROAD AHEAD.</span></section>
+      <section className="product-immersive my-interior" id="my-comfort"><img src={CABIN} onError={(event) => fallbackImage(event, CABIN_FALLBACK)} alt={cabinAlt} loading="lazy" onError={(event) => fallbackImage(event, CABIN_FALLBACK)}/><div className="product-immersive-shade"/><div className="product-immersive-copy"><p className="product-eyebrow">02 / YOUR SPACE, REIMAGINED</p><h2>Settle in.<br/><em>Spread out.</em></h2><p>A calm, connected cabin gives the whole crew room to reset—whether the day calls for a school run or the long way home.</p><a className="product-btn product-btn-glass" href="#my-features">Explore cabin features <ArrowRight size={15}/></a></div><span className="product-image-note">A QUIETER SPACE FOR THE ROAD AHEAD.</span></section>
 
       <section className="product-section my-features-section" id="my-features"><Reveal className="product-section-head"><p className="product-eyebrow dark">03 / THOUGHTFUL BY DESIGN</p><div className="product-head-grid"><h2>Little details.<br/><em>More possibility.</em></h2><p>Explore the everyday features that help make the cabin feel more considered. Availability depends on configuration and region.</p></div></Reveal><div className="my-feature-explorer"><div className="my-feature-list" role="tablist" aria-label="Model Y comfort features">{featureItems.map(item => { const Icon = item.icon; return <button key={item.id} role="tab" aria-selected={expandedFeature === item.id} className={expandedFeature === item.id ? 'is-active' : ''} onClick={() => setExpandedFeature(item.id)}><Icon size={19}/><span>{item.title}</span><ChevronDown size={16}/></button>; })}</div><div className="my-feature-detail" role="tabpanel" key={expandedFeature}><div className="my-feature-detail-icon"><FeatureIcon size={26}/></div><span>MODEL Y / EVERYDAY EXPERIENCE</span><h3>{featureItems.find(item => item.id === expandedFeature)?.title}</h3><p>{featureItems.find(item => item.id === expandedFeature)?.copy}</p><div className="my-feature-detail-rule"/></div></div></section>
 
