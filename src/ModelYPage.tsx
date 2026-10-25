@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ArrowDown, ArrowRight, ArrowUpRight, BatteryCharging, Check, ChevronRight,
-  Gauge, Menu, ShieldCheck, Smartphone, Users, X, ExternalLink, Search, ChevronUp, ChevronDown, Circle,
+  Gauge, Menu, ShieldCheck, Smartphone, Users, X, ExternalLink, Search, ChevronUp, ChevronDown,
 } from 'lucide-react';
 import {
   Bar,
