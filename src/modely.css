@@ -704,3 +704,75 @@
     transition: none;
   }
 }
+
+
+/* Model Y navigation drawer: liquid-glass desktop panel + focused mobile command sheet. */
+.my-menu-backdrop {
+  border: 0;
+  background: rgba(4, 5, 7, .56);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+.my-menu {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  gap: 0;
+  color: #f6f6f4;
+  background:
+    radial-gradient(ellipse at 95% 0%, rgba(232,33,39,.11), transparent 34%),
+    rgba(10, 11, 13, .97);
+  backdrop-filter: blur(32px) saturate(155%);
+  -webkit-backdrop-filter: blur(32px) saturate(155%);
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.22) transparent;
+}
+.my-menu::-webkit-scrollbar { width: 5px; }
+.my-menu::-webkit-scrollbar-thumb { border-radius: 99px; background: rgba(255,255,255,.2); }
+.my-menu-wordmark { display: inline-flex; align-items: center; min-width: 100px; }
+.my-menu-wordmark img { display: block; width: 94px; height: 24px; object-fit: contain; filter: invert(1); opacity: .92; }
+.my-menu-eyebrow { display: block; color: rgba(255,255,255,.48); font-size: 9px; font-weight: 700; letter-spacing: .16em; line-height: 1.5; text-transform: uppercase; }
+.my-menu-heading h2 { margin: 10px 0 0; color: #f7f7f5; font-size: clamp(36px, 7vw, 52px); font-weight: 600; line-height: .98; letter-spacing: -.065em; }
+.my-menu-heading h2 span { color: rgba(255,255,255,.42); }
+.my-menu-links { max-width: none; }
+.my-menu-links button { min-height: 47px; grid-template-columns: 25px minmax(0,1fr) 20px; gap: 12px; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.095); }
+.my-menu-links button span { font-size: 9px; color: rgba(255,255,255,.38); font-variant-numeric: tabular-nums; }
+.my-menu-links button strong { font-size: clamp(16px, 2vw, 18px); font-weight: 500; line-height: 1.2; letter-spacing: -.025em; transition: color .2s ease; }
+.my-menu-links button svg { color: rgba(255,255,255,.45); transition: color .2s ease, transform .2s ease; }
+.my-menu-links button:hover strong, .my-menu-links button:focus-visible strong { color: #fff; }
+.my-menu-links button:hover svg, .my-menu-links button:focus-visible svg { color: #e82127; transform: translate(2px,-2px); }
+.my-menu-configuration { padding: 16px; border: 1px solid rgba(255,255,255,.12); border-radius: 18px; background: linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.025)); box-shadow: inset 0 1px rgba(255,255,255,.04); }
+.my-menu-configuration h3 { margin: 5px 0 2px; color: #f7f7f5; font-size: 18px; font-weight: 600; letter-spacing: -.035em; }
+.my-menu-configuration p { margin: 0; color: rgba(255,255,255,.52); font-size: 11px; }
+.my-menu-status-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: #e82127; box-shadow: 0 0 14px rgba(232,33,39,.7); }
+.my-menu-trims { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
+.my-menu-trim { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 38px; padding: 9px 10px; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; background: rgba(0,0,0,.2); color: rgba(255,255,255,.67); text-align: left; font-size: 11px; transition: background .2s ease, border-color .2s ease, color .2s ease; }
+.my-menu-trim:hover { border-color: rgba(255,255,255,.24); color: #fff; }
+.my-menu-trim.is-active { border-color: rgba(232,33,39,.72); background: rgba(232,33,39,.12); color: #fff; }
+.my-menu-trim.is-active svg { color: #ff555a; }
+.my-menu-order { display: flex; width: 100%; min-height: 43px; align-items: center; justify-content: center; gap: 9px; margin-top: 12px; padding: 11px 15px; border: 0; border-radius: 999px; background: #f4f4f2; color: #141517; font-size: 12px; font-weight: 700; transition: background .2s ease, transform .2s ease; }
+.my-menu-order:hover { background: #fff; transform: translateY(-1px); }
+.my-menu-global { padding-top: 18px; border-top: 1px solid rgba(255,255,255,.1); }
+.my-menu-global-links { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px 12px; margin-top: 12px; }
+.my-menu-global-links a { display: inline-flex; align-items: center; gap: 5px; width: fit-content; color: rgba(255,255,255,.7); font-size: 11px; transition: color .2s ease; }
+.my-menu-global-links a:hover { color: #fff; }
+.my-menu-global-links svg { color: rgba(255,255,255,.35); }
+.my-menu-footer { padding-top: 17px; border-top: 1px solid rgba(255,255,255,.09); color: rgba(255,255,255,.36); font-size: 8px; font-weight: 700; letter-spacing: .14em; }
+.my-menu-footer a { display: inline-flex; align-items: center; gap: 5px; color: rgba(255,255,255,.72); }
+@media (min-width: 1024px) {
+  .my-menu { border: 1px solid rgba(255,255,255,.15); box-shadow: 0 24px 90px rgba(0,0,0,.5), inset 0 1px rgba(255,255,255,.06); }
+}
+@media (max-width: 639px) {
+  .my-menu { padding-top: max(18px, env(safe-area-inset-top)); padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+  .my-menu-heading { margin-top: 24px; }
+  .my-menu-heading h2 { font-size: clamp(34px, 10vw, 44px); }
+  .my-menu-links { margin-top: 14px; }
+  .my-menu-links button { min-height: 44px; padding-block: 9px; }
+  .my-menu-configuration { margin-top: 18px; padding: 13px; }
+  .my-menu-global { margin-top: 20px; padding-top: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .my-menu-links button strong, .my-menu-links button svg, .my-menu-trim, .my-menu-order { transition: none; }
+}
