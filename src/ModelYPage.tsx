@@ -165,6 +165,7 @@ export default function ModelYPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [heroPassed, setHeroPassed] = useState(false);
+  const [navHover, setNavHover] = useState<string | null>(null);
   const [distance, setDistance] = useState(180);
   const heroRef = useRef<HTMLElement | null>(null);
   const reduceMotion = useReducedMotion();
@@ -192,20 +193,29 @@ export default function ModelYPage() {
 
   return (
     <main className="my-page min-h-screen overflow-hidden bg-[#f4f4f2] text-[#17191b]">
-      <header className={`my-nav fixed z-50 left-1/2 top-3 w-[94%] max-w-[1600px] -translate-x-1/2 rounded-2xl border px-5 sm:px-7 ${scrolled ? 'my-nav-scrolled' : ''}`}>
-        <a href="/" className="my-wordmark" aria-label="Tesla home">
+      <header className={`site-header${scrolled ? ' header-scrolled' : ''}`} onMouseLeave={() => setNavHover(null)}>
+        <a className="wordmark logo-wordmark" href="/" aria-label="Tesla home">
           <img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" />
         </a>
-        <nav className="hidden md:flex items-center justify-center gap-8" aria-label="Model Y navigation">
-          <button onClick={() => jumpTo('design')}>Design</button>
-          <button onClick={() => jumpTo('interior')}>Interior</button>
-          <button onClick={() => jumpTo('variants')}>Configurations</button>
-          <button onClick={() => jumpTo('specs')}>Specs</button>
+        <nav className="desktop-nav" aria-label="Model Y navigation">
+          <a href="#design" onMouseEnter={() => setNavHover('design')} onFocus={() => setNavHover('design')}>Design</a>
+          <a href="#interior" onMouseEnter={() => setNavHover('interior')} onFocus={() => setNavHover('interior')}>Interior</a>
+          <a href="#performance" onMouseEnter={() => setNavHover('performance')} onFocus={() => setNavHover('performance')}>Performance</a>
         </nav>
-        <div className="flex items-center justify-end gap-4">
-          <a className="my-nav-cta hidden sm:inline-flex" href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">Explore Tesla <ArrowUpRight size={14} /></a>
-          <button className="my-menu-button" onClick={() => setMenuOpen(true)} aria-label="Open navigation"><Menu size={19} /></button>
+        <div className="header-actions">
+          <a className="header-cta" href="#variants" onMouseEnter={() => setNavHover('configurations')} onFocus={() => setNavHover('configurations')}>Explore configurations <ArrowUpRight size={16}/></a>
+          <button className="menu-button" onClick={() => { setNavHover(null); setMenuOpen(true); }} aria-label="Open menu"><Menu size={23}/></button>
         </div>
+        {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
+          <div className="nav-mega-intro">
+            <span className="nav-mega-kicker">MODEL Y / EXPLORE</span>
+            <h3>{({design:'Form, with a purpose.',interior:'Space for what matters.',performance:'Power meets precision.',configurations:'Find your Model Y.'} as Record<string,string>)[navHover]}</h3>
+            <p>{({design:'Thoughtful proportions, sculpted details and an unmistakably modern silhouette.',interior:'A calm, considered cabin with adaptable room for every kind of journey.',performance:'Responsive electric driving, confident handling and range for the road ahead.',configurations:'Compare the available Model Y configurations and choose your fit.'} as Record<string,string>)[navHover]}</p>
+          </div>
+          <a className="nav-mega-card" href="#variants" onClick={() => setNavHover(null)}><span>01 / CONFIGURATIONS</span><strong>Choose your Model Y</strong><small>Compare available variants <ArrowUpRight size={14}/></small></a>
+          <a className="nav-mega-card" href="#charging" onClick={() => setNavHover(null)}><span>02 / CHARGING</span><strong>Go further</strong><small>Explore energy and range <ArrowUpRight size={14}/></small></a>
+          <a className="nav-mega-card" href="#specs" onClick={() => setNavHover(null)}><span>03 / SPECIFICATIONS</span><strong>Know the details</strong><small>View key vehicle specs <ArrowUpRight size={14}/></small></a>
+        </div>}
       </header>
 
       <AnimatePresence>
