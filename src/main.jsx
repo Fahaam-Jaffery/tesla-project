@@ -4,7 +4,6 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X, ChevronDown, ChevronLeft,
 import './styles.css';
 import './styles-extra.css';
 import ModelYPage from './ModelYPage.jsx';
-import RoadsterPage from './RoadsterPage.jsx';
 
 const models = [
   { name: 'Model S', type: 'LUXURY SEDAN', range: '410', speed: '2.4', top: '200', price: '74,990', image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2000&q=90', alt: 'Sleek electric sedan on a road' },
@@ -13,7 +12,6 @@ const models = [
 ];
 
 const fleetModels = [
-  { name: 'Roadster', price: 'Explore Roadster', image: '/roadster/Roadster-01-Hero.avif', order: '/roadster', learn: '/roadster', alt: 'Tesla Roadster concept' },
   { name: 'Model Y L Premium', price: 'Explore Model Y L Premium', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Model-Y-L-Desktop-US.jpg', order: 'https://www.tesla.com/modely#L', learn: 'https://www.tesla.com/modely#L', alt: 'Tesla Model Y L Premium' },
   { name: 'Model 3', price: 'Explore Model 3', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/model3', learn: 'https://www.tesla.com/model3', alt: 'Tesla Model 3 electric sedan' },
   { name: 'Model Y', price: 'Explore Model Y', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg', order: 'https://www.tesla.com/modely', learn: '/modely', alt: 'Tesla Model Y' },
@@ -56,15 +54,7 @@ const heroStories = [
     image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg',
     video: 'https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Model-3-More-Than-The-Basics-Desktop-LHD-US.mp4'
   },
-  {
-    name: 'Roadster',
-    eyebrow: '03 / ALL ELECTRIC SUPERCAR',
-    title: <>Beyond the<br/><span>expected.</span></>,
-    description: 'An uncompromising vision of electric performance.',
-    href: '/roadster',
-    image: '/roadster/Roadster-01-Hero.avif',
-    video: 'https://res.cloudinary.com/i10zdpsr/video/upload/v1792171702/Roadster-01-Video.mp4'
-  }
+
 ];
 
 function HeroStoryShowcase({ onExplore }) {
@@ -223,7 +213,6 @@ function App() {
 
   const path = window.location.pathname.replace(/\/+$/, '');
   if (path === '/modely') return <ModelYPage />;
-  if (path === '/roadster') return <RoadsterPage />;
 
   return (
     <>
@@ -239,7 +228,7 @@ function App() {
         </div>
         {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
           <div className="nav-mega-intro"><span className="nav-mega-kicker">EXPLORE TESLA</span><h3>{({vehicles:'Find your vehicle.',technology:'Built around intelligence.',charging:'Go further, effortlessly.',models:'Meet your next Tesla.'})[navHover]}</h3><p>{({vehicles:'Distinct designs. All-electric performance.',technology:'Intuitive software and thoughtful engineering.',charging:'Simple charging at home and on the road.',models:'Explore the lineup and compare the details.'})[navHover]}</p></div>
-          <a className="nav-mega-card" href="/roadster" onClick={() => setNavHover(null)}><span>01 / FEATURED</span><strong>Roadster</strong><small>Explore the Roadster concept <ArrowUpRight size={14}/></small></a>
+          
           <a className="nav-mega-card" href="/modely" onClick={() => setNavHover(null)}><span>02 / MODEL Y</span><strong>Model Y</strong><small>Discover the vehicle <ArrowUpRight size={14}/></small></a>
           <a className="nav-mega-card" href="#technology" onClick={() => setNavHover(null)}><span>03 / THE EXPERIENCE</span><strong>Technology</strong><small>Discover what's next <ArrowUpRight size={14}/></small></a>
         </div>}
