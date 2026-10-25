@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ArrowDown, ArrowRight, ArrowUpRight, BatteryCharging, Check, ChevronRight,
-  Gauge, Menu, ShieldCheck, Smartphone, Users, X, ExternalLink,
+  Gauge, Menu, ShieldCheck, Smartphone, Users, X, ExternalLink, Search, ChevronUp, ChevronDown, Circle,
 } from 'lucide-react';
 import {
   Bar,
@@ -163,6 +163,10 @@ function Reveal({ children, className = '', delay = 0 }: { children: ReactNode; 
 export default function ModelYPage() {
   const [selectedVariant, setSelectedVariant] = useState<TrimId>('performance');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sectionNavOpen, setSectionNavOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('top');
   const [scrolled, setScrolled] = useState(false);
   const [heroPassed, setHeroPassed] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
@@ -182,6 +186,31 @@ export default function ModelYPage() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const ids = ['top', 'design', 'interior', 'performance', 'charging', 'specs', 'variants'];
+    const nodes = ids.map((id) => document.getElementById(id)).filter((node): node is HTMLElement => node instanceof HTMLElement);
+    if (!nodes.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target instanceof HTMLElement) setActiveSection(visible.target.id);
+    }, { rootMargin: '-18% 0px -58% 0px', threshold: [0, 0.1, 0.25, 0.5] });
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { setSearchOpen(false); setSearchQuery(''); }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener('keydown', handleKeyDown); };
+  }, [searchOpen]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -215,6 +244,7 @@ export default function ModelYPage() {
         </nav>
         <div className="header-actions">
           <a className="header-cta" href="#variants" onMouseEnter={() => setNavHover('configurations')} onFocus={() => setNavHover('configurations')}>Explore configurations <ArrowUpRight size={16}/></a>
+          <button className="my-search-trigger" onClick={() => { setNavHover(null); setSearchOpen(true); }} aria-label="Search Tesla pages"><Search size={19}/></button>
           <button className="menu-button" onClick={() => { setNavHover(null); setMenuOpen(true); }} aria-label="Open menu"><Menu size={23}/></button>
         </div>
         {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
@@ -287,36 +317,8 @@ export default function ModelYPage() {
                 ))}
               </nav>
 
-              <section className="my-menu-configuration mt-6" aria-label="Current configuration">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <span className="my-menu-eyebrow">YOUR CONFIGURATION</span>
-                    <h3>{model.name}</h3>
-                    <p>{model.drivetrain} · {model.range} range</p>
-                  </div>
-                  <span className="my-menu-status-dot" aria-hidden="true" />
-                </div>
-                <div className="my-menu-trims mt-4" role="group" aria-label="Choose a Model Y variant">
-                  {trims.map((trim) => (
-                    <button
-                      key={trim.id}
-                      type="button"
-                      className={`my-menu-trim${selectedVariant === trim.id ? ' is-active' : ''}`}
-                      aria-pressed={selectedVariant === trim.id}
-                      onClick={() => setSelectedVariant(trim.id)}
-                    >
-                      <span>{trim.name}</span>
-                      {selectedVariant === trim.id && <Check size={14} aria-hidden="true" />}
-                    </button>
-                  ))}
-                </div>
-                <button type="button" className="my-menu-order" onClick={() => jumpTo('variants')}>
-                  Explore configurations <ArrowUpRight size={17} />
-                </button>
-              </section>
-
               <div className="my-menu-global mt-7">
-                <span className="my-menu-eyebrow">THE TESLA LINEUP</span>
+                <span className="my-menu-eyebrow">EXPLORE OTHER PAGES</span>
                 <div className="my-menu-global-links">
                   {[
                     ['Model 3', 'https://www.tesla.com/model3'],
@@ -341,6 +343,81 @@ export default function ModelYPage() {
           </>
         )}
       </AnimatePresence>
+
+      <AnimatePresence>
+        {searchOpen && (
+          <>
+            <motion.button className="my-search-backdrop" aria-label="Close search" onClick={() => setSearchOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
+            <motion.section className="my-search-modal" role="dialog" aria-modal="true" aria-label="Search Tesla pages" initial={reduceMotion ? false : { opacity: 0, y: 18, scale: .985 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={reduceMotion ? undefined : { opacity: 0, y: 12, scale: .99 }} transition={{ duration: reduceMotion ? 0 : .24 }}>
+              <div className="my-search-heading">
+                <div><span className="my-menu-eyebrow">TESLA / SEARCH</span><h2>Where to?</h2></div>
+                <button className="my-menu-button" aria-label="Close search" onClick={() => { setSearchOpen(false); setSearchQuery(''); }}><X size={20}/></button>
+              </div>
+              <label className="my-search-field">
+                <Search size={19} aria-hidden="true"/>
+                <input autoFocus value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search pages or Model Y sections…" aria-label="Search pages or sections"/>
+                {searchQuery && <button type="button" aria-label="Clear search" onClick={() => setSearchQuery('')}><X size={15}/></button>}
+                <kbd>ESC</kbd>
+              </label>
+              <div className="my-search-results">
+                {[
+                  { label: 'Overview', category: 'MODEL Y SECTION', id: 'top', terms: 'home hero overview' },
+                  { label: 'Design', category: 'MODEL Y SECTION', id: 'design', terms: 'exterior design' },
+                  { label: 'Interior', category: 'MODEL Y SECTION', id: 'interior', terms: 'cabin seats comfort storage' },
+                  { label: 'Performance', category: 'MODEL Y SECTION', id: 'performance', terms: 'speed acceleration range' },
+                  { label: 'Charging', category: 'MODEL Y SECTION', id: 'charging', terms: 'energy supercharger battery' },
+                  { label: 'Specifications', category: 'MODEL Y SECTION', id: 'specs', terms: 'specs range speed acceleration' },
+                  { label: 'Choose your Model Y', category: 'MODEL Y SECTION', id: 'variants', terms: 'configuration trim standard premium long wheelbase performance' },
+                  { label: 'Model 3', category: 'TESLA VEHICLES', href: 'https://www.tesla.com/model3', terms: 'sedan car' },
+                  { label: 'Model S', category: 'TESLA VEHICLES', href: 'https://www.tesla.com/models', terms: 'sedan car' },
+                  { label: 'Model X', category: 'TESLA VEHICLES', href: 'https://www.tesla.com/modelx', terms: 'suv car' },
+                  { label: 'Energy', category: 'EXPLORE TESLA', href: 'https://www.tesla.com/energy', terms: 'solar power home battery' },
+                  { label: 'Charging', category: 'EXPLORE TESLA', href: 'https://www.tesla.com/charging', terms: 'supercharger network' },
+                  { label: 'Shop', category: 'EXPLORE TESLA', href: 'https://shop.tesla.com/', terms: 'accessories merchandise' },
+                ].filter((item) => `${item.label} ${item.category} ${item.terms}`.toLowerCase().includes(searchQuery.trim().toLowerCase()))
+                  .map((item) => (
+                    <button key={item.category + item.label} className="my-search-result" onClick={() => {
+                      setSearchOpen(false);
+                      setSearchQuery('');
+                      if ('id' in item && item.id) jumpTo(item.id);
+                      else if ('href' in item && item.href) window.location.assign(item.href);
+                    }}>
+                      <span className="my-search-result-icon"><Search size={15}/></span>
+                      <span className="my-search-result-copy"><strong>{item.label}</strong><small>{item.category}</small></span>
+                      <ArrowUpRight size={16}/>
+                    </button>
+                  ))}
+                {![{ label: 'Overview', category: 'MODEL Y SECTION', terms: 'home hero overview' },{ label: 'Design', category: 'MODEL Y SECTION', terms: 'exterior design' },{ label: 'Interior', category: 'MODEL Y SECTION', terms: 'cabin seats comfort storage' },{ label: 'Performance', category: 'MODEL Y SECTION', terms: 'speed acceleration range' },{ label: 'Charging', category: 'MODEL Y SECTION', terms: 'energy supercharger battery' },{ label: 'Specifications', category: 'MODEL Y SECTION', terms: 'specs range speed acceleration' },{ label: 'Choose your Model Y', category: 'MODEL Y SECTION', terms: 'configuration trim standard premium long wheelbase performance' },{ label: 'Model 3', category: 'TESLA VEHICLES', terms: 'sedan car' },{ label: 'Model S', category: 'TESLA VEHICLES', terms: 'sedan car' },{ label: 'Model X', category: 'TESLA VEHICLES', terms: 'suv car' },{ label: 'Energy', category: 'EXPLORE TESLA', terms: 'solar power home battery' },{ label: 'Charging', category: 'EXPLORE TESLA', terms: 'supercharger network' },{ label: 'Shop', category: 'EXPLORE TESLA', terms: 'accessories merchandise' }].some((item) => `${item.label} ${item.category} ${item.terms}`.toLowerCase().includes(searchQuery.trim().toLowerCase())) && (
+                  <div className="my-search-empty"><Search size={20}/><strong>No matches found</strong><span>Try a different page or section name.</span></div>
+                )}
+              </div>
+              <div className="my-search-footnote">Search sections on this page or explore Tesla.com</div>
+            </motion.section>
+          </>
+        )}
+      </AnimatePresence>
+
+      {heroPassed && !footerVisible && !menuOpen && (
+        <motion.aside className={`my-section-rail${sectionNavOpen ? ' is-expanded' : ''}`} initial={reduceMotion ? false : { opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 12 }} aria-label="Page section navigation">
+          <button className="my-section-rail-toggle" aria-label={sectionNavOpen ? 'Collapse section navigation' : 'Expand section navigation'} aria-expanded={sectionNavOpen} onClick={() => setSectionNavOpen((open) => !open)}>
+            {sectionNavOpen ? <X size={16}/> : <span className="my-section-rail-mini-dots"><i/><i/><i/></span>}
+          </button>
+          {sectionNavOpen && (
+            <div className="my-section-rail-content">
+              <button className="my-section-rail-arrow" aria-label="Previous section" onClick={() => { const i = ['top','design','interior','performance','charging','specs','variants'].indexOf(activeSection); jumpTo(['top','design','interior','performance','charging','specs','variants'][Math.max(0,i-1)]); setSectionNavOpen(false); }}><ChevronUp size={16}/></button>
+              <span className="my-section-rail-caption">ON THIS PAGE</span>
+              {[
+                ['top','Overview'],['design','Design'],['interior','Interior'],['performance','Performance'],['charging','Charging'],['specs','Specs'],['variants','Variants']
+              ].map(([id,label], index) => (
+                <button key={id} className={`my-section-rail-item${activeSection === id ? ' is-active' : ''}`} aria-label={label} aria-current={activeSection === id ? 'location' : undefined} onClick={() => { jumpTo(id); setSectionNavOpen(false); }}>
+                  <span className="my-section-rail-dot"/><span className="my-section-rail-label">{label}</span><small>{String(index+1).padStart(2,'0')}</small>
+                </button>
+              ))}
+              <button className="my-section-rail-arrow" aria-label="Next section" onClick={() => { const i = ['top','design','interior','performance','charging','specs','variants'].indexOf(activeSection); jumpTo(['top','design','interior','performance','charging','specs','variants'][Math.min(6,i+1)]); setSectionNavOpen(false); }}><ChevronDown size={16}/></button>
+            </div>
+          )}
+        </motion.aside>
+      )}
 
       <section ref={heroRef} className="my-hero relative min-h-[90svh] h-screen max-h-[1100px] overflow-hidden bg-[#151719] text-white" id="top">
         <AnimatePresence mode="wait" initial={false}>
