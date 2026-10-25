@@ -550,3 +550,123 @@
   .my-film-icon-button, .my-film-play-button, .my-film-item { transition: none; }
   .my-film-item:hover, .my-film-play-button:hover { transform: none; }
 }
+
+
+/* Film-stage layout: cinematic player with an always-nearby playlist. */
+.my-film-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 276px;
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  column-gap: 22px;
+  row-gap: 12px;
+}
+.my-film-player-shell { grid-column: 1; grid-row: 1 / span 2; min-width: 0; }
+.my-film-playlist-heading {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  margin: 0;
+  align-items: flex-start;
+  padding: 4px 1px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.my-film-playlist-heading .my-kicker { margin-bottom: 7px; }
+.my-film-playlist-title { font-size: 16px; line-height: 1.35; }
+.my-film-count { padding-top: 3px; white-space: nowrap; font-size: 8px; }
+.my-film-playlist {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.my-film-item { min-height: 70px; padding: 12px; gap: 10px; }
+.my-film-item-copy strong { font-size: 12px; }
+.my-film-item-copy > span { font-size: 9px; }
+.my-film-skip-button {
+  display: inline-flex;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 50%;
+  color: rgba(255,255,255,.92);
+  background: rgba(14,15,17,.42);
+  backdrop-filter: blur(14px);
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.my-film-skip-button:hover { border-color: rgba(232,33,39,.8); background: rgba(232,33,39,.18); transform: scale(1.04); }
+.my-film-skip-button:focus-visible { outline: 2px solid #e82127; outline-offset: 3px; }
+.my-film-player:fullscreen .my-film-caption,
+.my-film-player:-webkit-full-screen .my-film-caption { bottom: clamp(88px, 10vh, 130px); }
+.my-film-player:fullscreen .my-film-controls,
+.my-film-player:-webkit-full-screen .my-film-controls { right: clamp(24px, 4vw, 64px); left: clamp(24px, 4vw, 64px); bottom: 12px; gap: 14px; }
+.my-film-player:fullscreen .my-film-play-button,
+.my-film-player:-webkit-full-screen .my-film-play-button { width: 44px; height: 44px; flex-basis: 44px; }
+.my-film-player:fullscreen .my-film-skip-button,
+.my-film-player:-webkit-full-screen .my-film-skip-button { width: 40px; height: 40px; flex-basis: 40px; }
+.my-film-player:fullscreen .my-film-time,
+.my-film-player:-webkit-full-screen .my-film-time { font-size: 12px; }
+.my-film-player:fullscreen .my-film-topline,
+.my-film-player:-webkit-full-screen .my-film-topline { top: 28px; right: clamp(24px, 4vw, 64px); left: clamp(24px, 4vw, 64px); }
+.my-film-note { margin-top: 14px; }
+@media (max-width: 900px) and (min-width: 641px) {
+  .my-film-stage { grid-template-columns: minmax(0, 1fr) 228px; column-gap: 14px; }
+  .my-film-item { gap: 8px; padding: 10px; }
+  .my-film-item-copy > span { font-size: 8px; }
+  .my-film-controls { gap: 8px; }
+  .my-film-sound-button { min-width: 36px; padding-inline: 8px; }
+  .my-film-sound-button span { display: none; }
+}
+@media (max-width: 640px) {
+  .my-film-stage { display: flex; flex-direction: column; gap: 0; width: 100%; }
+  .my-film-player-shell { width: 100%; }
+  .my-film-playlist-heading {
+    width: 100%;
+    align-items: center;
+    margin-top: 18px;
+    margin-bottom: 10px;
+    padding: 0;
+    border: 0;
+  }
+  .my-film-playlist-title { font-size: 15px; }
+  .my-film-count { font-size: 8px; }
+  .my-film-playlist {
+    display: flex;
+    flex-direction: row;
+    width: calc(100% + 24px);
+    gap: 8px;
+    padding: 2px 24px 8px 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(232,33,39,.7) rgba(255,255,255,.08);
+    -webkit-overflow-scrolling: touch;
+  }
+  .my-film-item {
+    flex: 0 0 min(78%, 260px);
+    min-height: 68px;
+    padding: 11px 12px;
+    scroll-snap-align: start;
+  }
+  .my-film-item-copy strong { font-size: 12px; }
+  .my-film-item-copy > span { font-size: 9px; }
+  .my-film-skip-button { width: 30px; height: 30px; flex-basis: 30px; }
+  .my-film-controls { gap: 6px; }
+  .my-film-player:fullscreen .my-film-controls,
+  .my-film-player:-webkit-full-screen .my-film-controls { right: 12px; left: 12px; bottom: max(8px, env(safe-area-inset-bottom, 0px)); gap: 8px; }
+  .my-film-player:fullscreen .my-film-play-button,
+  .my-film-player:-webkit-full-screen .my-film-play-button { width: 34px; height: 34px; flex-basis: 34px; }
+  .my-film-player:fullscreen .my-film-skip-button,
+  .my-film-player:-webkit-full-screen .my-film-skip-button { width: 30px; height: 30px; flex-basis: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .my-film-skip-button { transition: none; }
+  .my-film-skip-button:hover { transform: none; }
+}
