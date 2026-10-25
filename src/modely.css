@@ -12,9 +12,9 @@
 }
 .my-page button, .my-page a, .my-page input { -webkit-tap-highlight-color: transparent; }
 .my-page button:focus-visible, .my-page a:focus-visible, .my-page input:focus-visible { outline: 2px solid #e82127; outline-offset: 4px; }
-.my-container { width: 100%; max-width: 1600px; margin-inline: auto; padding-inline: 1.25rem; }
-@media (min-width: 640px) { .my-container { padding-inline: 1.5rem; } }
-@media (min-width: 1024px) { .my-container { padding-inline: 5.1%; } }
+.my-container { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: 1.5rem; }
+@media (min-width: 640px) { .my-container { padding-inline: 2rem; } }
+@media (min-width: 1024px) { .my-container { padding-inline: 3rem; } }
 
 .my-nav {
   min-height: 66px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
@@ -152,11 +152,13 @@
 .my-highlight-card h3 { margin: 44px 0 12px; font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.2; letter-spacing: -.02em; }
 .my-highlight-card p { max-width: 34rem; margin: 0; color: #555d60; font-size: 16px; font-weight: 400; line-height: 1.7; }
 .my-highlight-card svg { color: #4f5557; }
-.my-charging-section { padding-block: clamp(78px, 10vw, 140px); }
+.my-charging-section { padding-block: 6rem; }
+@media (min-width: 768px) { .my-charging-section { padding-block: 8rem; } }
+@media (min-width: 1024px) { .my-charging-section { padding-block: 10rem; } }
 .my-distance-tool { padding: 20px; border: 1px solid #d9dad8; background: #ffffff7a; }
 .my-distance-tool strong { font-family: 'DM Sans', sans-serif; font-size: 23px; font-weight: 700; letter-spacing: -.025em; }
 .my-distance-tool input { accent-color: #17191b; cursor: pointer; }
-.my-charging-media { position: relative; min-height: 380px; height: clamp(380px, 45vw, 620px); overflow: hidden; background: #d6d8d6; }
+.my-charging-media { position: relative; min-height: 0; height: auto; overflow: hidden; background: #d6d8d6; aspect-ratio: 16 / 10; border-radius: 1rem; }
 .my-charging-media > img { width: 100%; height: 100%; object-fit: cover; }
 .my-charge-overlay { position: absolute; right: 18px; top: 18px; display: flex; align-items: center; gap: 8px; padding: 12px 14px; border: 1px solid #ffffff45; border-radius: 999px; background: #10131664; color: white; font-size: 8px; letter-spacing: .12em; backdrop-filter: blur(12px); }
 .my-closing { background: #111315; }
@@ -168,11 +170,7 @@
 .my-footer-wordmark span { margin-left: 2px; font-size: 8px; vertical-align: top; letter-spacing: 0; }
 .my-footer a:hover { color: white; }
 
-@media (min-width: 640px) {
-  .my-container { padding-inline: 1.5rem; }
-}
 @media (min-width: 1024px) {
-  .my-container { padding-inline: 5.1%; }
   .my-selected-summary { padding: 23px 26px; }
 }
 @media (max-width: 767px) {
