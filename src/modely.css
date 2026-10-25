@@ -670,3 +670,43 @@
   .my-film-skip-button { transition: none; }
   .my-film-skip-button:hover { transform: none; }
 }
+
+
+/* YouTube-style idle controls: reveal on pointer/touch/keyboard activity, hide after 3s. */
+.my-film-topline,
+.my-film-controls,
+.my-film-caption {
+  opacity: 1;
+  transition: opacity .32s ease, transform .32s ease;
+}
+.my-film-player-controls-hidden {
+  cursor: none;
+}
+.my-film-player-controls-hidden .my-film-topline,
+.my-film-player-controls-hidden .my-film-controls,
+.my-film-player-controls-hidden .my-film-caption {
+  opacity: 0;
+  pointer-events: none;
+}
+.my-film-player-controls-hidden .my-film-caption {
+  transform: translateY(5px);
+}
+.my-film-player-controls-hidden .my-film-controls {
+  transform: translateY(8px);
+}
+.my-film-player-controls-hidden .my-film-topline {
+  transform: translateY(-5px);
+}
+.my-film-player:focus-within .my-film-topline,
+.my-film-player:focus-within .my-film-controls {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .my-film-topline,
+  .my-film-controls,
+  .my-film-caption {
+    transition: none;
+  }
+}
