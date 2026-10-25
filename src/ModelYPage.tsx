@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ArrowDown, ArrowRight, ArrowUpRight, BatteryCharging, Check, ChevronRight,
@@ -100,12 +100,17 @@ export default function ModelYPage() {
   const [selectedVariant, setSelectedVariant] = useState<TrimId>('performance');
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [heroPassed, setHeroPassed] = useState(false);
   const [distance, setDistance] = useState(180);
+  const heroRef = useRef<HTMLElement | null>(null);
   const reduceMotion = useReducedMotion();
   const model = trims.find((trim) => trim.id === selectedVariant) ?? trims[3];
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 24);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 24);
+      setHeroPassed((heroRef.current?.getBoundingClientRect().bottom ?? 1) <= 0);
+    };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -161,8 +166,8 @@ export default function ModelYPage() {
         )}
       </AnimatePresence>
 
-      <section className="my-hero relative flex min-h-[90svh] h-screen max-h-[1100px] items-end overflow-hidden bg-[#151719] text-white" id="top">
-        <AnimatePresence mode="sync" initial={false}>
+      <section ref={heroRef} className="my-hero relative flex min-h-[90svh] h-screen max-h-[1100px] items-end overflow-hidden bg-[#151719] text-white" id="top">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.img
           key={selectedVariant}
           className="absolute inset-0 h-full w-full object-cover"
@@ -171,10 +176,10 @@ export default function ModelYPage() {
           loading="eager"
           fetchPriority="high"
           decoding="async"
-          initial={reduceMotion ? false : { scale: 1.035, opacity: 0.75 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ opacity: { duration: reduceMotion ? 0 : 0.55, ease: 'easeInOut' }, scale: { duration: reduceMotion ? 0 : 0.85, ease: [0.2, 0.7, 0.2, 1] } }}
-          exit={{ opacity: 0, transition: { duration: reduceMotion ? 0 : 0.4 } }}
+          initial={reduceMotion ? false : { opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: reduceMotion ? 0 : 0.6, ease: 'easeInOut' }}
+          exit={{ opacity: 0, transition: { duration: reduceMotion ? 0 : 0.6, ease: 'easeInOut' } }}
           style={{ position: 'absolute', inset: 0 }}
           />
         </AnimatePresence>
@@ -202,7 +207,14 @@ export default function ModelYPage() {
       <section className="my-spec-strip" id="specs">
         <div className="my-container grid grid-cols-2 gap-x-5 gap-y-7 py-8 sm:grid-cols-4 lg:py-10">
           {[{ value: model.range, label: 'ESTIMATED RANGE' }, { value: model.acceleration, label: selectedVariant === 'long_wheelbase' ? 'SEATING CONFIGURATION' : '0–60 MPH' }, { value: selectedVariant === 'standard' ? 'RWD' : 'AWD', label: 'DRIVE CONFIGURATION' }, { value: selectedVariant === 'long_wheelbase' ? 'MORE ROOM' : '5', label: selectedVariant === 'long_wheelbase' ? 'SPACE FOR EVERYONE' : 'SEATS, CONFIGURATION DEPENDENT' }].map((spec) => (
-            <motion.div layout key={spec.label} className="my-spec-item"><strong>{spec.value}</strong><span>{spec.label}</span></motion.div>
+            <motion.div layout key={spec.label} className="my-spec-item">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.strong key={`${selectedVariant}-${spec.label}-${spec.value}`} initial={reduceMotion ? false : { opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} transition={{ duration: reduceMotion ? 0 : 0.22 }}>
+                  {spec.value}
+                </motion.strong>
+              </AnimatePresence>
+              <span>{spec.label}</span>
+            </motion.div>
           ))}
           <p className="col-span-2 text-xs leading-relaxed text-black/45 sm:col-span-4">Specifications are illustrative and may vary by trim, wheels, configuration, market and driving conditions. Confirm current details with Tesla.</p>
         </div>
@@ -306,7 +318,7 @@ export default function ModelYPage() {
         <div className="my-performance-overlay absolute inset-0 -z-10" />
         <Reveal className="my-container grid min-h-[620px] items-end gap-10 py-20 sm:min-h-[720px] lg:grid-cols-[1fr_.65fr] lg:items-center lg:py-28">
           <div><p className="my-kicker text-white/65">POWER, PRECISELY DELIVERED</p><h2 className="my-heading mt-4 text-white">Feel every<br /><span>instant.</span></h2><p className="mt-5 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">Electric torque arrives without hesitation. A planted stance and responsive control bring a sense of connection to the road.</p></div>
-          <div className="my-performance-panel"><span className="my-kicker text-white/55">THE PERFORMANCE FEEL</span><div><strong>{model.acceleration}</strong><span>{selectedVariant === 'long_wheelbase' ? 'SEATING CONFIGURATION' : '0–60 MPH, CONFIGURATION DEPENDENT'}</span></div><p>Figures vary by vehicle configuration and conditions. Confirm current specifications with Tesla.</p><a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">Explore performance <ArrowUpRight size={15} /></a></div>
+          <div className="my-performance-panel"><span className="my-kicker text-white/55">THE PERFORMANCE FEEL</span><div><AnimatePresence mode="wait" initial={false}><motion.strong key={`${selectedVariant}-performance-metric`} initial={reduceMotion ? false : { opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} transition={{ duration: reduceMotion ? 0 : 0.22 }}>{model.acceleration}</motion.strong></AnimatePresence><span>{selectedVariant === 'long_wheelbase' ? 'SEATING CONFIGURATION' : '0–60 MPH, CONFIGURATION DEPENDENT'}</span></div><p>Figures vary by vehicle configuration and conditions. Confirm current specifications with Tesla.</p><a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">Explore performance <ArrowUpRight size={15} /></a></div>
         </Reveal>
       </section>
 
@@ -341,6 +353,57 @@ export default function ModelYPage() {
         </Reveal>
         <span className="absolute bottom-6 right-6 text-[8px] tracking-[.16em] text-white/55 sm:right-[5.1%]">05 — KEEP MOVING FORWARD</span>
       </section>
+
+      <AnimatePresence>
+        {heroPassed && !menuOpen && (
+          <motion.aside
+            className="my-variant-hud fixed inset-x-0 bottom-0 z-40 border-t border-muted/20 bg-background/80 backdrop-blur-md"
+            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 18 }}
+            transition={{ duration: reduceMotion ? 0 : 0.22 }}
+            aria-label="Quick vehicle configuration"
+          >
+            <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-[5.1%]">
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-semibold">{model.name}</p>
+                <p className="truncate text-[10px] text-black/55">{model.price}</p>
+              </div>
+              <div className="hidden items-center gap-1 sm:flex" role="group" aria-label="Select Model Y configuration">
+                {trims.map((trim) => (
+                  <button
+                    key={trim.id}
+                    type="button"
+                    onClick={() => setSelectedVariant(trim.id)}
+                    aria-pressed={selectedVariant === trim.id}
+                    className={`my-hud-variant rounded-full px-3 py-2 text-[10px] font-semibold transition-colors ${selectedVariant === trim.id ? 'my-hud-variant-active' : ''}`}
+                  >
+                    {trim.eyebrow === 'LONG WHEELBASE' ? 'MODEL Y L' : trim.eyebrow === 'STANDARD' ? 'STANDARD' : trim.eyebrow}
+                  </button>
+                ))}
+              </div>
+              <div className="flex min-w-0 flex-1 justify-end">
+                <a className="my-button my-button-light my-hud-order" href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">
+                  <span className="hidden sm:inline">Order Now</span><span className="sm:hidden">Order</span><ArrowUpRight size={14} />
+                </a>
+              </div>
+            </div>
+            <div className="flex gap-1 px-4 pb-3 sm:hidden" role="group" aria-label="Select Model Y configuration">
+              {trims.map((trim) => (
+                <button
+                  key={trim.id}
+                  type="button"
+                  onClick={() => setSelectedVariant(trim.id)}
+                  aria-pressed={selectedVariant === trim.id}
+                  className={`my-hud-variant flex-1 rounded-full px-2 py-2 text-[9px] font-semibold transition-colors ${selectedVariant === trim.id ? 'my-hud-variant-active' : ''}`}
+                >
+                  {trim.id === 'long_wheelbase' ? 'Y L' : trim.id === 'performance' ? 'PERF.' : trim.eyebrow}
+                </button>
+              ))}
+            </div>
+          </motion.aside>
+        )}
+      </AnimatePresence>
 
       <footer className="my-footer flex flex-col gap-5 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-[5.1%]">
         <a href="/" className="my-footer-wordmark">TESLA<span>®</span></a>
