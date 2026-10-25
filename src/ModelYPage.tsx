@@ -248,15 +248,14 @@ export default function ModelYPage() {
           />
         </AnimatePresence>
         <div className="my-hero-overlay absolute inset-0" />
-        <div className="my-hero-topline absolute left-5 right-5 top-28 flex items-center justify-between gap-4 sm:left-[5.1%] sm:right-[5.1%]">
-          <span className="my-glass-pill"><i /> THE ALL-ELECTRIC SUV</span>
-          <span className="hidden sm:block">DESIGNED AROUND YOUR LIFE</span>
+        <div className="my-hero-topline absolute right-5 top-28 hidden sm:block sm:right-[5.1%]">
+          DESIGNED AROUND YOUR LIFE
         </div>
         <div className="my-container relative z-10 w-full pb-24 pt-48 sm:pb-28 lg:pb-32">
           <motion.div className="max-w-4xl" initial={reduceMotion ? false : 'hidden'} animate="visible" variants={reveal}>
-            <p className="my-kicker mb-5 text-white/70">LESS COMPROMISE. MORE POSSIBILITY.</p>
+            <p className="my-kicker mb-3 text-white/90">THE ALL-ELECTRIC SUV</p>
             <h1 className="my-display">Model <span>Y.</span></h1>
-            <p className="mt-6 max-w-lg text-lg font-normal leading-relaxed text-white/80 sm:text-xl">Room for every version of life.</p>
+            <p className="my-body-copy my-dark-body mt-4">Room for every version of life.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <motion.button className="my-button my-button-light" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => jumpTo('variants')}>Explore Model Y <ArrowRight size={16} /></motion.button>
               <motion.button className="my-button my-button-glass" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => jumpTo('design')}>Discover the details <ArrowDown size={15} /></motion.button>
@@ -280,14 +279,14 @@ export default function ModelYPage() {
               <span>{spec.label}</span>
             </motion.div>
           ))}
-          <p className="col-span-2 text-xs leading-relaxed text-black/45 sm:col-span-4">Specifications are illustrative and may vary by trim, wheels, configuration, market and driving conditions. Confirm current details with Tesla.</p>
+          <p className="my-body-copy col-span-2 max-w-2xl text-sm sm:col-span-4">Specifications are illustrative and may vary by trim, wheels, configuration, market and driving conditions. Confirm current details with Tesla.</p>
         </div>
       </section>
 
       <section className="my-section my-container" id="variants">
         <Reveal className="mb-10 grid items-end gap-6 md:grid-cols-[1.15fr_.7fr] lg:mb-14">
-          <div><p className="my-kicker">FIND YOUR FIT / 01</p><h2 className="my-heading mt-4">One Model Y.<br /><span>Your kind of drive.</span></h2></div>
-          <p className="my-body-copy max-w-md md:justify-self-end">Choose the configuration that feels right. Vehicle imagery and specification highlights update as you explore.</p>
+          <div><p className="my-kicker">FIND YOUR FIT / 01</p><h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">One Model Y.<br /><span>Your kind of drive.</span></h2></div>
+          <p className="my-body-copy max-w-xl md:justify-self-end">Choose the configuration that feels right. Vehicle imagery and specification highlights update as you explore.</p>
         </Reveal>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {trims.map((trim, index) => {
@@ -299,7 +298,7 @@ export default function ModelYPage() {
                 <div className="flex items-center justify-between gap-3"><span className="my-kicker">{String(index + 1).padStart(2, '0')} / {trim.eyebrow}</span><motion.span layout className="my-trim-check">{selected && <Check size={12} />}</motion.span></div>
                 <div className="my-trim-image"><motion.img layout src={trim.image} alt={trim.name} loading="lazy" /></div>
                 <div className="flex items-center justify-between gap-2"><h3>{trim.name}</h3><ChevronRight size={17} className="shrink-0 text-black/45 transition-transform group-hover:translate-x-1" /></div>
-                <p className="my-trim-description">{trim.detail}</p>
+                <p className="my-trim-description my-card-body">{trim.detail}</p>
                 <div className="my-trim-bottom"><span>{trim.price}</span><span className="my-kicker">SELECT</span></div>
               </motion.button>
             );
@@ -318,8 +317,8 @@ export default function ModelYPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <Reveal className="mb-10 sm:mb-14">
             <p className="my-kicker">VISUAL OVERVIEW / 02</p>
-            <h2 id="gallery-heading" className="my-heading mt-4">Design in <span>detail.</span></h2>
-            <p className="my-body-copy mt-5 max-w-xl">{model.name} from every angle. Select another configuration above to explore its own visual collection.</p>
+            <h2 id="gallery-heading" className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">Design in <span>detail.</span></h2>
+            <p className="my-body-copy mt-0 max-w-xl">{model.name} from every angle. Select another configuration above to explore its own visual collection.</p>
           </Reveal>
           <motion.div
             key={selectedVariant}
@@ -352,9 +351,9 @@ export default function ModelYPage() {
         <img className="absolute inset-0 -z-20 h-full w-full object-cover" src={ASSETS.interior} alt="Model Y cabin and interior detail" loading="lazy" />
         <div className="my-interior-overlay absolute inset-0 -z-10" />
         <Reveal className="my-interior-copy my-container relative z-10 flex min-h-[620px] flex-col justify-end py-20 sm:min-h-[760px] lg:py-28">
-          <p className="my-kicker text-white/65">YOUR SPACE. YOUR PACE.</p>
-          <h2 className="my-heading mt-4 text-white">Calm, by<br /><span>design.</span></h2>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">A clean, considered cabin puts the focus on the journey. Open sightlines, flexible room and thoughtful details make the everyday feel a little less ordinary.</p>
+          <p className="my-kicker my-dark-eyebrow">YOUR SPACE. YOUR PACE.</p>
+          <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0 text-white">Calm, by<br /><span>design.</span></h2>
+          <p className="my-body-copy my-dark-body mt-0 max-w-xl">A clean, considered cabin puts the focus on the journey. Open sightlines, flexible room and thoughtful details make the everyday feel a little less ordinary.</p>
           <button className="my-button my-button-glass mt-7 w-fit" onClick={() => jumpTo('highlights')}>Explore the details <ArrowRight size={16} /></button>
         </Reveal>
         <span className="absolute bottom-6 right-6 text-[8px] tracking-[.16em] text-white/55 sm:right-[5.1%]">03 / SPACE TO RESET</span>
@@ -362,7 +361,7 @@ export default function ModelYPage() {
 
       <section className="my-section my-container" id="highlights">
         <Reveal className="mb-10 grid items-end gap-6 md:grid-cols-[1fr_.7fr] lg:mb-14">
-          <div><p className="my-kicker">MADE FOR THE MOMENTS BETWEEN</p><h2 className="my-heading mt-4">More than<br /><span>getting there.</span></h2></div>
+          <div><p className="my-kicker">MADE FOR THE MOMENTS BETWEEN</p><h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">More than<br /><span>getting there.</span></h2></div>
           <p className="my-body-copy max-w-md md:justify-self-end">Useful technology and considered engineering make Model Y feel intuitive from the first mile to the last.</p>
         </Reveal>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -385,13 +384,13 @@ export default function ModelYPage() {
           return (
             <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
               <div className="lg:col-span-4">
-                <p className="my-kicker text-white/55">POWER, PRECISELY DELIVERED</p>
-                <h2 className="my-heading mt-5 text-white">Feel every<br /><span className="text-white/40">instant.</span></h2>
-                <p className="mt-6 max-w-md text-base leading-relaxed text-white/65 sm:text-lg">
+                <p className="my-kicker my-dark-eyebrow">POWER, PRECISELY DELIVERED</p>
+                <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0 text-white">Feel every<br /><span className="text-white/40">instant.</span></h2>
+                <p className="my-body-copy my-dark-body mt-0 max-w-xl">
                   Electric torque arrives without hesitation. Explore how range, acceleration and top speed change across Model Y configurations. Choose a trim to bring its telemetry into focus.
                 </p>
                 <div className="mt-10 border-t border-white/10 pt-5">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">LIVE CONFIGURATION</p>
+                  <p className="my-kicker my-dark-eyebrow">LIVE CONFIGURATION</p>
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.div
                       key={activeName}
@@ -403,7 +402,7 @@ export default function ModelYPage() {
                       <h3 className="mt-3 text-2xl font-medium tracking-tight">
                         {activeName === 'Long WL' ? 'Model Y L' : `Model Y ${activeName === 'Standard' ? '' : activeName}`}
                       </h3>
-                      <p className="mt-2 text-sm text-white/45">
+                      <p className="my-body-copy my-dark-body mt-2 max-w-xl text-sm">
                         {activeName === 'Performance'
                           ? 'Performance-focused configuration'
                           : activeName === 'Long WL'
@@ -426,8 +425,8 @@ export default function ModelYPage() {
                 <div className="relative z-10">
                   <div className="flex flex-wrap items-start justify-between gap-4">
                     <div>
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">PERFORMANCE LAB / 01</p>
-                      <h3 className="mt-2 text-lg font-medium tracking-tight sm:text-xl">Configuration comparison</h3>
+                      <p className="my-kicker my-dark-eyebrow">PERFORMANCE LAB / 01</p>
+                      <h3 className="my-panel-heading">Configuration comparison</h3>
                     </div>
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] text-white/55">
                       <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-sm bg-[#cc0000]" />Range (mi)</span>
@@ -538,19 +537,19 @@ export default function ModelYPage() {
                       aria-live="polite"
                     >
                       <div>
-                        <p className="text-[9px] uppercase tracking-[0.16em] text-white/40">Estimated range</p>
+                        <p className="my-kicker my-dark-eyebrow">Estimated range</p>
                         <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
                           {activeData['Range (mi)']}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">mi</span>
                         </p>
                       </div>
                       <div>
-                        <p className="text-[9px] uppercase tracking-[0.16em] text-white/40">0–60 mph</p>
+                        <p className="my-kicker my-dark-eyebrow">0–60 mph</p>
                         <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
                           {activeData['0-60 mph (s)'].toFixed(1)}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">s</span>
                         </p>
                       </div>
                       <div>
-                        <p className="text-[9px] uppercase tracking-[0.16em] text-white/40">Top speed</p>
+                        <p className="my-kicker my-dark-eyebrow">Top speed</p>
                         <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
                           {activeData['Top Speed (mph)']}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">mph</span>
                         </p>
@@ -558,7 +557,7 @@ export default function ModelYPage() {
                     </motion.div>
                   </AnimatePresence>
 
-                  <p className="mt-6 text-[10px] leading-relaxed text-white/30">
+                  <p className="my-body-copy my-dark-body mt-6 max-w-2xl text-sm">
                     Illustrative comparison data. Specifications can vary by market, wheels, equipment and model year. Verify current figures with Tesla before making a purchase decision.
                   </p>
                 </div>
@@ -571,13 +570,13 @@ export default function ModelYPage() {
       <section className="my-charging-section my-container grid items-center gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-20" id="charging">
         <Reveal className="max-w-xl">
           <p className="my-kicker">CHARGE INTO WHAT'S NEXT</p>
-          <h2 className="my-heading mt-4">The miles<br /><span>add up.</span></h2>
+          <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">The miles<br /><span>add up.</span></h2>
           <p className="my-body-copy mt-5">Charging that fits around your routine can make electric driving feel simple. Explore home charging and the Tesla Supercharger network for journeys near and far.</p>
           <div className="my-distance-tool mt-8">
             <div className="flex items-center justify-between gap-4"><label htmlFor="my-distance" className="my-kicker">YOUR DAILY DRIVE</label><strong>{distance} mi</strong></div>
             <input id="my-distance" type="range" min="10" max="400" step="10" value={distance} onChange={(event) => setDistance(Number(event.target.value))} className="mt-5 w-full" />
             <div className="mt-2 flex justify-between text-xs text-black/45"><span>10 mi</span><span>400 mi</span></div>
-            <p className="mt-4 text-xs leading-relaxed text-black/50">Illustrative distance planner only — actual energy use and charging needs depend on vehicle, weather, route and driving style.</p>
+            <p className="my-body-copy mt-4 max-w-xl text-sm">Illustrative distance planner only — actual energy use and charging needs depend on vehicle, weather, route and driving style.</p>
           </div>
           <a className="my-inline-link mt-7" href="https://www.tesla.com/supercharger" target="_blank" rel="noreferrer">Explore charging <ArrowUpRight size={16} /></a>
         </Reveal>
@@ -593,8 +592,8 @@ export default function ModelYPage() {
         <div className="my-closing-overlay absolute inset-0 -z-10" />
         <Reveal className="my-container flex min-h-[580px] flex-col items-start justify-center py-24 sm:min-h-[660px]">
           <p className="my-kicker text-white/65">YOUR NEXT CHAPTER</p>
-          <h2 className="my-heading mt-4 text-white">Make room<br />for <span>more.</span></h2>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">Meet the all-electric SUV designed to make space for the way you really live.</p>
+          <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0 text-white">Make room<br />for <span>more.</span></h2>
+          <p className="my-body-copy my-dark-body mt-0 max-w-xl">Meet the all-electric SUV designed to make space for the way you really live.</p>
           <motion.a className="my-button my-button-light mt-8" href="https://www.tesla.com/modely" target="_blank" rel="noreferrer" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>Explore Model Y <ArrowUpRight size={16} /></motion.a>
         </Reveal>
         <span className="absolute bottom-6 right-6 text-[8px] tracking-[.16em] text-white/55 sm:right-[5.1%]">05 — KEEP MOVING FORWARD</span>
