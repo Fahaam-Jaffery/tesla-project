@@ -248,7 +248,7 @@ export default function ModelYPage() {
           <motion.div
             key={selectedVariant}
             layout
-            className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]"
+            className="my-gallery-grid columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]"
           >
             {GALLERY_ASSETS[selectedVariant].map((asset, index) => (
               <motion.div
