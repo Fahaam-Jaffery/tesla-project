@@ -4,6 +4,17 @@ import {
   ArrowDown, ArrowRight, ArrowUpRight, BatteryCharging, Check, ChevronRight,
   Gauge, Menu, ShieldCheck, Smartphone, Users, X,
 } from 'lucide-react';
+import {
+  Bar,
+  CartesianGrid,
+  Cell,
+  ComposedChart,
+  Line,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import './modely.css';
 
 type TrimId = 'standard' | 'premium' | 'long_wheelbase' | 'performance';
@@ -66,6 +77,59 @@ const trims: Trim[] = [
   { id: 'long_wheelbase', name: 'Model Y L', eyebrow: 'LONG WHEELBASE', price: 'Explore configuration', range: 'Explore range', acceleration: '6 seats', drivetrain: 'Dual Motor All-Wheel Drive', image: ASSETS.long_wheelbase, detail: 'An extended wheelbase and a little more room for everyone coming along.' },
   { id: 'performance', name: 'Model Y Performance', eyebrow: 'PERFORMANCE', price: 'Explore configuration', range: '306 mi', acceleration: '3.3 s', drivetrain: 'Dual Motor All-Wheel Drive', image: ASSETS.performance, detail: 'Sharper response and a performance-focused feel, built around the drive.' },
 ];
+
+type PerformanceComparison = {
+  name: 'Standard' | 'Premium' | 'Long WL' | 'Performance';
+  '0-60 mph (s)': number;
+  'Range (mi)': number;
+  'Top Speed (mph)': number;
+};
+
+const PERFORMANCE_COMPARISON_DATA: PerformanceComparison[] = [
+  { name: 'Standard', '0-60 mph (s)': 5.0, 'Range (mi)': 260, 'Top Speed (mph)': 135 },
+  { name: 'Premium', '0-60 mph (s)': 4.8, 'Range (mi)': 292, 'Top Speed (mph)': 135 },
+  { name: 'Long WL', '0-60 mph (s)': 4.8, 'Range (mi)': 320, 'Top Speed (mph)': 135 },
+  { name: 'Performance', '0-60 mph (s)': 3.5, 'Range (mi)': 279, 'Top Speed (mph)': 155 },
+];
+
+const PERFORMANCE_NAME_BY_TRIM: Record<TrimId, PerformanceComparison['name']> = {
+  standard: 'Standard',
+  premium: 'Premium',
+  long_wheelbase: 'Long WL',
+  performance: 'Performance',
+};
+
+function PerformanceTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: Array<{ dataKey?: string; value?: number | string }>;
+  label?: string;
+}) {
+  if (!active || !payload?.length) return null;
+  const range = payload.find((item) => item.dataKey === 'Range (mi)')?.value;
+  const acceleration = payload.find((item) => item.dataKey === '0-60 mph (s)')?.value;
+
+  return (
+    <div className="min-w-[170px] rounded-xl border border-white/10 bg-neutral-900/90 p-4 text-xs text-white shadow-xl backdrop-blur-sm">
+      <p className="mb-3 font-semibold tracking-wide">{label}</p>
+      {range !== undefined && (
+        <div className="mb-2 flex items-center justify-between gap-5">
+          <span className="text-white/55">Range</span>
+          <strong className="font-mono">{range} mi</strong>
+        </div>
+      )}
+      {acceleration !== undefined && (
+        <div className="flex items-center justify-between gap-5">
+          <span className="text-white/55">0–60 mph</span>
+          <strong className="font-mono">{acceleration} s</strong>
+        </div>
+      )}
+    </div>
+  );
+}
 
 const highlights = [
   { number: '01', icon: Gauge, title: 'Instant response', copy: 'Smooth, immediate acceleration and a low centre of gravity make each drive feel composed.' },
@@ -313,13 +377,195 @@ export default function ModelYPage() {
         </div>
       </section>
 
-      <section className="my-performance-section relative isolate overflow-hidden text-white" id="performance">
-        <img className="absolute inset-0 -z-20 h-full w-full object-cover" src={ASSETS.performance} alt="Model Y Performance exterior" loading="lazy" />
-        <div className="my-performance-overlay absolute inset-0 -z-10" />
-        <Reveal className="my-container grid min-h-[620px] items-end gap-10 py-20 sm:min-h-[720px] lg:grid-cols-[1fr_.65fr] lg:items-center lg:py-28">
-          <div><p className="my-kicker text-white/65">POWER, PRECISELY DELIVERED</p><h2 className="my-heading mt-4 text-white">Feel every<br /><span>instant.</span></h2><p className="mt-5 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">Electric torque arrives without hesitation. A planted stance and responsive control bring a sense of connection to the road.</p></div>
-          <div className="my-performance-panel"><span className="my-kicker text-white/55">THE PERFORMANCE FEEL</span><div><AnimatePresence mode="wait" initial={false}><motion.strong key={`${selectedVariant}-performance-metric`} initial={reduceMotion ? false : { opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} transition={{ duration: reduceMotion ? 0 : 0.22 }}>{model.acceleration}</motion.strong></AnimatePresence><span>{selectedVariant === 'long_wheelbase' ? 'SEATING CONFIGURATION' : '0–60 MPH, CONFIGURATION DEPENDENT'}</span></div><p>Figures vary by vehicle configuration and conditions. Confirm current specifications with Tesla.</p><a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">Explore performance <ArrowUpRight size={15} /></a></div>
-        </Reveal>
+      <section className="my-performance-section relative overflow-hidden bg-[#08090b] text-white" id="performance">
+        {(() => {
+          const activeName = PERFORMANCE_NAME_BY_TRIM[selectedVariant];
+          const activeData = PERFORMANCE_COMPARISON_DATA.find((item) => item.name === activeName) ?? PERFORMANCE_COMPARISON_DATA[3];
+
+          return (
+            <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
+              <div className="lg:col-span-4">
+                <p className="my-kicker text-white/55">POWER, PRECISELY DELIVERED</p>
+                <h2 className="my-heading mt-5 text-white">Feel every<br /><span className="text-white/40">instant.</span></h2>
+                <p className="mt-6 max-w-md text-base leading-relaxed text-white/65 sm:text-lg">
+                  Electric torque arrives without hesitation. Explore how range, acceleration and top speed change across Model Y configurations. Choose a trim to bring its telemetry into focus.
+                </p>
+                <div className="mt-10 border-t border-white/10 pt-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">LIVE CONFIGURATION</p>
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                      key={activeName}
+                      initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+                      transition={{ duration: reduceMotion ? 0 : 0.24 }}
+                    >
+                      <h3 className="mt-3 text-2xl font-medium tracking-tight">
+                        {activeName === 'Long WL' ? 'Model Y L' : `Model Y ${activeName === 'Standard' ? '' : activeName}`}
+                      </h3>
+                      <p className="mt-2 text-sm text-white/45">
+                        {activeName === 'Performance'
+                          ? 'Performance-focused configuration'
+                          : activeName === 'Long WL'
+                            ? 'Extended-wheelbase configuration'
+                            : activeName === 'Premium'
+                              ? 'Premium all-wheel-drive configuration'
+                              : 'Standard configuration'}
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+                <div className="mt-8 flex items-center gap-3">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#e82127] shadow-[0_0_12px_rgba(232,33,39,0.7)]" />
+                  <span className="text-[10px] uppercase tracking-[0.16em] text-white/45">Comparative performance telemetry</span>
+                </div>
+              </div>
+
+              <div className="relative overflow-hidden rounded-3xl border border-white/5 bg-black/40 p-5 shadow-2xl backdrop-blur-md sm:p-6 lg:col-span-8 lg:p-8">
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(204,0,0,0.12),transparent_48%)]" />
+                <div className="relative z-10">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">PERFORMANCE LAB / 01</p>
+                      <h3 className="mt-2 text-lg font-medium tracking-tight sm:text-xl">Configuration comparison</h3>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] text-white/55">
+                      <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-sm bg-[#cc0000]" />Range (mi)</span>
+                      <span className="inline-flex items-center gap-2"><span className="h-[2px] w-4 bg-white" />0–60 mph (s)</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-7 h-[280px] w-full sm:h-[330px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <ComposedChart data={PERFORMANCE_COMPARISON_DATA} margin={{ top: 16, right: 4, left: -18, bottom: 4 }}>
+                        <defs>
+                          <linearGradient id="teslaRedGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#CC0000" stopOpacity={1} />
+                            <stop offset="100%" stopColor="#7F0000" stopOpacity={0.2} />
+                          </linearGradient>
+                          <filter id="teslaActiveBarGlow" x="-80%" y="-20%" width="260%" height="150%">
+                            <feGaussianBlur stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                          </filter>
+                        </defs>
+                        <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.07)" strokeDasharray="3 5" />
+                        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#858585', fontSize: 10 }} tickMargin={12} interval={0} />
+                        <YAxis yAxisId="range" domain={[0, 360]} axisLine={false} tickLine={false} tick={{ fill: '#666a70', fontSize: 10 }} tickCount={5} />
+                        <YAxis yAxisId="acceleration" orientation="right" domain={[0, 6]} reversed hide />
+                        <Tooltip content={<PerformanceTooltip />} cursor={{ fill: 'rgba(255,255,255,0.035)' }} />
+                        <Bar yAxisId="range" dataKey="Range (mi)" barSize={34} radius={[5, 5, 0, 0]} isAnimationActive={!reduceMotion} animationDuration={650} animationEasing="ease-out">
+                          {PERFORMANCE_COMPARISON_DATA.map((entry) => {
+                            const isActive = entry.name === activeName;
+                            return (
+                              <Cell
+                                key={entry.name}
+                                fill="url(#teslaRedGradient)"
+                                fillOpacity={isActive ? 1 : 0.4}
+                                stroke={isActive ? '#ff3339' : 'transparent'}
+                                strokeWidth={isActive ? 1 : 0}
+                                filter={isActive ? 'url(#teslaActiveBarGlow)' : undefined}
+                              />
+                            );
+                          })}
+                        </Bar>
+                        <Line
+                          yAxisId="acceleration"
+                          type="monotone"
+                          dataKey="0-60 mph (s)"
+                          stroke="#f5f5f7"
+                          strokeWidth={2}
+                          dot={(props) => {
+                            const point = props as { cx?: number; cy?: number; payload?: PerformanceComparison };
+                            if (!point.payload || point.cx === undefined || point.cy === undefined) return <g key="empty-dot" />;
+                            const isActive = point.payload.name === activeName;
+                            return (
+                              <circle
+                                key={point.payload.name}
+                                cx={point.cx}
+                                cy={point.cy}
+                                r={isActive ? 5 : 3}
+                                fill={isActive ? '#ffffff' : '#858585'}
+                                stroke={isActive ? '#e82127' : '#858585'}
+                                strokeWidth={isActive ? 2 : 1}
+                                opacity={isActive ? 1 : 0.4}
+                              />
+                            );
+                          }}
+                          activeDot={{ r: 6, fill: '#ffffff', stroke: '#e82127', strokeWidth: 2 }}
+                          isAnimationActive={!reduceMotion}
+                          animationDuration={650}
+                          animationEasing="ease-out"
+                        />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  <div className="mt-2 flex items-center justify-between border-t border-white/10 pt-4">
+                    <span className="text-[9px] uppercase tracking-[0.16em] text-white/35">Select a configuration below</span>
+                    <span className="font-mono text-[10px] text-white/45">04 CONFIGURATIONS</span>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4" role="group" aria-label="Select performance configuration">
+                    {PERFORMANCE_COMPARISON_DATA.map((entry) => {
+                      const isActive = entry.name === activeName;
+                      const trimId = (Object.keys(PERFORMANCE_NAME_BY_TRIM) as TrimId[]).find((id) => PERFORMANCE_NAME_BY_TRIM[id] === entry.name);
+                      if (!trimId) return null;
+                      return (
+                        <motion.button
+                          key={entry.name}
+                          type="button"
+                          onClick={() => setSelectedVariant(trimId)}
+                          aria-pressed={isActive}
+                          whileHover={reduceMotion ? undefined : { y: -2 }}
+                          whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+                          className={`rounded-xl border px-3 py-3 text-left transition-colors ${isActive ? 'border-[#e82127]/70 bg-[#e82127]/10' : 'border-white/10 bg-white/[0.025] hover:bg-white/[0.06]'}`}
+                        >
+                          <span className={`block text-[10px] font-semibold ${isActive ? 'text-white' : 'text-white/55'}`}>{entry.name}</span>
+                          <span className="mt-1 block font-mono text-xs text-white/40">{entry['Range (mi)']} mi</span>
+                        </motion.button>
+                      );
+                    })}
+                  </div>
+
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                      key={activeName}
+                      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+                      transition={{ duration: reduceMotion ? 0 : 0.24 }}
+                      className="mt-7 grid grid-cols-1 gap-5 border-t border-white/10 pt-6 sm:grid-cols-3 sm:gap-4"
+                      aria-live="polite"
+                    >
+                      <div>
+                        <p className="text-[9px] uppercase tracking-[0.16em] text-white/40">Estimated range</p>
+                        <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
+                          {activeData['Range (mi)']}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">mi</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[9px] uppercase tracking-[0.16em] text-white/40">0–60 mph</p>
+                        <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
+                          {activeData['0-60 mph (s)'].toFixed(1)}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">s</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[9px] uppercase tracking-[0.16em] text-white/40">Top speed</p>
+                        <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
+                          {activeData['Top Speed (mph)']}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">mph</span>
+                        </p>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  <p className="mt-6 text-[10px] leading-relaxed text-white/30">
+                    Illustrative comparison data. Specifications can vary by market, wheels, equipment and model year. Verify current figures with Tesla before making a purchase decision.
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
       </section>
 
       <section className="my-charging-section my-container grid items-center gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-20" id="charging">
