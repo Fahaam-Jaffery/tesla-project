@@ -29,6 +29,37 @@ const ASSETS = {
   long_wheelbase: '/models/model-y/variants/long/Model-Y-L.avif',
 };
 
+
+type GalleryAsset = { src: string; alt: string; shape: 'portrait' | 'landscape' | 'detail' | 'wide' };
+
+// Each configuration has its own four-image set, using verified local assets.
+const GALLERY_ASSETS: Record<TrimId, GalleryAsset[]> = {
+  standard: [
+    { src: '/models/model-y/Model-Y-Standard%20(6).avif', alt: 'Model Y Standard — front three-quarter exterior view', shape: 'landscape' },
+    { src: '/models/model-y/Model-Y-Standard%20(4).avif', alt: 'Model Y Standard — sculpted side profile', shape: 'portrait' },
+    { src: '/models/model-y/Model-Y-Standard%20(5).avif', alt: 'Model Y Standard — exterior detail', shape: 'detail' },
+    { src: '/models/model-y/Model-Y-Standard%20(7).avif', alt: 'Model Y Standard — cabin and design detail', shape: 'wide' },
+  ],
+  premium: [
+    { src: '/models/model-y/variants/premium/Model-Y-Premium%20Exterior.avif', alt: 'Model Y Premium — front three-quarter exterior view', shape: 'landscape' },
+    { src: '/models/model-y/variants/premium/Model-Y-Premium%20Exterior%20(2).avif', alt: 'Model Y Premium — sculpted exterior profile', shape: 'portrait' },
+    { src: '/models/model-y/variants/premium/Model-Y-Premium%20(2).avif', alt: 'Model Y Premium — exterior design detail', shape: 'detail' },
+    { src: '/models/model-y/variants/premium/Model-Y-Premium-Remote.avif', alt: 'Model Y Premium — remote and cabin technology detail', shape: 'wide' },
+  ],
+  long_wheelbase: [
+    { src: '/models/model-y/variants/long/Model-Y-L%20(2).avif', alt: 'Model Y L — front three-quarter exterior view', shape: 'landscape' },
+    { src: '/models/model-y/variants/long/Model-Y-L%20(3).avif', alt: 'Model Y L — extended side profile', shape: 'portrait' },
+    { src: '/models/model-y/variants/long/Model-Y-L%20(4).avif', alt: 'Model Y L — exterior design detail', shape: 'detail' },
+    { src: '/models/model-y/variants/long/Model-Y-L-Interior%20(2).avif', alt: 'Model Y L — spacious multi-row interior', shape: 'wide' },
+  ],
+  performance: [
+    { src: '/models/model-y/variants/performance/Model-Y-Performance%20(2).avif', alt: 'Model Y Performance — front three-quarter exterior view', shape: 'landscape' },
+    { src: '/models/model-y/variants/performance/Model-Y-Performance.avif', alt: 'Model Y Performance — athletic exterior profile', shape: 'portrait' },
+    { src: '/models/model-y/variants/performance/Model-Y-Performance-Suspension.avif', alt: 'Model Y Performance — chassis and suspension engineering detail', shape: 'detail' },
+    { src: '/models/model-y/variants/performance/Model-Y-Performance-Energy.avif', alt: 'Model Y Performance — energy and charging detail', shape: 'wide' },
+  ],
+};
+
 const trims: Trim[] = [
   { id: 'standard', name: 'Model Y', eyebrow: 'STANDARD', price: 'Explore configuration', range: '321 mi', acceleration: '5.9 s', drivetrain: 'Rear-Wheel Drive', image: ASSETS.standard, detail: 'Everyday versatility, thoughtful space and a confident all-electric drive.' },
   { id: 'premium', name: 'Model Y Premium', eyebrow: 'PREMIUM', price: 'Explore configuration', range: '327 mi', acceleration: '4.3 s', drivetrain: 'Dual Motor All-Wheel Drive', image: ASSETS.premium, detail: 'A more refined everyday drive with the added confidence of all-wheel drive.' },
@@ -207,21 +238,38 @@ export default function ModelYPage() {
         </AnimatePresence>
       </section>
 
-      <section className="my-design-section" id="design">
-        <div className="my-design-media">
-          <motion.img src={ASSETS.design} alt="Model Y exterior design and sculpted silhouette" loading="lazy" whileHover={reduceMotion ? undefined : { scale: 1.025 }} transition={{ duration: 0.7 }} />
-          <span className="my-image-caption">FORM MEETS FUNCTION / 02</span>
+      <section className="my-gallery-section" id="design" aria-labelledby="gallery-heading">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <Reveal className="mb-10 sm:mb-14">
+            <p className="my-kicker">VISUAL OVERVIEW / 02</p>
+            <h2 id="gallery-heading" className="my-heading mt-4">Design in <span>detail.</span></h2>
+            <p className="my-body-copy mt-5 max-w-xl">{model.name} from every angle. Select another configuration above to explore its own visual collection.</p>
+          </Reveal>
+          <motion.div
+            key={selectedVariant}
+            layout
+            className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]"
+          >
+            {GALLERY_ASSETS[selectedVariant].map((asset, index) => (
+              <motion.div
+                key={`${selectedVariant}-${asset.src}`}
+                layout
+                initial={reduceMotion ? false : { opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: reduceMotion ? 0 : 0.42, delay: reduceMotion ? 0 : index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                className="break-inside-avoid mb-4 rounded-2xl overflow-hidden border border-muted/10 bg-muted/5"
+              >
+                <img
+                  src={asset.src}
+                  alt={asset.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className={`block w-full object-cover transition-transform duration-700 hover:scale-[1.025] ${asset.shape === 'portrait' ? 'aspect-[4/5]' : asset.shape === 'detail' ? 'aspect-[5/4]' : asset.shape === 'wide' ? 'aspect-[4/3]' : 'aspect-[3/2]'}`}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-        <Reveal className="my-design-copy">
-          <p className="my-kicker">DESIGN THAT DOES MORE</p>
-          <h2 className="my-heading mt-4">Every line<br />has a <span>reason.</span></h2>
-          <p className="my-body-copy mt-5">A streamlined silhouette, considered proportions and a practical footprint come together in a design made to feel at home almost anywhere.</p>
-          <div className="my-design-metrics mt-9 grid grid-cols-1 gap-6 border-t border-black/10 pt-6 sm:grid-cols-2">
-            <div><span className="my-kicker">AERODYNAMIC FORM</span><strong className="mt-2 block text-xl tracking-tight sm:text-2xl">Form with purpose.</strong><p className="mt-2 text-sm leading-relaxed text-black/55">A streamlined silhouette and carefully considered proportions help air flow smoothly around the vehicle.</p></div>
-            <div><span className="my-kicker">SCULPTED PROFILE</span><strong className="mt-2 block text-xl tracking-tight sm:text-2xl">Every line, considered.</strong><p className="mt-2 text-sm leading-relaxed text-black/55">Clean surfaces and a confident stance balance visual simplicity with everyday practicality.</p></div>
-            <p className="text-xs leading-relaxed text-black/45 sm:col-span-2">Aerodynamic performance depends on vehicle configuration, wheels and operating conditions. Refer to Tesla for official specifications.</p>
-          </div>
-        </Reveal>
       </section>
 
       <section className="my-interior-section relative isolate overflow-hidden text-white" id="interior">
