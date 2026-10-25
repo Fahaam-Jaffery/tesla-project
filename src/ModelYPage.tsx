@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import './modely.css';
 
-type TrimId = 'standard' | 'premium' | 'long' | 'performance';
+type TrimId = 'standard' | 'premium' | 'long_wheelbase' | 'performance';
 type Trim = {
   id: TrimId;
   name: string;
@@ -18,32 +18,22 @@ type Trim = {
   image: string;
   detail: string;
 };
-type Paint = { name: string; hex: string; description: string };
 
 const ASSETS = {
-  hero: '/models/model-y/Model-Y-Standard%20(6).avif',
   interior: '/models/model-y/variants/long/Model-Y-L-Interior.avif',
   performance: '/models/model-y/variants/performance/Model-Y-Performance.avif',
   charging: '/models/model-y/variants/performance/Model-Y-Performance-Energy.avif',
   design: '/models/model-y/Model-Y-Standard%20(2).avif',
   standard: '/models/model-y/Model-Y-Standard.avif',
   premium: '/models/model-y/variants/premium/Model-Y-Premium.avif',
-  long: '/models/model-y/variants/long/Model-Y-L.avif',
+  long_wheelbase: '/models/model-y/variants/long/Model-Y-L.avif',
 };
 
 const trims: Trim[] = [
   { id: 'standard', name: 'Model Y', eyebrow: 'STANDARD', price: 'Explore configuration', range: '321 mi', acceleration: '5.9 s', drivetrain: 'Rear-Wheel Drive', image: ASSETS.standard, detail: 'Everyday versatility, thoughtful space and a confident all-electric drive.' },
   { id: 'premium', name: 'Model Y Premium', eyebrow: 'PREMIUM', price: 'Explore configuration', range: '327 mi', acceleration: '4.3 s', drivetrain: 'Dual Motor All-Wheel Drive', image: ASSETS.premium, detail: 'A more refined everyday drive with the added confidence of all-wheel drive.' },
-  { id: 'long', name: 'Model Y L', eyebrow: 'LONG WHEELBASE', price: 'Explore configuration', range: 'Explore range', acceleration: '6 seats', drivetrain: 'Dual Motor All-Wheel Drive', image: ASSETS.long, detail: 'An extended wheelbase and a little more room for everyone coming along.' },
+  { id: 'long_wheelbase', name: 'Model Y L', eyebrow: 'LONG WHEELBASE', price: 'Explore configuration', range: 'Explore range', acceleration: '6 seats', drivetrain: 'Dual Motor All-Wheel Drive', image: ASSETS.long_wheelbase, detail: 'An extended wheelbase and a little more room for everyone coming along.' },
   { id: 'performance', name: 'Model Y Performance', eyebrow: 'PERFORMANCE', price: 'Explore configuration', range: '306 mi', acceleration: '3.3 s', drivetrain: 'Dual Motor All-Wheel Drive', image: ASSETS.performance, detail: 'Sharper response and a performance-focused feel, built around the drive.' },
-];
-
-const paints: Paint[] = [
-  { name: 'Pearl White', hex: '#e8e8e4', description: 'Pearl White Multi-Coat' },
-  { name: 'Stealth Grey', hex: '#62666a', description: 'Stealth Grey' },
-  { name: 'Solid Black', hex: '#17191b', description: 'Solid Black' },
-  { name: 'Ultra Red', hex: '#8c252c', description: 'Ultra Red' },
-  { name: 'Quicksilver', hex: '#aeb1b2', description: 'Quicksilver' },
 ];
 
 const highlights = [
@@ -76,14 +66,12 @@ function Reveal({ children, className = '', delay = 0 }: { children: ReactNode; 
 }
 
 export default function ModelYPage() {
-  const [activeTrim, setActiveTrim] = useState<TrimId>('standard');
-  const [activePaint, setActivePaint] = useState('Pearl White');
+  const [selectedVariant, setSelectedVariant] = useState<TrimId>('performance');
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [distance, setDistance] = useState(180);
   const reduceMotion = useReducedMotion();
-  const model = trims.find((trim) => trim.id === activeTrim) ?? trims[0];
-  const paint = paints.find((item) => item.name === activePaint) ?? paints[0];
+  const model = trims.find((trim) => trim.id === selectedVariant) ?? trims[3];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
@@ -143,17 +131,22 @@ export default function ModelYPage() {
       </AnimatePresence>
 
       <section className="my-hero relative flex min-h-[90svh] h-screen max-h-[1100px] items-end overflow-hidden bg-[#151719] text-white" id="top">
-        <motion.img
+        <AnimatePresence mode="sync" initial={false}>
+          <motion.img
+          key={selectedVariant}
           className="absolute inset-0 h-full w-full object-cover"
-          src={ASSETS.hero}
-          alt="Tesla Model Y in a cinematic exterior setting"
+          src={model.image}
+          alt={`${model.name} in a cinematic exterior setting`}
           loading="eager"
           fetchPriority="high"
           decoding="async"
           initial={reduceMotion ? false : { scale: 1.035, opacity: 0.75 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.1, ease: [0.2, 0.7, 0.2, 1] }}
-        />
+          transition={{ opacity: { duration: reduceMotion ? 0 : 0.55, ease: 'easeInOut' }, scale: { duration: reduceMotion ? 0 : 0.85, ease: [0.2, 0.7, 0.2, 1] } }}
+          exit={{ opacity: 0, transition: { duration: reduceMotion ? 0 : 0.4 } }}
+          style={{ position: 'absolute', inset: 0 }}
+          />
+        </AnimatePresence>
         <div className="my-hero-overlay absolute inset-0" />
         <div className="my-hero-topline absolute left-5 right-5 top-28 flex items-center justify-between gap-4 sm:left-[5.1%] sm:right-[5.1%]">
           <span className="my-glass-pill"><i /> THE ALL-ELECTRIC SUV</span>
@@ -177,7 +170,7 @@ export default function ModelYPage() {
 
       <section className="my-spec-strip" id="specs">
         <div className="my-container grid grid-cols-2 gap-x-5 gap-y-7 py-8 sm:grid-cols-4 lg:py-10">
-          {[{ value: model.range, label: 'ESTIMATED RANGE' }, { value: model.acceleration, label: activeTrim === 'long' ? 'SEATING CONFIGURATION' : '0–60 MPH' }, { value: activeTrim === 'standard' ? 'RWD' : 'AWD', label: 'DRIVE CONFIGURATION' }, { value: activeTrim === 'long' ? 'MORE ROOM' : '5', label: activeTrim === 'long' ? 'SPACE FOR EVERYONE' : 'SEATS, CONFIGURATION DEPENDENT' }].map((spec) => (
+          {[{ value: model.range, label: 'ESTIMATED RANGE' }, { value: model.acceleration, label: selectedVariant === 'long_wheelbase' ? 'SEATING CONFIGURATION' : '0–60 MPH' }, { value: selectedVariant === 'standard' ? 'RWD' : 'AWD', label: 'DRIVE CONFIGURATION' }, { value: selectedVariant === 'long_wheelbase' ? 'MORE ROOM' : '5', label: selectedVariant === 'long_wheelbase' ? 'SPACE FOR EVERYONE' : 'SEATS, CONFIGURATION DEPENDENT' }].map((spec) => (
             <motion.div layout key={spec.label} className="my-spec-item"><strong>{spec.value}</strong><span>{spec.label}</span></motion.div>
           ))}
           <p className="col-span-2 text-xs leading-relaxed text-black/45 sm:col-span-4">Specifications are illustrative and may vary by trim, wheels, configuration, market and driving conditions. Confirm current details with Tesla.</p>
@@ -191,9 +184,9 @@ export default function ModelYPage() {
         </Reveal>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {trims.map((trim, index) => {
-            const selected = activeTrim === trim.id;
+            const selected = selectedVariant === trim.id;
             return (
-              <motion.button key={trim.id} layout onClick={() => setActiveTrim(trim.id)} aria-pressed={selected}
+              <motion.button key={trim.id} layout onClick={() => setSelectedVariant(trim.id)} aria-pressed={selected}
                 className={`my-trim-card group text-left ${selected ? 'my-trim-selected' : ''}`}
                 whileHover={{ y: -4 }} whileTap={{ scale: 0.99 }} transition={spring}>
                 <div className="flex items-center justify-between gap-3"><span className="my-kicker">{String(index + 1).padStart(2, '0')} / {trim.eyebrow}</span><motion.span layout className="my-trim-check">{selected && <Check size={12} />}</motion.span></div>
@@ -223,13 +216,10 @@ export default function ModelYPage() {
           <p className="my-kicker">DESIGN THAT DOES MORE</p>
           <h2 className="my-heading mt-4">Every line<br />has a <span>reason.</span></h2>
           <p className="my-body-copy mt-5">A streamlined silhouette, considered proportions and a practical footprint come together in a design made to feel at home almost anywhere.</p>
-          <div className="my-paint-picker mt-9 border-t border-black/10 pt-6">
-            <span className="my-kicker">EXPLORE EXTERIOR FINISHES</span>
-            <div className="my-swatches mt-4 flex flex-wrap gap-3">{paints.map((item) => (
-              <motion.button layout key={item.name} onClick={() => setActivePaint(item.name)} aria-label={item.description} aria-pressed={activePaint === item.name} title={item.description} whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.94 }} className={`my-swatch ${activePaint === item.name ? 'my-swatch-active' : ''}`}><i style={{ backgroundColor: item.hex }} /></motion.button>
-            ))}</div>
-            <AnimatePresence mode="wait"><motion.strong key={paint.name} className="mt-3 block text-sm font-medium" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}>{paint.description}</motion.strong></AnimatePresence>
-            <p className="mt-2 text-xs leading-relaxed text-black/45">Finish availability varies by configuration and market.</p>
+          <div className="my-design-metrics mt-9 grid grid-cols-1 gap-6 border-t border-black/10 pt-6 sm:grid-cols-2">
+            <div><span className="my-kicker">AERODYNAMIC FORM</span><strong className="mt-2 block text-xl tracking-tight sm:text-2xl">Form with purpose.</strong><p className="mt-2 text-sm leading-relaxed text-black/55">A streamlined silhouette and carefully considered proportions help air flow smoothly around the vehicle.</p></div>
+            <div><span className="my-kicker">SCULPTED PROFILE</span><strong className="mt-2 block text-xl tracking-tight sm:text-2xl">Every line, considered.</strong><p className="mt-2 text-sm leading-relaxed text-black/55">Clean surfaces and a confident stance balance visual simplicity with everyday practicality.</p></div>
+            <p className="text-xs leading-relaxed text-black/45 sm:col-span-2">Aerodynamic performance depends on vehicle configuration, wheels and operating conditions. Refer to Tesla for official specifications.</p>
           </div>
         </Reveal>
       </section>
@@ -268,7 +258,7 @@ export default function ModelYPage() {
         <div className="my-performance-overlay absolute inset-0 -z-10" />
         <Reveal className="my-container grid min-h-[620px] items-end gap-10 py-20 sm:min-h-[720px] lg:grid-cols-[1fr_.65fr] lg:items-center lg:py-28">
           <div><p className="my-kicker text-white/65">POWER, PRECISELY DELIVERED</p><h2 className="my-heading mt-4 text-white">Feel every<br /><span>instant.</span></h2><p className="mt-5 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">Electric torque arrives without hesitation. A planted stance and responsive control bring a sense of connection to the road.</p></div>
-          <div className="my-performance-panel"><span className="my-kicker text-white/55">THE PERFORMANCE FEEL</span><div><strong>{model.acceleration}</strong><span>{activeTrim === 'long' ? 'SEATING CONFIGURATION' : '0–60 MPH, CONFIGURATION DEPENDENT'}</span></div><p>Figures vary by vehicle configuration and conditions. Confirm current specifications with Tesla.</p><a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">Explore performance <ArrowUpRight size={15} /></a></div>
+          <div className="my-performance-panel"><span className="my-kicker text-white/55">THE PERFORMANCE FEEL</span><div><strong>{model.acceleration}</strong><span>{selectedVariant === 'long_wheelbase' ? 'SEATING CONFIGURATION' : '0–60 MPH, CONFIGURATION DEPENDENT'}</span></div><p>Figures vary by vehicle configuration and conditions. Confirm current specifications with Tesla.</p><a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">Explore performance <ArrowUpRight size={15} /></a></div>
         </Reveal>
       </section>
 
@@ -293,7 +283,7 @@ export default function ModelYPage() {
       </section>
 
       <section className="my-closing relative isolate overflow-hidden text-white">
-        <img className="absolute inset-0 -z-20 h-full w-full object-cover" src={ASSETS.hero} alt="" aria-hidden="true" loading="lazy" />
+        <img className="absolute inset-0 -z-20 h-full w-full object-cover" src={model.image} alt="" aria-hidden="true" loading="lazy" />
         <div className="my-closing-overlay absolute inset-0 -z-10" />
         <Reveal className="my-container flex min-h-[580px] flex-col items-start justify-center py-24 sm:min-h-[660px]">
           <p className="my-kicker text-white/65">YOUR NEXT CHAPTER</p>
