@@ -279,21 +279,7 @@ export default function ModelYPage() {
         </div>
       </section>
 
-      <section className="my-spec-strip" id="specs">
-        <div className="my-container grid grid-cols-2 gap-x-5 gap-y-7 py-8 sm:grid-cols-4 lg:py-10">
-          {[{ value: model.range, label: 'ESTIMATED RANGE' }, { value: model.acceleration, label: selectedVariant === 'long_wheelbase' ? 'SEATING CONFIGURATION' : '0–60 MPH' }, { value: selectedVariant === 'standard' ? 'RWD' : 'AWD', label: 'DRIVE CONFIGURATION' }, { value: selectedVariant === 'long_wheelbase' ? 'MORE ROOM' : '5', label: selectedVariant === 'long_wheelbase' ? 'SPACE FOR EVERYONE' : 'SEATS, CONFIGURATION DEPENDENT' }].map((spec) => (
-            <motion.div layout key={spec.label} className="my-spec-item">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.strong key={`${selectedVariant}-${spec.label}-${spec.value}`} initial={reduceMotion ? false : { opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} transition={{ duration: reduceMotion ? 0 : 0.22 }}>
-                  {spec.value}
-                </motion.strong>
-              </AnimatePresence>
-              <span>{spec.label}</span>
-            </motion.div>
-          ))}
-          <p className="my-body-copy col-span-2 max-w-3xl text-left text-sm sm:col-span-4">Specifications are illustrative and may vary by trim, wheels, configuration, market and driving conditions. Confirm current details with Tesla.</p>
-        </div>
-      </section>
+
 
       <section className="my-section my-container" id="variants">
         <Reveal className="mb-10 flex max-w-4xl flex-col items-start gap-3 text-left lg:mb-14">
@@ -323,6 +309,22 @@ export default function ModelYPage() {
             <a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer" className="my-summary-link">Explore on Tesla.com <ArrowUpRight size={15} /></a>
           </motion.div>
         </AnimatePresence>
+      </section>
+
+      <section className="my-spec-strip" id="specs">
+        <div className="my-container grid grid-cols-2 gap-x-5 gap-y-7 py-8 sm:grid-cols-4 lg:py-10">
+          {[{ value: model.range, label: 'ESTIMATED RANGE' }, { value: model.acceleration, label: selectedVariant === 'long_wheelbase' ? 'SEATING CONFIGURATION' : '0–60 MPH' }, { value: selectedVariant === 'standard' ? 'RWD' : 'AWD', label: 'DRIVE CONFIGURATION' }, { value: selectedVariant === 'long_wheelbase' ? 'MORE ROOM' : '5', label: selectedVariant === 'long_wheelbase' ? 'SPACE FOR EVERYONE' : 'SEATS, CONFIGURATION DEPENDENT' }].map((spec) => (
+            <motion.div layout key={spec.label} className="my-spec-item">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.strong key={`${selectedVariant}-${spec.label}-${spec.value}`} initial={reduceMotion ? false : { opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} transition={{ duration: reduceMotion ? 0 : 0.22 }}>
+                  {spec.value}
+                </motion.strong>
+              </AnimatePresence>
+              <span>{spec.label}</span>
+            </motion.div>
+          ))}
+          <p className="my-body-copy col-span-2 max-w-3xl text-left text-sm sm:col-span-4">Specifications are illustrative and may vary by trim, wheels, configuration, market and driving conditions. Confirm current details with Tesla.</p>
+        </div>
       </section>
 
       <section className="my-gallery-section" id="design" aria-labelledby="gallery-heading">
