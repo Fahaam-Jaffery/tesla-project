@@ -257,7 +257,7 @@ export default function ModelYPage() {
                 initial={reduceMotion ? false : { opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: reduceMotion ? 0 : 0.42, delay: reduceMotion ? 0 : index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                className="break-inside-avoid mb-4 rounded-2xl overflow-hidden border border-muted/10 bg-muted/5"
+                className="my-gallery-tile break-inside-avoid mb-4 rounded-2xl overflow-hidden border border-[#d5d7d4] bg-white/70"
               >
                 <img
                   src={asset.src}
