@@ -468,3 +468,37 @@
 .model-y-page .my-variant-card{transition:transform .32s cubic-bezier(.2,.7,.2,1),background-color .32s cubic-bezier(.2,.7,.2,1),border-color .32s cubic-bezier(.2,.7,.2,1),color .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s cubic-bezier(.2,.7,.2,1)}
 .model-y-page .my-variant-card:hover{transform:translateY(-3px)}
 .model-y-page .my-variant-car img{transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+
+
+/* Closing layout correction: bring the vehicle visual closer to the copy. */
+.model-y-page .my-configure-section{
+  grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+}
+.model-y-page .my-configure-copy{
+  padding-right:16px;
+}
+.model-y-page .my-configure-copy h2{max-width:560px}
+.model-y-page .my-configure-copy>p:not(.product-eyebrow){max-width:440px}
+@media(max-width:1000px){
+  .model-y-page .my-configure-section{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .model-y-page .my-configure-copy{padding-right:5%}
+}
+@media(max-width:700px){
+  .model-y-page .my-configure-section{grid-template-columns:1fr}
+  .model-y-page .my-configure-copy{padding-right:6%}
+}
+
+/* Match the Roadster interaction tempo exactly. */
+.model-y-page .my-variant-card{
+  transition:transform .32s cubic-bezier(.2,.7,.2,1),
+    background-color .32s cubic-bezier(.2,.7,.2,1),
+    border-color .32s cubic-bezier(.2,.7,.2,1),
+    color .32s cubic-bezier(.2,.7,.2,1),
+    box-shadow .32s cubic-bezier(.2,.7,.2,1);
+}
+.model-y-page .my-variant-card:hover{transform:translateY(-3px)}
+.model-y-page .my-variant-car img,
+.model-y-page .my-configure-visual img,
+.model-y-page .my-asset-gallery-image img{
+  transition:transform .55s cubic-bezier(.2,.7,.2,1),filter .32s cubic-bezier(.2,.7,.2,1);
+}
