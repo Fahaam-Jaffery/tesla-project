@@ -314,7 +314,7 @@ export default function ModelYPage() {
       </section>
 
       <section className="my-gallery-section" id="design" aria-labelledby="gallery-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="my-container py-24 md:py-32 lg:py-40">
           <Reveal className="mb-10 sm:mb-14">
             <p className="my-kicker">VISUAL OVERVIEW / 02</p>
             <h2 id="gallery-heading" className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">Design in <span>detail.</span></h2>
@@ -350,7 +350,7 @@ export default function ModelYPage() {
       <section className="my-interior-section relative isolate overflow-hidden text-white" id="interior">
         <img className="absolute inset-0 -z-20 h-full w-full object-cover" src={ASSETS.interior} alt="Model Y cabin and interior detail" loading="lazy" />
         <div className="my-interior-overlay absolute inset-0 -z-10" />
-        <Reveal className="my-interior-copy my-container relative z-10 flex min-h-[620px] flex-col justify-end py-20 sm:min-h-[760px] lg:py-28">
+        <Reveal className="my-interior-copy my-container relative z-10 flex min-h-[620px] flex-col justify-end py-24 md:py-32 lg:py-40 sm:min-h-[760px]">
           <p className="my-kicker my-dark-eyebrow">YOUR SPACE. YOUR PACE.</p>
           <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0 text-white">Calm, by<br /><span>design.</span></h2>
           <p className="my-body-copy my-dark-body mt-0 max-w-xl">A clean, considered cabin puts the focus on the journey. Open sightlines, flexible room and thoughtful details make the everyday feel a little less ordinary.</p>
@@ -359,7 +359,7 @@ export default function ModelYPage() {
         <span className="my-kicker my-dark-eyebrow absolute bottom-6 right-6 sm:right-[5.1%]">03 / SPACE TO RESET</span>
       </section>
 
-      <section className="my-section my-container" id="highlights">
+      <section className="my-container py-24 md:py-32 lg:py-40" id="highlights">
         <Reveal className="mb-10 grid items-end gap-6 md:grid-cols-[1fr_.7fr] lg:mb-14">
           <div><p className="my-kicker">MADE FOR THE MOMENTS BETWEEN</p><h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">More than<br /><span>getting there.</span></h2></div>
           <p className="my-body-copy max-w-md md:justify-self-end">Useful technology and considered engineering make Model Y feel intuitive from the first mile to the last.</p>
@@ -382,8 +382,8 @@ export default function ModelYPage() {
           const activeData = PERFORMANCE_COMPARISON_DATA.find((item) => item.name === activeName) ?? PERFORMANCE_COMPARISON_DATA[3];
 
           return (
-            <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
-              <div className="lg:col-span-4">
+            <div className="my-container grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-24 md:py-32 lg:py-40">
+              <div className="min-w-0">
                 <p className="my-kicker my-dark-eyebrow">POWER, PRECISELY DELIVERED</p>
                 <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0 text-white">Feel every<br /><span className="text-white/40">instant.</span></h2>
                 <p className="my-body-copy my-dark-body mt-0 max-w-xl">
@@ -420,7 +420,7 @@ export default function ModelYPage() {
                 </div>
               </div>
 
-              <div className="relative overflow-hidden rounded-3xl border border-white/5 bg-black/40 p-5 shadow-2xl backdrop-blur-md sm:p-6 lg:col-span-8 lg:p-8">
+              <div className="relative min-w-0 overflow-hidden rounded-3xl border border-white/5 bg-black/40 p-5 shadow-2xl backdrop-blur-md sm:p-6 lg:p-8">
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(204,0,0,0.12),transparent_48%)]" />
                 <div className="relative z-10">
                   <div className="flex flex-wrap items-start justify-between gap-4">
@@ -567,7 +567,7 @@ export default function ModelYPage() {
         })()}
       </section>
 
-      <section className="my-charging-section my-container grid items-center gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-20" id="charging">
+      <section className="my-charging-section my-container grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-24 md:py-32 lg:py-40" id="charging">
         <Reveal className="max-w-xl">
           <p className="my-kicker">CHARGE INTO WHAT'S NEXT</p>
           <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">The miles<br /><span>add up.</span></h2>
@@ -580,8 +580,8 @@ export default function ModelYPage() {
           </div>
           <a className="my-inline-link mt-7" href="https://www.tesla.com/supercharger" target="_blank" rel="noreferrer">Explore charging <ArrowUpRight size={16} /></a>
         </Reveal>
-        <motion.div className="my-charging-media" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={spring}>
-          <img src={ASSETS.charging} alt="Tesla Model Y energy and charging detail" loading="lazy" />
+        <motion.div className="my-charging-media w-full aspect-[16/10] rounded-2xl overflow-hidden" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={spring}>
+          <img className="h-full w-full object-cover" src={ASSETS.charging} alt="Tesla Model Y energy and charging detail" loading="lazy" />
           <span className="my-image-caption">DESIGNED FOR THE LONG WAY ROUND / 04</span>
           <div className="my-charge-overlay"><BatteryCharging size={19} /><span>CHARGE. GO. REPEAT.</span></div>
         </motion.div>
