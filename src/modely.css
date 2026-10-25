@@ -776,3 +776,25 @@
 @media (prefers-reduced-motion: reduce) {
   .my-menu-links button strong, .my-menu-links button svg, .my-menu-trim, .my-menu-order { transition: none; }
 }
+
+@media (min-width: 1024px) {
+  .my-menu {
+    top: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    left: auto;
+    width: min(470px, calc(100vw - 2rem));
+    border-radius: 28px;
+  }
+}
+@media (max-width: 1023px) {
+  .my-menu {
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0;
+    border: 0;
+  }
+}
