@@ -16,6 +16,7 @@ import {
   YAxis,
 } from 'recharts';
 import './modely.css';
+import ModelYMediaPlayer from './components/model-y/ModelYMediaPlayer';
 
 type TrimId = 'standard' | 'premium' | 'long_wheelbase' | 'performance';
 type Trim = {
@@ -31,7 +32,6 @@ type Trim = {
 };
 
 const ASSETS = {
-  interior: '/models/model-y/variants/long/Model-Y-L-Interior.avif',
   performance: '/models/model-y/variants/performance/Model-Y-Performance.avif',
   charging: '/models/model-y/variants/performance/Model-Y-Performance-Energy.avif',
   design: '/models/model-y/Model-Y-Standard%20(2).avif',
@@ -356,17 +356,7 @@ export default function ModelYPage() {
         </div>
       </section>
 
-      <section className="my-interior-section relative isolate overflow-hidden text-white" id="interior">
-        <img className="absolute inset-0 -z-20 h-full w-full object-cover" src={ASSETS.interior} alt="Model Y cabin and interior detail" loading="lazy" />
-        <div className="my-interior-overlay absolute inset-0 -z-10" />
-        <Reveal className="my-interior-copy my-container relative z-10 flex min-h-[620px] flex-col justify-end py-24 md:py-32 lg:py-40 sm:min-h-[760px]">
-          <p className="my-kicker my-dark-eyebrow">YOUR SPACE. YOUR PACE.</p>
-          <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0 text-white">Calm, by<br /><span>design.</span></h2>
-          <p className="my-body-copy my-dark-body mt-0 max-w-xl">A clean, considered cabin puts the focus on the journey. Open sightlines, flexible room and thoughtful details make the everyday feel a little less ordinary.</p>
-          <button className="my-button my-button-glass mt-7 w-fit" onClick={() => jumpTo('highlights')}>Explore the details <ArrowRight size={16} /></button>
-        </Reveal>
-        <span className="my-kicker my-dark-eyebrow absolute bottom-6 right-6 sm:right-[5.1%]">03 / SPACE TO RESET</span>
-      </section>
+      <ModelYMediaPlayer variant={selectedVariant} variantName={model.name} />
 
       <section className="my-container py-24 md:py-32 lg:py-40" id="highlights">
         <Reveal className="mb-10 flex max-w-4xl flex-col items-start gap-3 text-left lg:mb-14">
