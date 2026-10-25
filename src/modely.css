@@ -697,12 +697,6 @@
 .my-film-player-controls-hidden .my-film-topline {
   transform: translateY(-5px);
 }
-.my-film-player:focus-within .my-film-topline,
-.my-film-player:focus-within .my-film-controls {
-  opacity: 1;
-  pointer-events: auto;
-  transform: none;
-}
 @media (prefers-reduced-motion: reduce) {
   .my-film-topline,
   .my-film-controls,
