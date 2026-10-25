@@ -289,14 +289,14 @@ export default function ModelYPage() {
               <span>{spec.label}</span>
             </motion.div>
           ))}
-          <p className="my-body-copy col-span-2 max-w-2xl text-sm sm:col-span-4">Specifications are illustrative and may vary by trim, wheels, configuration, market and driving conditions. Confirm current details with Tesla.</p>
+          <p className="my-body-copy col-span-2 max-w-3xl text-left text-sm sm:col-span-4">Specifications are illustrative and may vary by trim, wheels, configuration, market and driving conditions. Confirm current details with Tesla.</p>
         </div>
       </section>
 
       <section className="my-section my-container" id="variants">
-        <Reveal className="mb-10 grid items-end gap-6 md:grid-cols-[1.15fr_.7fr] lg:mb-14">
+        <Reveal className="mb-10 flex max-w-4xl flex-col items-start gap-3 text-left lg:mb-14">
           <div><p className="my-kicker">FIND YOUR FIT / 01</p><h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">One Model Y.<br /><span>Your kind of drive.</span></h2></div>
-          <p className="my-body-copy max-w-xl text-left">Choose the configuration that feels right. Vehicle imagery and specification highlights update as you explore.</p>
+          <p className="my-body-copy max-w-3xl text-left">Choose the configuration that feels right. Vehicle imagery and specification highlights update as you explore.</p>
         </Reveal>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {trims.map((trim, index) => {
@@ -370,9 +370,9 @@ export default function ModelYPage() {
       </section>
 
       <section className="my-container py-24 md:py-32 lg:py-40" id="highlights">
-        <Reveal className="mb-10 grid items-end gap-6 md:grid-cols-[1fr_.7fr] lg:mb-14">
+        <Reveal className="mb-10 flex max-w-4xl flex-col items-start gap-3 text-left lg:mb-14">
           <div><p className="my-kicker">MADE FOR THE MOMENTS BETWEEN</p><h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">More than<br /><span>getting there.</span></h2></div>
-          <p className="my-body-copy max-w-md text-left">Useful technology and considered engineering make Model Y feel intuitive from the first mile to the last.</p>
+          <p className="my-body-copy max-w-3xl text-left">Useful technology and considered engineering make Model Y feel intuitive from the first mile to the last.</p>
         </Reveal>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map(({ number, icon: Icon, title, copy }, index) => (
