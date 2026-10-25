@@ -53,10 +53,6 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
       return;
     }
     hideControlsTimeoutRef.current = setTimeout(() => {
-      if (playerRef.current?.contains(document.activeElement)) {
-        scheduleControlsHide();
-        return;
-      }
       setControlsVisible(false);
       hideControlsTimeoutRef.current = null;
     }, 3000);
