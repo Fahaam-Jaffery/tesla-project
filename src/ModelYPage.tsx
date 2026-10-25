@@ -296,7 +296,7 @@ export default function ModelYPage() {
       <section className="my-section my-container" id="variants">
         <Reveal className="mb-10 grid items-end gap-6 md:grid-cols-[1.15fr_.7fr] lg:mb-14">
           <div><p className="my-kicker">FIND YOUR FIT / 01</p><h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">One Model Y.<br /><span>Your kind of drive.</span></h2></div>
-          <p className="my-body-copy max-w-xl md:justify-self-end">Choose the configuration that feels right. Vehicle imagery and specification highlights update as you explore.</p>
+          <p className="my-body-copy max-w-xl text-left">Choose the configuration that feels right. Vehicle imagery and specification highlights update as you explore.</p>
         </Reveal>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {trims.map((trim, index) => {
@@ -372,7 +372,7 @@ export default function ModelYPage() {
       <section className="my-container py-24 md:py-32 lg:py-40" id="highlights">
         <Reveal className="mb-10 grid items-end gap-6 md:grid-cols-[1fr_.7fr] lg:mb-14">
           <div><p className="my-kicker">MADE FOR THE MOMENTS BETWEEN</p><h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">More than<br /><span>getting there.</span></h2></div>
-          <p className="my-body-copy max-w-md md:justify-self-end">Useful technology and considered engineering make Model Y feel intuitive from the first mile to the last.</p>
+          <p className="my-body-copy max-w-md text-left">Useful technology and considered engineering make Model Y feel intuitive from the first mile to the last.</p>
         </Reveal>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map(({ number, icon: Icon, title, copy }, index) => (
@@ -392,7 +392,7 @@ export default function ModelYPage() {
           const activeData = PERFORMANCE_COMPARISON_DATA.find((item) => item.name === activeName) ?? PERFORMANCE_COMPARISON_DATA[3];
 
           return (
-            <div className="my-container grid grid-cols-1 items-start gap-12 py-24 md:py-32 lg:grid-cols-12 lg:gap-16 lg:py-40">
+            <div className="my-container grid grid-cols-1 items-start gap-12 py-24 text-left md:py-32 lg:grid-cols-12 lg:gap-16 lg:py-40">
               <div className="min-w-0 space-y-5 self-start lg:col-span-5 xl:col-span-4">
                 <p className="my-kicker my-dark-eyebrow">POWER, PRECISELY DELIVERED</p>
                 <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0 text-white">Feel every<br /><span className="text-white/40">instant.</span></h2>
@@ -577,7 +577,7 @@ export default function ModelYPage() {
         })()}
       </section>
 
-      <section className="my-charging-section my-container grid grid-cols-1 items-center gap-12 py-24 md:py-32 lg:grid-cols-12 lg:gap-16 lg:py-40" id="charging">
+      <section className="my-charging-section my-container grid grid-cols-1 items-center gap-12 py-24 text-left md:py-32 lg:grid-cols-12 lg:gap-16 lg:py-40" id="charging">
         <Reveal className="max-w-none lg:col-span-5 lg:pr-8">
           <p className="my-kicker">CHARGE INTO WHAT'S NEXT</p>
           <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">The miles<br /><span>add up.</span></h2>
