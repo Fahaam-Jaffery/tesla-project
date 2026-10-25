@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ArrowDown, ArrowRight, ArrowUpRight, BatteryCharging, Check, ChevronRight,
-  Gauge, Menu, ShieldCheck, Smartphone, Users, X,
+  Gauge, Menu, ShieldCheck, Smartphone, Users, X, Zap, CarFront, ExternalLink,
 } from 'lucide-react';
 import {
   Bar,
@@ -184,8 +184,17 @@ export default function ModelYPage() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [menuOpen]);
 
   const jumpTo = (id: string) => {
@@ -222,23 +231,114 @@ export default function ModelYPage() {
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.aside className="my-menu fixed inset-0 z-[60] flex flex-col px-6 py-7 sm:px-12 sm:py-9" role="dialog" aria-modal="true" aria-label="Model Y navigation"
-            initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
-            <div className="flex items-center justify-between">
-              <span className="my-kicker">MODEL Y / EXPLORE</span>
-              <button className="my-menu-button" onClick={() => setMenuOpen(false)} aria-label="Close navigation"><X size={20} /></button>
-            </div>
-            <nav className="my-menu-links my-container my-auto w-full" aria-label="Explore sections">
-              {[['01', 'Design', 'design'], ['02', 'Interior', 'interior'], ['03', 'Choose your Model Y', 'variants'], ['04', 'Specifications', 'specs']].map(([number, label, id]) => (
-                <motion.button layout key={id} onClick={() => jumpTo(id)} whileHover={{ x: 8 }} transition={spring}>
-                  <span>{number}</span><strong>{label}</strong><ArrowUpRight size={20} />
-                </motion.button>
-              ))}
-            </nav>
-            <div className="flex items-center justify-between gap-4 text-[9px] tracking-[.16em] text-white/55">
-              <span>ALL ELECTRIC. ALL YOURS.</span><a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">VISIT TESLA.COM ↗</a>
-            </div>
-          </motion.aside>
+          <>
+            <motion.button
+              type="button"
+              className="my-menu-backdrop fixed inset-0 z-[59] cursor-default"
+              aria-label="Close navigation menu"
+              onClick={() => setMenuOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: reduceMotion ? 0 : 0.22 }}
+            />
+            <motion.aside
+              className="my-menu fixed z-[60] flex flex-col overflow-y-auto px-5 py-5 sm:px-7 sm:py-7 lg:inset-y-4 lg:right-4 lg:left-auto lg:w-[min(470px,calc(100vw-2rem))] lg:rounded-[28px] lg:border lg:border-white/15"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Tesla navigation"
+              initial={reduceMotion ? false : { opacity: 0, x: 28, scale: 0.985 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={reduceMotion ? undefined : { opacity: 0, x: 20, scale: 0.99 }}
+              transition={{ duration: reduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <a href="/" aria-label="Tesla home" onClick={() => setMenuOpen(false)} className="my-menu-wordmark">
+                  <img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" />
+                </a>
+                <button className="my-menu-button" onClick={() => setMenuOpen(false)} aria-label="Close navigation"><X size={20} /></button>
+              </div>
+
+              <div className="my-menu-heading mt-7">
+                <span className="my-menu-eyebrow">MODEL Y / EXPLORE</span>
+                <h2>Find your<br /><span>next move.</span></h2>
+              </div>
+
+              <nav className="my-menu-links mt-5 w-full" aria-label="Model Y sections">
+                {[
+                  ['01', 'Overview', 'top'],
+                  ['02', 'Design', 'design'],
+                  ['03', 'Interior', 'interior'],
+                  ['04', 'Performance', 'performance'],
+                  ['05', 'Charging', 'charging'],
+                  ['06', 'Specifications', 'specs'],
+                  ['07', 'Choose your Model Y', 'variants'],
+                ].map(([number, label, id]) => (
+                  <motion.button
+                    layout
+                    key={id}
+                    onClick={() => jumpTo(id)}
+                    whileHover={reduceMotion ? undefined : { x: 4 }}
+                    whileTap={reduceMotion ? undefined : { scale: 0.99 }}
+                    transition={spring}
+                  >
+                    <span>{number}</span><strong>{label}</strong><ArrowUpRight size={17} />
+                  </motion.button>
+                ))}
+              </nav>
+
+              <section className="my-menu-configuration mt-6" aria-label="Current configuration">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <span className="my-menu-eyebrow">YOUR CONFIGURATION</span>
+                    <h3>{model.name}</h3>
+                    <p>{model.drivetrain} · {model.range} range</p>
+                  </div>
+                  <span className="my-menu-status-dot" aria-hidden="true" />
+                </div>
+                <div className="my-menu-trims mt-4" role="group" aria-label="Choose a Model Y variant">
+                  {trims.map((trim) => (
+                    <button
+                      key={trim.id}
+                      type="button"
+                      className={`my-menu-trim${selectedVariant === trim.id ? ' is-active' : ''}`}
+                      aria-pressed={selectedVariant === trim.id}
+                      onClick={() => setSelectedVariant(trim.id)}
+                    >
+                      <span>{trim.name}</span>
+                      {selectedVariant === trim.id && <Check size={14} aria-hidden="true" />}
+                    </button>
+                  ))}
+                </div>
+                <button type="button" className="my-menu-order" onClick={() => jumpTo('variants')}>
+                  Explore configurations <ArrowUpRight size={17} />
+                </button>
+              </section>
+
+              <div className="my-menu-global mt-7">
+                <span className="my-menu-eyebrow">THE TESLA LINEUP</span>
+                <div className="my-menu-global-links">
+                  {[
+                    ['Model 3', 'https://www.tesla.com/model3'],
+                    ['Model S', 'https://www.tesla.com/models'],
+                    ['Model X', 'https://www.tesla.com/modelx'],
+                    ['Energy', 'https://www.tesla.com/energy'],
+                    ['Charging', 'https://www.tesla.com/charging'],
+                    ['Shop', 'https://shop.tesla.com/'],
+                  ].map(([label, href]) => (
+                    <a key={label} href={href} target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>
+                      {label}<ExternalLink size={12} aria-hidden="true" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="my-menu-footer mt-7 flex items-center justify-between gap-4">
+                <span>ALL ELECTRIC. ALL YOURS.</span>
+                <a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>TESLA.COM <ArrowUpRight size={12} /></a>
+              </div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
 
