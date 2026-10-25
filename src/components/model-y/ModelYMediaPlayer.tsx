@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Maximize, Pause, Play, Volume2, VolumeX } from 'lucide-react';
 import { MODEL_Y_FILMS, type ModelYVariant } from './modelYFilms';
 
@@ -122,7 +122,7 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
                 step="0.1"
                 value={Math.min(currentTime, duration || 1)}
                 aria-label="Seek through film"
-                style={{ '--film-progress': `${duration ? (currentTime / duration) * 100 : 0}%` } as React.CSSProperties}
+                style={{ '--film-progress': `${duration ? (currentTime / duration) * 100 : 0}%` } as CSSProperties}
                 onChange={(event) => {
                   const nextTime = Number(event.target.value);
                   if (videoRef.current) videoRef.current.currentTime = nextTime;
