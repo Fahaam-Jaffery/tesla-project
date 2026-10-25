@@ -16,5 +16,7 @@ jobs:
           node-version: 20
       - name: Install project dependencies
         run: npm install --no-audit --no-fund
+      - name: Type-check TypeScript
+        run: npm run typecheck
       - name: Build for production
         run: npm run build
