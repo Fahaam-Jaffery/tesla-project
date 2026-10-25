@@ -18,6 +18,7 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
   const films = MODEL_Y_FILMS[variant];
   const [activeFilmId, setActiveFilmId] = useState(films[0].id);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isInView, setIsInView] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(true);
   const hideControlsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isMuted, setIsMuted] = useState(true);
@@ -82,15 +83,27 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
   }, [variant]);
 
   useEffect(() => {
+    const player = playerRef.current;
+    if (!player) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting && entry.intersectionRatio >= 0.15),
+      { threshold: [0, 0.15, 0.35] },
+    );
+    observer.observe(player);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     video.muted = isMuted;
-    if (isPlaying) {
+    if (isPlaying && isInView) {
       void video.play().catch(() => setIsPlaying(false));
     } else {
       video.pause();
     }
-  }, [isPlaying, isMuted, activeFilmId, variant]);
+  }, [isPlaying, isInView, isMuted, activeFilmId, variant]);
 
   const togglePlayback = () => setIsPlaying((playing) => !playing);
   const toggleSound = () => setIsMuted((muted) => !muted);
@@ -137,7 +150,6 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
               ref={videoRef}
               className="my-film-video"
               src={activeFilm.src}
-              autoPlay
               muted={isMuted}
               loop
               playsInline
@@ -145,7 +157,6 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
               onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
               onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
               onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
               aria-label={`${variantName}: ${activeFilm.title} film`}
             />
             <div className="my-film-vignette" aria-hidden="true" />
