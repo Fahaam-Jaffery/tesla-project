@@ -18,6 +18,8 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
   const films = MODEL_Y_FILMS[variant];
   const [activeFilmId, setActiveFilmId] = useState(films[0].id);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [controlsVisible, setControlsVisible] = useState(true);
+  const hideControlsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -36,6 +38,44 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
 
   const selectPreviousFilm = () => selectFilm(activeFilmIndex - 1);
   const selectNextFilm = () => selectFilm(activeFilmIndex + 1);
+
+  const clearControlsHideTimeout = () => {
+    if (hideControlsTimeoutRef.current) {
+      clearTimeout(hideControlsTimeoutRef.current);
+      hideControlsTimeoutRef.current = null;
+    }
+  };
+
+  const scheduleControlsHide = () => {
+    clearControlsHideTimeout();
+    if (!isPlaying) {
+      setControlsVisible(true);
+      return;
+    }
+    hideControlsTimeoutRef.current = setTimeout(() => {
+      if (playerRef.current?.contains(document.activeElement)) {
+        scheduleControlsHide();
+        return;
+      }
+      setControlsVisible(false);
+      hideControlsTimeoutRef.current = null;
+    }, 3000);
+  };
+
+  const revealControls = () => {
+    setControlsVisible(true);
+    scheduleControlsHide();
+  };
+
+  useEffect(() => {
+    if (isPlaying) {
+      scheduleControlsHide();
+    } else {
+      clearControlsHideTimeout();
+      setControlsVisible(true);
+    }
+    return clearControlsHideTimeout;
+  }, [isPlaying]);
 
   useEffect(() => {
     setActiveFilmId(MODEL_Y_FILMS[variant][0].id);
@@ -86,7 +126,16 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
 
         <div className="my-film-stage">
         <div className="my-film-player-shell">
-          <div className="my-film-player" ref={playerRef}>
+          <div
+            className={`my-film-player ${controlsVisible ? '' : 'my-film-player-controls-hidden'}`}
+            ref={playerRef}
+            onMouseMove={revealControls}
+            onMouseEnter={revealControls}
+            onMouseLeave={scheduleControlsHide}
+            onTouchStart={revealControls}
+            onFocusCapture={revealControls}
+            onBlurCapture={scheduleControlsHide}
+          >
             <video
               key={`${variant}-${activeFilm.id}`}
               ref={videoRef}
