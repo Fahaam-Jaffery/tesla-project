@@ -165,8 +165,10 @@ export default function ModelYPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [heroPassed, setHeroPassed] = useState(false);
+  const [footerVisible, setFooterVisible] = useState(false);
   const [navHover, setNavHover] = useState<string | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
+  const footerRef = useRef<HTMLElement | null>(null);
   const reduceMotion = useReducedMotion();
   const model = trims.find((trim) => trim.id === selectedVariant) ?? trims[3];
 
@@ -174,6 +176,7 @@ export default function ModelYPage() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 24);
       setHeroPassed((heroRef.current?.getBoundingClientRect().bottom ?? 1) <= 0);
+      setFooterVisible((footerRef.current?.getBoundingClientRect().top ?? window.innerHeight + 1) < window.innerHeight * 0.92);
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -593,57 +596,45 @@ export default function ModelYPage() {
       </section>
 
       <AnimatePresence>
-        {heroPassed && !menuOpen && (
+        {heroPassed && !footerVisible && !menuOpen && (
           <motion.aside
-            className="my-variant-hud fixed inset-x-0 bottom-0 z-40 border-t border-muted/20 bg-background/80 backdrop-blur-md"
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 18 }}
-            transition={{ duration: reduceMotion ? 0 : 0.22 }}
+            className="my-variant-hud"
+            initial={reduceMotion ? false : { opacity: 0, y: 14, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.985 }}
+            transition={{ duration: reduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
             aria-label="Quick vehicle configuration"
           >
-            <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-[5.1%]">
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold">{model.name}</p>
-                <p className="truncate text-[10px] text-black/55">{model.price}</p>
+            <div className="my-hud-inner">
+              <div className="my-hud-current">
+                <span className="my-hud-live-dot" aria-hidden="true" />
+                <div className="my-hud-current-copy">
+                  <p>{model.name}</p>
+                  <span>{model.price}</span>
+                </div>
               </div>
-              <div className="hidden items-center gap-1 sm:flex" role="group" aria-label="Select Model Y configuration">
+              <div className="my-hud-options" role="group" aria-label="Select Model Y configuration">
                 {trims.map((trim) => (
                   <button
                     key={trim.id}
                     type="button"
                     onClick={() => setSelectedVariant(trim.id)}
                     aria-pressed={selectedVariant === trim.id}
-                    className={`my-hud-variant rounded-full px-3 py-2 text-[10px] font-semibold transition-colors ${selectedVariant === trim.id ? 'my-hud-variant-active' : ''}`}
+                    className={`my-hud-variant ${selectedVariant === trim.id ? 'my-hud-variant-active' : ''}`}
                   >
-                    {trim.eyebrow === 'LONG WHEELBASE' ? 'MODEL Y L' : trim.eyebrow === 'STANDARD' ? 'STANDARD' : trim.eyebrow}
+                    {trim.id === 'long_wheelbase' ? 'MODEL Y L' : trim.id === 'performance' ? 'PERFORMANCE' : trim.id === 'premium' ? 'PREMIUM' : 'STANDARD'}
                   </button>
                 ))}
               </div>
-              <div className="flex min-w-0 flex-1 justify-end">
-                <a className="my-button my-button-light my-hud-order" href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">
-                  <span className="hidden sm:inline">Order Now</span><span className="sm:hidden">Order</span><ArrowUpRight size={14} />
-                </a>
-              </div>
-            </div>
-            <div className="flex gap-1 px-4 pb-3 sm:hidden" role="group" aria-label="Select Model Y configuration">
-              {trims.map((trim) => (
-                <button
-                  key={trim.id}
-                  type="button"
-                  onClick={() => setSelectedVariant(trim.id)}
-                  aria-pressed={selectedVariant === trim.id}
-                  className={`my-hud-variant flex-1 rounded-full px-2 py-2 text-[9px] font-semibold transition-colors ${selectedVariant === trim.id ? 'my-hud-variant-active' : ''}`}
-                >
-                  {trim.id === 'long_wheelbase' ? 'Y L' : trim.id === 'performance' ? 'PERF.' : trim.eyebrow}
-                </button>
-              ))}
+              <a className="my-hud-order" href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">
+                <span>Order</span><ArrowUpRight size={13} />
+              </a>
             </div>
           </motion.aside>
         )}
       </AnimatePresence>
 
-      <footer className="my-footer flex flex-col gap-5 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-[5.1%]">
+      <footer ref={footerRef} className="my-footer flex flex-col gap-5 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-[5.1%]">
         <a href="/" className="my-footer-wordmark">TESLA<span>®</span></a>
         <span className="my-kicker">ACCELERATING THE FUTURE.</span>
         <div className="flex flex-wrap gap-x-5 gap-y-3 text-xs text-white/65"><a href="/">Home</a><a href="#variants">Configurations</a><a href="#charging">Charging</a><a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">Tesla.com ↗</a></div>
