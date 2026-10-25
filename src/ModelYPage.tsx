@@ -386,8 +386,8 @@ export default function ModelYPage() {
           const activeData = PERFORMANCE_COMPARISON_DATA.find((item) => item.name === activeName) ?? PERFORMANCE_COMPARISON_DATA[3];
 
           return (
-            <div className="my-container grid grid-cols-1 items-start gap-12 py-24 text-left md:py-32 lg:grid-cols-12 lg:gap-16 lg:py-40">
-              <div className="min-w-0 space-y-5 self-start lg:col-span-5 xl:col-span-4">
+            <div className="my-container grid grid-cols-1 items-start gap-10 py-24 text-left md:py-32 lg:grid-cols-12 lg:gap-12 lg:py-32">
+              <div className="min-w-0 space-y-5 self-start lg:col-span-5">
                 <p className="my-kicker my-dark-eyebrow">POWER, PRECISELY DELIVERED</p>
                 <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0 text-white">Feel every<br /><span className="text-white/40">instant.</span></h2>
                 <p className="my-body-copy my-dark-body mt-0 max-w-xl">
@@ -418,13 +418,13 @@ export default function ModelYPage() {
                     </motion.div>
                   </AnimatePresence>
                 </div>
-                <div className="mt-5 flex items-center gap-3">
+                <div className="mt-5 flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#e82127] shadow-[0_0_12px_rgba(232,33,39,0.7)]" />
-                  <span className="my-kicker my-dark-eyebrow">Comparative performance telemetry</span>
+                  <span className="my-kicker my-dark-eyebrow !mb-0">Comparative performance telemetry</span>
                 </div>
               </div>
 
-              <div className="relative min-w-0 overflow-hidden rounded-3xl border border-white/5 bg-black/40 p-4 shadow-2xl backdrop-blur-md sm:p-5 lg:col-span-7 xl:col-span-8 lg:p-6">
+              <div className="relative min-w-0 overflow-hidden rounded-3xl border border-white/5 bg-black/40 p-4 shadow-2xl backdrop-blur-md sm:p-4 lg:col-span-7 lg:p-5">
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(204,0,0,0.12),transparent_48%)]" />
                 <div className="relative z-10">
                   <div className="flex flex-wrap items-start justify-between gap-4">
@@ -438,7 +438,7 @@ export default function ModelYPage() {
                     </div>
                   </div>
 
-                  <div className="mt-5 h-[240px] w-full sm:h-[285px]">
+                  <div className="mt-4 h-[205px] w-full sm:h-[240px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <ComposedChart data={PERFORMANCE_COMPARISON_DATA} margin={{ top: 16, right: 4, left: -18, bottom: 4 }}>
                         <defs>
@@ -571,7 +571,7 @@ export default function ModelYPage() {
         })()}
       </section>
 
-      <section className="my-charging-section my-container grid grid-cols-1 items-center gap-12 py-24 text-left md:py-32 lg:grid-cols-12 lg:gap-16 lg:py-40" id="charging">
+      <section className="my-charging-section my-container grid grid-cols-1 items-start gap-12 py-24 text-left md:py-32 lg:grid-cols-12 lg:gap-16 lg:py-40" id="charging">
         <Reveal className="max-w-none lg:col-span-5 lg:pr-8">
           <p className="my-kicker">CHARGE INTO WHAT'S NEXT</p>
           <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">The miles<br /><span>add up.</span></h2>
