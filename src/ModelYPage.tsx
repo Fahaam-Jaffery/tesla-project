@@ -356,7 +356,7 @@ export default function ModelYPage() {
           <p className="my-body-copy my-dark-body mt-0 max-w-xl">A clean, considered cabin puts the focus on the journey. Open sightlines, flexible room and thoughtful details make the everyday feel a little less ordinary.</p>
           <button className="my-button my-button-glass mt-7 w-fit" onClick={() => jumpTo('highlights')}>Explore the details <ArrowRight size={16} /></button>
         </Reveal>
-        <span className="absolute bottom-6 right-6 text-[8px] tracking-[.16em] text-white/55 sm:right-[5.1%]">03 / SPACE TO RESET</span>
+        <span className="my-kicker my-dark-eyebrow absolute bottom-6 right-6 sm:right-[5.1%]">03 / SPACE TO RESET</span>
       </section>
 
       <section className="my-section my-container" id="highlights">
@@ -399,7 +399,7 @@ export default function ModelYPage() {
                       exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
                       transition={{ duration: reduceMotion ? 0 : 0.24 }}
                     >
-                      <h3 className="mt-3 text-2xl font-medium tracking-tight">
+                      <h3 className="my-panel-heading mt-3">
                         {activeName === 'Long WL' ? 'Model Y L' : `Model Y ${activeName === 'Standard' ? '' : activeName}`}
                       </h3>
                       <p className="my-body-copy my-dark-body mt-2 max-w-xl text-sm">
@@ -416,7 +416,7 @@ export default function ModelYPage() {
                 </div>
                 <div className="mt-8 flex items-center gap-3">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#e82127] shadow-[0_0_12px_rgba(232,33,39,0.7)]" />
-                  <span className="text-[10px] uppercase tracking-[0.16em] text-white/45">Comparative performance telemetry</span>
+                  <span className="my-kicker my-dark-eyebrow">Comparative performance telemetry</span>
                 </div>
               </div>
 
@@ -500,8 +500,8 @@ export default function ModelYPage() {
                   </div>
 
                   <div className="mt-2 flex items-center justify-between border-t border-white/10 pt-4">
-                    <span className="text-[9px] uppercase tracking-[0.16em] text-white/35">Select a configuration below</span>
-                    <span className="font-mono text-[10px] text-white/45">04 CONFIGURATIONS</span>
+                    <span className="my-kicker my-dark-eyebrow">Select a configuration below</span>
+                    <span className="my-kicker my-dark-eyebrow">04 CONFIGURATIONS</span>
                   </div>
 
                   <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4" role="group" aria-label="Select performance configuration">
@@ -596,7 +596,7 @@ export default function ModelYPage() {
           <p className="my-body-copy my-dark-body mt-0 max-w-xl">Meet the all-electric SUV designed to make space for the way you really live.</p>
           <motion.a className="my-button my-button-light mt-8" href="https://www.tesla.com/modely" target="_blank" rel="noreferrer" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>Explore Model Y <ArrowUpRight size={16} /></motion.a>
         </Reveal>
-        <span className="absolute bottom-6 right-6 text-[8px] tracking-[.16em] text-white/55 sm:right-[5.1%]">05 — KEEP MOVING FORWARD</span>
+        <span className="my-kicker my-dark-eyebrow absolute bottom-6 right-6 sm:right-[5.1%]">05 — KEEP MOVING FORWARD</span>
       </section>
 
       <AnimatePresence>
