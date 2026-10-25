@@ -9,6 +9,7 @@
   --my-muted: #737779;
   font-family: 'DM Sans', sans-serif;
   isolation: isolate;
+  text-align: left;
 }
 .my-page button, .my-page a, .my-page input { -webkit-tap-highlight-color: transparent; }
 .my-page button:focus-visible, .my-page a:focus-visible, .my-page input:focus-visible { outline: 2px solid #e82127; outline-offset: 4px; }
@@ -95,7 +96,7 @@
 .my-selected-summary > div { display: flex; flex-direction: column; gap: 8px; }
 .my-selected-summary strong { font-size: 13px; font-weight: 600; }
 .my-summary-link, .my-inline-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 9px; font-size: 12px; font-weight: 700; }
-.my-summary-link { align-self: center; }
+.my-summary-link { align-self: flex-start; text-align: left; }
 .my-inline-link { justify-content: flex-start; }
 .my-summary-link:hover, .my-inline-link:hover { color: #e82127; }
 
