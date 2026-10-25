@@ -166,7 +166,6 @@ export default function ModelYPage() {
   const [scrolled, setScrolled] = useState(false);
   const [heroPassed, setHeroPassed] = useState(false);
   const [navHover, setNavHover] = useState<string | null>(null);
-  const [distance, setDistance] = useState(180);
   const heroRef = useRef<HTMLElement | null>(null);
   const reduceMotion = useReducedMotion();
   const model = trims.find((trim) => trim.id === selectedVariant) ?? trims[3];
@@ -582,12 +581,6 @@ export default function ModelYPage() {
           <p className="my-kicker">CHARGE INTO WHAT'S NEXT</p>
           <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">The miles<br /><span>add up.</span></h2>
           <p className="my-body-copy mt-5">Charging that fits around your routine can make electric driving feel simple. Explore home charging and the Tesla Supercharger network for journeys near and far.</p>
-          <div className="my-distance-tool mt-8">
-            <div className="flex items-center justify-between gap-4"><label htmlFor="my-distance" className="my-kicker">YOUR DAILY DRIVE</label><strong>{distance} mi</strong></div>
-            <input id="my-distance" type="range" min="10" max="400" step="10" value={distance} onChange={(event) => setDistance(Number(event.target.value))} className="mt-5 w-full" />
-            <div className="mt-2 flex justify-between text-xs text-black/45"><span>10 mi</span><span>400 mi</span></div>
-            <p className="my-body-copy mt-4 max-w-xl text-sm">Illustrative distance planner only — actual energy use and charging needs depend on vehicle, weather, route and driving style.</p>
-          </div>
           <a className="my-inline-link mt-7" href="https://www.tesla.com/supercharger" target="_blank" rel="noreferrer">Explore charging <ArrowUpRight size={16} /></a>
         </Reveal>
         <motion.div className="my-charging-media w-full aspect-[16/10] rounded-2xl overflow-hidden lg:col-span-7" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={spring}>
