@@ -240,7 +240,7 @@ export default function ModelYPage() {
         )}
       </AnimatePresence>
 
-      <section ref={heroRef} className="my-hero relative flex min-h-[90svh] h-screen max-h-[1100px] items-end overflow-hidden bg-[#151719] text-white" id="top">
+      <section ref={heroRef} className="my-hero relative min-h-[90svh] h-screen max-h-[1100px] overflow-hidden bg-[#151719] text-white" id="top">
         <AnimatePresence mode="wait" initial={false}>
           <motion.img
           key={selectedVariant}
@@ -261,12 +261,12 @@ export default function ModelYPage() {
         <div className="my-hero-topline absolute right-5 top-28 hidden sm:block sm:right-[5.1%]">
           DESIGNED AROUND YOUR LIFE
         </div>
-        <div className="my-container relative z-10 w-full pb-24 pt-48 sm:pb-28 lg:pb-32">
-          <motion.div className="max-w-4xl" initial={reduceMotion ? false : 'hidden'} animate="visible" variants={reveal}>
+        <div className="my-container relative z-10 grid h-full w-full grid-cols-1 items-center px-6 sm:px-12 md:grid-cols-12">
+          <motion.div className="flex flex-col items-start text-left md:col-span-5 md:translate-y-[-40px] lg:col-span-4" initial={reduceMotion ? false : 'hidden'} animate="visible" variants={reveal}>
             <p className="my-kicker mb-3 text-white/90">THE ALL-ELECTRIC SUV</p>
             <h1 className="my-display">Model <span>Y.</span></h1>
             <p className="my-body-copy my-dark-body mt-4">Room for every version of life.</p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex w-full flex-wrap justify-start space-x-4 gap-y-3">
               <motion.button className="my-button my-button-light" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => jumpTo('variants')}>Explore Model Y <ArrowRight size={16} /></motion.button>
               <motion.button className="my-button my-button-glass" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => jumpTo('design')}>Discover the details <ArrowDown size={15} /></motion.button>
             </div>
@@ -392,14 +392,14 @@ export default function ModelYPage() {
           const activeData = PERFORMANCE_COMPARISON_DATA.find((item) => item.name === activeName) ?? PERFORMANCE_COMPARISON_DATA[3];
 
           return (
-            <div className="my-container grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-24 md:py-32 lg:py-40">
-              <div className="min-w-0">
+            <div className="my-container grid grid-cols-1 items-start gap-12 py-24 md:py-32 lg:grid-cols-12 lg:gap-16 lg:py-40">
+              <div className="min-w-0 space-y-5 self-start lg:col-span-5 xl:col-span-4">
                 <p className="my-kicker my-dark-eyebrow">POWER, PRECISELY DELIVERED</p>
                 <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0 text-white">Feel every<br /><span className="text-white/40">instant.</span></h2>
                 <p className="my-body-copy my-dark-body mt-0 max-w-xl">
                   Electric torque arrives without hesitation. Explore how range, acceleration and top speed change across Model Y configurations. Choose a trim to bring its telemetry into focus.
                 </p>
-                <div className="mt-10 border-t border-white/10 pt-5">
+                <div className="mt-6 border-t border-white/10 pt-4">
                   <p className="my-kicker my-dark-eyebrow">LIVE CONFIGURATION</p>
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.div
@@ -424,13 +424,13 @@ export default function ModelYPage() {
                     </motion.div>
                   </AnimatePresence>
                 </div>
-                <div className="mt-8 flex items-center gap-3">
+                <div className="mt-5 flex items-center gap-3">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#e82127] shadow-[0_0_12px_rgba(232,33,39,0.7)]" />
                   <span className="my-kicker my-dark-eyebrow">Comparative performance telemetry</span>
                 </div>
               </div>
 
-              <div className="relative min-w-0 overflow-hidden rounded-3xl border border-white/5 bg-black/40 p-5 shadow-2xl backdrop-blur-md sm:p-6 lg:p-8">
+              <div className="relative min-w-0 overflow-hidden rounded-3xl border border-white/5 bg-black/40 p-4 shadow-2xl backdrop-blur-md sm:p-5 lg:col-span-7 xl:col-span-8 lg:p-6">
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(204,0,0,0.12),transparent_48%)]" />
                 <div className="relative z-10">
                   <div className="flex flex-wrap items-start justify-between gap-4">
@@ -444,7 +444,7 @@ export default function ModelYPage() {
                     </div>
                   </div>
 
-                  <div className="mt-7 h-[280px] w-full sm:h-[330px]">
+                  <div className="mt-5 h-[240px] w-full sm:h-[285px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <ComposedChart data={PERFORMANCE_COMPARISON_DATA} margin={{ top: 16, right: 4, left: -18, bottom: 4 }}>
                         <defs>
@@ -577,8 +577,8 @@ export default function ModelYPage() {
         })()}
       </section>
 
-      <section className="my-charging-section my-container grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-24 md:py-32 lg:py-40" id="charging">
-        <Reveal className="max-w-xl">
+      <section className="my-charging-section my-container grid grid-cols-1 items-center gap-12 py-24 md:py-32 lg:grid-cols-12 lg:gap-16 lg:py-40" id="charging">
+        <Reveal className="max-w-none lg:col-span-5 lg:pr-8">
           <p className="my-kicker">CHARGE INTO WHAT'S NEXT</p>
           <h2 className="my-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 mt-0">The miles<br /><span>add up.</span></h2>
           <p className="my-body-copy mt-5">Charging that fits around your routine can make electric driving feel simple. Explore home charging and the Tesla Supercharger network for journeys near and far.</p>
@@ -590,7 +590,7 @@ export default function ModelYPage() {
           </div>
           <a className="my-inline-link mt-7" href="https://www.tesla.com/supercharger" target="_blank" rel="noreferrer">Explore charging <ArrowUpRight size={16} /></a>
         </Reveal>
-        <motion.div className="my-charging-media w-full aspect-[16/10] rounded-2xl overflow-hidden" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={spring}>
+        <motion.div className="my-charging-media w-full aspect-[16/10] rounded-2xl overflow-hidden lg:col-span-7" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={spring}>
           <img className="h-full w-full object-cover" src={ASSETS.charging} alt="Tesla Model Y energy and charging detail" loading="lazy" />
           <span className="my-image-caption">DESIGNED FOR THE LONG WAY ROUND / 04</span>
           <div className="my-charge-overlay"><BatteryCharging size={19} /><span>CHARGE. GO. REPEAT.</span></div>
