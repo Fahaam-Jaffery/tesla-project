@@ -462,3 +462,9 @@
 @media(max-width:700px){
   .model-y-page .my-configure-copy{padding-right:6%}
 }
+
+
+/* Keep Model Y's hover motion in sync with the Roadster configuration tabs. */
+.model-y-page .my-variant-card{transition:transform .32s cubic-bezier(.2,.7,.2,1),background-color .32s cubic-bezier(.2,.7,.2,1),border-color .32s cubic-bezier(.2,.7,.2,1),color .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s cubic-bezier(.2,.7,.2,1)}
+.model-y-page .my-variant-card:hover{transform:translateY(-3px)}
+.model-y-page .my-variant-car img{transition:transform .55s cubic-bezier(.2,.7,.2,1)}
