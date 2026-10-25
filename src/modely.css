@@ -84,16 +84,26 @@
 .my-inline-link { justify-content: flex-start; }
 .my-summary-link:hover, .my-inline-link:hover { color: #e82127; }
 
-.my-design-section { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: center; gap: clamp(35px, 7vw, 100px); padding: clamp(72px, 9vw, 125px) 7.2%; background: #e9eae7; }
-.my-design-media { position: relative; min-width: 0; height: clamp(390px, 53vw, 700px); overflow: hidden; background: #d8dad7; }
-.my-design-media img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.my-image-caption { position: absolute; left: 18px; bottom: 18px; padding: 10px 12px; border: 1px solid #ffffff4a; border-radius: 999px; background: #1013165c; color: #ffffffe0; font-size: 8px; letter-spacing: .13em; backdrop-filter: blur(12px); }
-.my-design-copy { max-width: 500px; }
-.my-paint-picker { border-color: #cfd1cc; }
-.my-swatches { display: flex; flex-wrap: wrap; gap: 12px; }
-.my-swatch { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #c9ccca; border-radius: 50%; background: transparent; transition: border-color .2s, box-shadow .2s; }
-.my-swatch i { display: block; width: 27px; height: 27px; border: 1px solid #00000020; border-radius: 50%; }
-.my-swatch-active { border-color: #17191b; box-shadow: 0 0 0 2px #e9eae7, 0 0 0 3px #17191b; }
+.my-gallery-section {
+  width: 100%;
+  background: #e9eae7;
+}
+.my-gallery-section .my-kicker { color: #777c7d; }
+.my-gallery-section .my-heading { color: #17191b; }
+.my-gallery-grid { column-count: 1; column-gap: 1rem; column-fill: balance; }
+.my-gallery-tile {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  border: 1px solid #d5d7d4;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(255,255,255,.7);
+  transform: translateZ(0);
+}
+.my-gallery-tile img { display: block; width: 100%; height: auto; object-fit: cover; }
+.my-gallery-tile:hover img { transform: scale(1.025); }
+@media (min-width: 640px) { .my-gallery-grid { column-count: 2; } }
+@media (min-width: 1024px) { .my-gallery-grid { column-count: 3; } }
 
 .my-interior-section { min-height: 620px; background: #101214; }
 .my-interior-section > img { object-position: center 55%; }
@@ -145,9 +155,6 @@
   .my-hero-overlay { background: linear-gradient(90deg, #06080a88, #06080a12 100%), linear-gradient(0deg, #06080ad9 0%, #06080a55 47%, #06080a15 100%); }
   .my-hero-topline { top: 100px; }
   .my-display { font-size: clamp(78px, 18vw, 126px); }
-  .my-design-section { grid-template-columns: 1fr; padding-inline: 1.25rem; gap: 36px; }
-  .my-design-media { height: clamp(300px, 88vw, 520px); }
-  .my-design-copy { max-width: none; }
   .my-interior-overlay, .my-performance-overlay { background: linear-gradient(90deg, #080a0bc9, #080a0b55 100%), linear-gradient(0deg, #080a0bd1 0%, #080a0b30 75%); }
   .my-spec-item:nth-child(2) { border-right: 0; }
   .my-spec-item:nth-child(3) { border-right: 1px solid #d9dad8; }
