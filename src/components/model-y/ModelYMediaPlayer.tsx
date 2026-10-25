@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { Maximize, Pause, Play, Volume2, VolumeX } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize, Pause, Play, Volume2, VolumeX } from 'lucide-react';
 import { MODEL_Y_FILMS, type ModelYVariant } from './modelYFilms';
 
 type ModelYMediaPlayerProps = {
@@ -23,7 +23,19 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
   const [duration, setDuration] = useState(0);
   const playerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const activeFilm = films.find((film) => film.id === activeFilmId) ?? films[0];
+  const activeFilmIndex = films.findIndex((film) => film.id === activeFilmId);
+  const activeFilm = films[activeFilmIndex] ?? films[0];
+
+  const selectFilm = (index: number) => {
+    const nextFilm = films[(index + films.length) % films.length];
+    setActiveFilmId(nextFilm.id);
+    setCurrentTime(0);
+    setDuration(0);
+    setIsPlaying(true);
+  };
+
+  const selectPreviousFilm = () => selectFilm(activeFilmIndex - 1);
+  const selectNextFilm = () => selectFilm(activeFilmIndex + 1);
 
   useEffect(() => {
     setActiveFilmId(MODEL_Y_FILMS[variant][0].id);
@@ -72,6 +84,7 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
           </p>
         </div>
 
+        <div className="my-film-stage">
         <div className="my-film-player-shell">
           <div className="my-film-player" ref={playerRef}>
             <video
@@ -96,7 +109,7 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
                 <span className="my-film-live-dot" />
                 <span>{variantName.toUpperCase()}</span>
                 <span className="my-film-divider">/</span>
-                <span>{String(films.findIndex((film) => film.id === activeFilm.id) + 1).padStart(2, '0')} — {String(films.length).padStart(2, '0')}</span>
+                <span>{String(activeFilmIndex + 1).padStart(2, '0')} — {String(films.length).padStart(2, '0')}</span>
               </div>
               <button className="my-film-icon-button" type="button" onClick={toggleFullscreen} aria-label="Toggle fullscreen">
                 <Maximize size={17} strokeWidth={1.7} />
@@ -112,6 +125,12 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
             <div className="my-film-controls">
               <button className="my-film-play-button" type="button" onClick={togglePlayback} aria-label={isPlaying ? 'Pause film' : 'Play film'}>
                 {isPlaying ? <Pause size={17} fill="currentColor" /> : <Play size={17} fill="currentColor" />}
+              </button>
+              <button className="my-film-skip-button" type="button" onClick={selectPreviousFilm} aria-label="Play previous film" title="Previous film">
+                <ChevronLeft size={18} strokeWidth={1.8} />
+              </button>
+              <button className="my-film-skip-button" type="button" onClick={selectNextFilm} aria-label="Play next film" title="Next film">
+                <ChevronRight size={18} strokeWidth={1.8} />
               </button>
               <span className="my-film-time">{formatTime(currentTime)}</span>
               <input
@@ -171,6 +190,7 @@ export default function ModelYMediaPlayer({ variant, variantName }: ModelYMediaP
               </button>
             );
           })}
+        </div>
         </div>
         <p className="my-film-note">Films play silently by default. Turn sound on whenever you want to take in the full experience.</p>
       </div>
