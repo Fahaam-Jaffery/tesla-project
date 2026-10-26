@@ -986,8 +986,9 @@
 .my-section-hint {
   top: clamp(88px, 13vh, 132px);
   right: auto;
-  left: 50%;
-  translate: -50% 0;
+  left: calc(50% - min(210px, (100vw - 32px) / 2));
+  margin-left: 0;
+  translate: none;
   width: min(420px, calc(100vw - 32px));
   gap: 13px;
   padding: 14px 14px 14px 16px;
@@ -1025,7 +1026,9 @@
   .my-section-hint {
     top: max(78px, calc(env(safe-area-inset-top) + 68px));
     right: auto;
-    left: 50%;
+    left: 14px;
+    margin-left: 0;
+    translate: none;
     width: calc(100vw - 28px);
     gap: 9px;
     padding: 12px 10px 12px 12px;
