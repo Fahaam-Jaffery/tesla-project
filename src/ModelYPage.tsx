@@ -444,11 +444,21 @@ export default function ModelYPage() {
         <>
         <AnimatePresence>
           {!sectionHintDismissed && !sectionNavOpen && !searchOpen && (
-            <motion.div className="my-section-hint" role="status" aria-live="polite" initial={reduceMotion ? false : { opacity: 0, x: 18, scale: 0.96 }} animate={{ opacity: 1, x: 0, scale: 1 }} exit={reduceMotion ? undefined : { opacity: 0, x: 12, scale: 0.98 }} transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 360, damping: 28 }}>
+            <motion.div
+              className="my-section-hint"
+              role="status"
+              aria-live="polite"
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, width: 44, height: 44, borderRadius: 999 }}
+              animate={reduceMotion ? { opacity: 1 } : { opacity: 1, width: 'min(420px, calc(100vw - 32px))', height: 64, borderRadius: 18 }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, width: 0, height: 0, borderRadius: 999, padding: 0, borderWidth: 0 }}
+              transition={reduceMotion ? { duration: 0 } : { width: { type: 'spring', stiffness: 300, damping: 27 }, height: { type: 'spring', stiffness: 320, damping: 28 }, borderRadius: { duration: 0.22 }, opacity: { duration: 0.18 } }}
+            >
               <span className="my-section-hint-notch" aria-hidden="true" />
-              <span className="my-section-hint-mark"><span /><span /><span /></span>
-              <span className="my-section-hint-copy"><strong>Explore the page</strong><small>Use the three-dot icon to jump between sections.</small></span>
-              <button type="button" className="my-section-hint-close" aria-label="Dismiss navigation tip" onClick={() => setSectionHintDismissed(true)}><X size={14}/></button>
+              <motion.div className="my-section-hint-content" initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18, delay: reduceMotion ? 0 : 0.16 }}>
+                <span className="my-section-hint-mark"><span /><span /><span /></span>
+                <span className="my-section-hint-copy"><strong>Explore the page</strong><small>Use the three-dot icon to jump between sections.</small></span>
+                <button type="button" className="my-section-hint-close" aria-label="Dismiss navigation tip" onClick={() => setSectionHintDismissed(true)}><X size={14}/></button>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
