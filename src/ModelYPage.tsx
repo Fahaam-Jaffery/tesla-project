@@ -188,7 +188,7 @@ export default function ModelYPage() {
   }, []);
 
   useEffect(() => {
-    const ids = ['top', 'design', 'interior', 'performance', 'charging', 'specs', 'variants'];
+    const ids = ['top', 'variants', 'specs', 'design', 'interior', 'highlights', 'performance', 'charging'];
     const nodes = ids.map((id) => document.getElementById(id)).filter((node): node is HTMLElement => node instanceof HTMLElement);
     if (!nodes.length) return;
     const observer = new IntersectionObserver((entries) => {
@@ -404,16 +404,16 @@ export default function ModelYPage() {
           </button>
           {sectionNavOpen && (
             <div className="my-section-rail-content">
-              <button className="my-section-rail-arrow" aria-label="Previous section" onClick={() => { const i = ['top','design','interior','performance','charging','specs','variants'].indexOf(activeSection); jumpTo(['top','design','interior','performance','charging','specs','variants'][Math.max(0,i-1)]); setSectionNavOpen(false); }}><ChevronUp size={16}/></button>
+              <button className="my-section-rail-arrow" aria-label="Previous section" onClick={() => { const order = ['top','variants','specs','design','interior','highlights','performance','charging']; const i = order.indexOf(activeSection); jumpTo(order[Math.max(0,i-1)]); setSectionNavOpen(false); }}><ChevronUp size={16}/></button>
               <span className="my-section-rail-caption">ON THIS PAGE</span>
               {[
-                ['top','Overview'],['design','Design'],['interior','Interior'],['performance','Performance'],['charging','Charging'],['specs','Specs'],['variants','Variants']
+                ['top','Overview'],['variants','Choose your Model Y'],['specs','Specifications'],['design','Design'],['interior','Interior'],['highlights','Features'],['performance','Performance'],['charging','Charging']
               ].map(([id,label], index) => (
                 <button key={id} className={`my-section-rail-item${activeSection === id ? ' is-active' : ''}`} aria-label={label} aria-current={activeSection === id ? 'location' : undefined} onClick={() => { jumpTo(id); setSectionNavOpen(false); }}>
                   <span className="my-section-rail-dot"/><span className="my-section-rail-label">{label}</span><small>{String(index+1).padStart(2,'0')}</small>
                 </button>
               ))}
-              <button className="my-section-rail-arrow" aria-label="Next section" onClick={() => { const i = ['top','design','interior','performance','charging','specs','variants'].indexOf(activeSection); jumpTo(['top','design','interior','performance','charging','specs','variants'][Math.min(6,i+1)]); setSectionNavOpen(false); }}><ChevronDown size={16}/></button>
+              <button className="my-section-rail-arrow" aria-label="Next section" onClick={() => { const order = ['top','variants','specs','design','interior','highlights','performance','charging']; const i = order.indexOf(activeSection); jumpTo(order[Math.min(order.length-1,i+1)]); setSectionNavOpen(false); }}><ChevronDown size={16}/></button>
             </div>
           )}
         </motion.aside>
