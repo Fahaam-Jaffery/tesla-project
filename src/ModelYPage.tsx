@@ -464,7 +464,13 @@ export default function ModelYPage() {
           )}
         </AnimatePresence>
         <motion.aside className={`my-section-rail${sectionNavOpen ? ' is-expanded' : ''}`} initial={reduceMotion ? false : { opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 12 }} aria-label="Page section navigation">
-          <button className="my-section-rail-toggle" aria-label={sectionNavOpen ? 'Collapse section navigation' : 'Expand section navigation'} aria-expanded={sectionNavOpen} onClick={() => { setSectionHintDismissed(true); setSectionNavOpen((open) => !open); }}>
+          <button className="my-section-rail-toggle" aria-label={sectionNavOpen ? 'Collapse section navigation' : `Open section navigation, section ${activeSectionIndex + 1} of ${sectionOrder.length}`} aria-expanded={sectionNavOpen} onClick={() => { setSectionHintDismissed(true); setSectionNavOpen((open) => !open); }}>
+            {!sectionNavOpen && (
+              <svg className="my-section-rail-ring" viewBox="0 0 40 40" aria-hidden="true">
+                <circle className="my-section-rail-ring-track" cx="20" cy="20" r="17" />
+                <circle className="my-section-rail-ring-progress" cx="20" cy="20" r="17" pathLength="100" style={{ strokeDashoffset: 100 - ((activeSectionIndex + 1) / sectionOrder.length) * 100 }} />
+              </svg>
+            )}
             {sectionNavOpen ? <X size={16}/> : <span className="my-section-rail-mini-dots"><i/><i/><i/></span>}
           </button>
           {sectionNavOpen && (
@@ -473,9 +479,6 @@ export default function ModelYPage() {
               <div className="my-section-rail-progress">
                 <span className="my-section-rail-caption">ON THIS PAGE</span>
                 <span className="my-section-rail-count">{String(activeSectionIndex + 1).padStart(2, '0')} <i>/</i> {String(sectionOrder.length).padStart(2, '0')}</span>
-              </div>
-              <div className="my-section-rail-progress-track" role="progressbar" aria-label="Page section progress" aria-valuemin={1} aria-valuemax={sectionOrder.length} aria-valuenow={activeSectionIndex + 1}>
-                <span style={{ width: `${((activeSectionIndex + 1) / sectionOrder.length) * 100}%` }} />
               </div>
               {[
                 ['top','Overview'],['variants','Choose your Model Y'],['specs','Specifications'],['design','Design'],['interior','Interior'],['highlights','Features'],['performance','Performance'],['charging','Charging']
