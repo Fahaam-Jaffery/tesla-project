@@ -177,28 +177,54 @@ export default function ModelYPage() {
   const model = trims.find((trim) => trim.id === selectedVariant) ?? trims[3];
 
   useEffect(() => {
+    let frame = 0;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 24);
-      setHeroPassed((heroRef.current?.getBoundingClientRect().bottom ?? 1) <= 0);
-      setFooterVisible((footerRef.current?.getBoundingClientRect().top ?? window.innerHeight + 1) < window.innerHeight * 0.92);
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        setScrolled(window.scrollY > 24);
+        // Reveal the rail once the hero has moved at least halfway out of view.
+        setHeroPassed((heroRef.current?.getBoundingClientRect().bottom ?? 1) <= window.innerHeight * 0.5);
+        setFooterVisible((footerRef.current?.getBoundingClientRect().top ?? window.innerHeight + 1) < window.innerHeight * 0.92);
+      });
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
     const ids = ['top', 'variants', 'specs', 'design', 'interior', 'highlights', 'performance', 'charging'];
     const nodes = ids.map((id) => document.getElementById(id)).filter((node): node is HTMLElement => node instanceof HTMLElement);
     if (!nodes.length) return;
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible?.target instanceof HTMLElement) setActiveSection(visible.target.id);
-    }, { rootMargin: '-18% 0px -58% 0px', threshold: [0, 0.1, 0.25, 0.5] });
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
+    // A single activation line avoids stale observer entries fighting during smooth scrolling.
+    let frame = 0;
+    const updateActiveSection = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const activationLine = Math.min(window.innerHeight * 0.36, 280);
+        let current = nodes[0];
+        for (const node of nodes) {
+          if (node.getBoundingClientRect().top <= activationLine) current = node;
+          else break;
+        }
+        setActiveSection(current.id);
+      });
+    };
+    updateActiveSection();
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection);
+      window.removeEventListener('resize', updateActiveSection);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -226,9 +252,19 @@ export default function ModelYPage() {
     };
   }, [menuOpen]);
 
+  const sectionOrder = ['top', 'variants', 'specs', 'design', 'interior', 'highlights', 'performance', 'charging'];
   const jumpTo = (id: string) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    setActiveSection(id);
+    setSectionNavOpen(false);
     setMenuOpen(false);
-    window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }), 20);
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  };
+  const stepSection = (direction: -1 | 1) => {
+    const currentIndex = sectionOrder.indexOf(activeSection);
+    const nextIndex = Math.max(0, Math.min(sectionOrder.length - 1, currentIndex + direction));
+    jumpTo(sectionOrder[nextIndex]);
   };
 
   return (
@@ -404,7 +440,7 @@ export default function ModelYPage() {
           </button>
           {sectionNavOpen && (
             <div className="my-section-rail-content">
-              <button className="my-section-rail-arrow" aria-label="Previous section" onClick={() => { const order = ['top','variants','specs','design','interior','highlights','performance','charging']; const i = order.indexOf(activeSection); jumpTo(order[Math.max(0,i-1)]); setSectionNavOpen(false); }}><ChevronUp size={16}/></button>
+              <button className="my-section-rail-arrow" aria-label="Previous section" disabled={activeSection === sectionOrder[0]} onClick={() => stepSection(-1)}><ChevronUp size={16}/></button>
               <span className="my-section-rail-caption">ON THIS PAGE</span>
               {[
                 ['top','Overview'],['variants','Choose your Model Y'],['specs','Specifications'],['design','Design'],['interior','Interior'],['highlights','Features'],['performance','Performance'],['charging','Charging']
@@ -413,7 +449,7 @@ export default function ModelYPage() {
                   <span className="my-section-rail-dot"/><span className="my-section-rail-label">{label}</span><small>{String(index+1).padStart(2,'0')}</small>
                 </button>
               ))}
-              <button className="my-section-rail-arrow" aria-label="Next section" onClick={() => { const order = ['top','variants','specs','design','interior','highlights','performance','charging']; const i = order.indexOf(activeSection); jumpTo(order[Math.min(order.length-1,i+1)]); setSectionNavOpen(false); }}><ChevronDown size={16}/></button>
+              <button className="my-section-rail-arrow" aria-label="Next section" disabled={activeSection === sectionOrder[sectionOrder.length - 1]} onClick={() => stepSection(1)}><ChevronDown size={16}/></button>
             </div>
           )}
         </motion.aside>
