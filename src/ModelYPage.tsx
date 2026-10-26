@@ -200,10 +200,10 @@ export default function ModelYPage() {
   }, []);
 
   useEffect(() => {
-    if (!heroPassed || footerVisible || sectionHintDismissed || sectionNavOpen || menuOpen || searchOpen) return;
+    if (footerVisible || sectionHintDismissed || sectionNavOpen || menuOpen || searchOpen) return;
     const timeout = window.setTimeout(() => setSectionHintDismissed(true), 8500);
     return () => window.clearTimeout(timeout);
-  }, [heroPassed, footerVisible, sectionHintDismissed, sectionNavOpen, menuOpen, searchOpen]);
+  }, [footerVisible, sectionHintDismissed, sectionNavOpen, menuOpen, searchOpen]);
 
   useEffect(() => {
     const ids = ['top', 'variants', 'specs', 'design', 'interior', 'highlights', 'performance', 'charging'];
@@ -440,7 +440,7 @@ export default function ModelYPage() {
         )}
       </AnimatePresence>
 
-      {heroPassed && !footerVisible && !menuOpen && (
+      {(!footerVisible) && !menuOpen && (
         <>
         <AnimatePresence>
           {!sectionHintDismissed && !sectionNavOpen && !searchOpen && (
