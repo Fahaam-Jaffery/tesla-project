@@ -260,6 +260,7 @@ export default function ModelYPage() {
   }, [menuOpen]);
 
   const sectionOrder = ['top', 'variants', 'specs', 'design', 'interior', 'highlights', 'performance', 'charging'];
+  const activeSectionIndex = Math.max(0, sectionOrder.indexOf(activeSection));
   const jumpTo = (id: string) => {
     const target = document.getElementById(id);
     if (!target) return;
@@ -469,7 +470,13 @@ export default function ModelYPage() {
           {sectionNavOpen && (
             <div className="my-section-rail-content">
               <button className="my-section-rail-arrow" aria-label="Previous section" disabled={activeSection === sectionOrder[0]} onClick={() => stepSection(-1)}><ChevronUp size={16}/></button>
-              <span className="my-section-rail-caption">ON THIS PAGE</span>
+              <div className="my-section-rail-progress">
+                <span className="my-section-rail-caption">ON THIS PAGE</span>
+                <span className="my-section-rail-count">{String(activeSectionIndex + 1).padStart(2, '0')} <i>/</i> {String(sectionOrder.length).padStart(2, '0')}</span>
+              </div>
+              <div className="my-section-rail-progress-track" role="progressbar" aria-label="Page section progress" aria-valuemin={1} aria-valuemax={sectionOrder.length} aria-valuenow={activeSectionIndex + 1}>
+                <span style={{ width: `${((activeSectionIndex + 1) / sectionOrder.length) * 100}%` }} />
+              </div>
               {[
                 ['top','Overview'],['variants','Choose your Model Y'],['specs','Specifications'],['design','Design'],['interior','Interior'],['highlights','Features'],['performance','Performance'],['charging','Charging']
               ].map(([id,label], index) => (
