@@ -449,7 +449,7 @@ export default function ModelYPage() {
               role="status"
               aria-live="polite"
               initial={reduceMotion ? { opacity: 0 } : { opacity: 0, width: 44, height: 44, borderRadius: 999 }}
-              animate={reduceMotion ? { opacity: 1 } : { opacity: 1, width: 'min(420px, calc(100vw - 32px))', height: 64, borderRadius: 18 }}
+              animate={reduceMotion ? { opacity: 1 } : { opacity: 1, width: 420, height: 64, borderRadius: 18 }}
               exit={reduceMotion ? { opacity: 0 } : { opacity: 0, width: 0, height: 0, borderRadius: 999, padding: 0, borderWidth: 0 }}
               transition={reduceMotion ? { duration: 0 } : { width: { type: 'spring', stiffness: 300, damping: 27 }, height: { type: 'spring', stiffness: 320, damping: 28 }, borderRadius: { duration: 0.22 }, opacity: { duration: 0.18 } }}
             >
