@@ -870,6 +870,12 @@
 .my-page .my-section-rail-arrow { display:flex; width:100%; height:28px; align-items:center; justify-content:center; border-radius:8px; background:transparent; color:rgba(255,255,255,.72); }
 .my-page .my-section-rail-arrow:hover { background:rgba(255,255,255,.08); color:#fff; }
 .my-section-rail-caption { padding:3px 10px 5px; color:rgba(255,255,255,.38); font-size:8px; font-weight:700; letter-spacing:.16em; }
+.my-section-rail-progress { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:3px 10px 5px; }
+.my-section-rail-progress .my-section-rail-caption { padding:0; }
+.my-section-rail-count { flex:0 0 auto; color:rgba(255,255,255,.76); font-size:10px; font-weight:650; letter-spacing:.06em; font-variant-numeric:tabular-nums; }
+.my-section-rail-count i { padding:0 2px; color:rgba(255,255,255,.28); font-style:normal; }
+.my-section-rail-progress-track { height:2px; margin:0 10px 7px; overflow:hidden; border-radius:99px; background:rgba(255,255,255,.09); }
+.my-section-rail-progress-track span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#b70e16,#f04449); box-shadow:0 0 10px rgba(232,33,39,.4); transition:width .42s cubic-bezier(.22,1,.36,1); }
 .my-page .my-section-rail-item { display:grid; width:100%; min-width:0; grid-template-columns:12px minmax(0,1fr) auto; align-items:center; gap:9px; min-height:36px; padding:7px 9px; border:1px solid transparent; border-radius:9px; background:transparent; color:rgba(255,255,255,.76); text-align:left; white-space:nowrap; }
 .my-section-rail-dot { width:5px; height:5px; border:1px solid rgba(255,255,255,.42); border-radius:50%; transition:background .2s ease, transform .2s ease, box-shadow .2s ease; }
 .my-section-rail-label { min-width:0; overflow:hidden; text-overflow:ellipsis; font-size:11px; font-weight:500; }
