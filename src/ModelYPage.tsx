@@ -166,6 +166,7 @@ export default function ModelYPage() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [sectionNavOpen, setSectionNavOpen] = useState(false);
+  const [sectionHintDismissed, setSectionHintDismissed] = useState(false);
   const [activeSection, setActiveSection] = useState('top');
   const [scrolled, setScrolled] = useState(false);
   const [heroPassed, setHeroPassed] = useState(false);
@@ -197,6 +198,12 @@ export default function ModelYPage() {
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
+
+  useEffect(() => {
+    if (!heroPassed || footerVisible || sectionHintDismissed || sectionNavOpen || menuOpen || searchOpen) return;
+    const timeout = window.setTimeout(() => setSectionHintDismissed(true), 8500);
+    return () => window.clearTimeout(timeout);
+  }, [heroPassed, footerVisible, sectionHintDismissed, sectionNavOpen, menuOpen, searchOpen]);
 
   useEffect(() => {
     const ids = ['top', 'variants', 'specs', 'design', 'interior', 'highlights', 'performance', 'charging'];
@@ -434,8 +441,19 @@ export default function ModelYPage() {
       </AnimatePresence>
 
       {heroPassed && !footerVisible && !menuOpen && (
+        <>
+        <AnimatePresence>
+          {!sectionHintDismissed && !sectionNavOpen && !searchOpen && (
+            <motion.div className="my-section-hint" role="status" aria-live="polite" initial={reduceMotion ? false : { opacity: 0, x: 18, scale: 0.96 }} animate={{ opacity: 1, x: 0, scale: 1 }} exit={reduceMotion ? undefined : { opacity: 0, x: 12, scale: 0.98 }} transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 360, damping: 28 }}>
+              <span className="my-section-hint-notch" aria-hidden="true" />
+              <span className="my-section-hint-mark"><span /><span /><span /></span>
+              <span className="my-section-hint-copy"><strong>Explore the page</strong><small>Use the three-dot icon to jump between sections.</small></span>
+              <button type="button" className="my-section-hint-close" aria-label="Dismiss navigation tip" onClick={() => setSectionHintDismissed(true)}><X size={14}/></button>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <motion.aside className={`my-section-rail${sectionNavOpen ? ' is-expanded' : ''}`} initial={reduceMotion ? false : { opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 12 }} aria-label="Page section navigation">
-          <button className="my-section-rail-toggle" aria-label={sectionNavOpen ? 'Collapse section navigation' : 'Expand section navigation'} aria-expanded={sectionNavOpen} onClick={() => setSectionNavOpen((open) => !open)}>
+          <button className="my-section-rail-toggle" aria-label={sectionNavOpen ? 'Collapse section navigation' : 'Expand section navigation'} aria-expanded={sectionNavOpen} onClick={() => { setSectionHintDismissed(true); setSectionNavOpen((open) => !open); }}>
             {sectionNavOpen ? <X size={16}/> : <span className="my-section-rail-mini-dots"><i/><i/><i/></span>}
           </button>
           {sectionNavOpen && (
@@ -453,6 +471,7 @@ export default function ModelYPage() {
             </div>
           )}
         </motion.aside>
+        </>
       )}
 
       <section ref={heroRef} className="my-hero relative min-h-[90svh] h-screen max-h-[1100px] overflow-hidden bg-[#151719] text-white" id="top">
