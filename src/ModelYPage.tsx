@@ -249,21 +249,18 @@ export default function ModelYPage() {
     };
   }, []);
 
-  // Mirror SignalBoard's command-palette lock: preserve both document overflow
-  // values and compensate for the native scrollbar while an overlay is open.
+  // Lock both scrolling surfaces without adding padding: the document already
+  // reserves a stable scrollbar gutter, so compensating again creates a right-edge strip.
   useEffect(() => {
     const overlayOpen = menuOpen || searchOpen;
     const root = document.documentElement;
     const body = document.body;
     const previousRootOverflow = root.style.overflow;
     const previousBodyOverflow = body.style.overflow;
-    const previousBodyPaddingRight = body.style.paddingRight;
-    const scrollbarWidth = window.innerWidth - root.clientWidth;
 
     if (overlayOpen) {
       root.style.overflow = 'hidden';
       body.style.overflow = 'hidden';
-      if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -286,7 +283,6 @@ export default function ModelYPage() {
     return () => {
       root.style.overflow = previousRootOverflow;
       body.style.overflow = previousBodyOverflow;
-      body.style.paddingRight = previousBodyPaddingRight;
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [menuOpen, searchOpen]);
@@ -401,8 +397,8 @@ export default function ModelYPage() {
       <AnimatePresence>
         {searchOpen && (
           <>
-            <motion.button className="my-search-backdrop" aria-label="Close search" onClick={() => setSearchOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
-            <motion.section className="my-search-modal" role="dialog" aria-modal="true" aria-label="Search Tesla pages" initial={reduceMotion ? false : { opacity: 0, y: 18, scale: .985 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={reduceMotion ? undefined : { opacity: 0, y: 12, scale: .99 }} transition={{ duration: reduceMotion ? 0 : .24 }}>
+            <motion.button className="my-search-backdrop" aria-label="Close search" onClick={() => { setSearchOpen(false); setSearchQuery(''); }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? 0 : 0.14 }} />
+            <motion.section className="my-search-modal" role="dialog" aria-modal="true" aria-label="Search Tesla pages" initial={reduceMotion ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={reduceMotion ? undefined : { opacity: 0, y: 6 }} transition={{ duration: reduceMotion ? 0 : .18, ease: 'easeOut' }}>
               <div className="my-search-heading">
                 <div><span className="my-menu-eyebrow">TESLA / SEARCH</span><h2>Where to?</h2></div>
                 <button className="my-menu-button" aria-label="Close search" onClick={() => { setSearchOpen(false); setSearchQuery(''); }}><X size={20}/></button>
