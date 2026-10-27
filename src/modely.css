@@ -1470,3 +1470,25 @@
   .site-header .menu-button { display: grid; }
   .site-header { grid-template-columns: 1fr auto; }
 }
+
+/* Model Y header matches the Tesla wordmark scale without overpowering it. */
+@media (min-width: 1025px) {
+  .site-header .desktop-nav { gap: 2px; }
+  .site-header .desktop-nav a {
+    padding: 8px 5px;
+    font-size: clamp(12px, .92vw, 14px);
+    font-weight: 500;
+    letter-spacing: -.025em;
+  }
+}
+.my-search-trigger {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 11px;
+}
+.my-search-trigger svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.8;
+}
