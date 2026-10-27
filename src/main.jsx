@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X, ChevronDown, ChevronLeft, ChevronRight, Pause, Play, Zap, ShieldCheck, Gauge, BatteryCharging } from 'lucide-react';
 import './styles.css';
+import SiteMegaMenu from './components/SiteMegaMenu';
 import './styles-extra.css';
 import ModelYPage from './ModelYPage.tsx';
 
@@ -237,12 +238,7 @@ function App() {
         <div className="header-actions">
           <button className="menu-button" onClick={() => { setNavHover(null); setMenuOpen(true); }} aria-label="Open menu"><Menu size={23}/></button>
         </div>
-        {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
-          <div className="nav-mega-intro"><span className="nav-mega-kicker">EXPLORE TESLA</span><h3>{({vehicles:'Find your vehicle.',energy:'Power your world.',charging:'Go further, effortlessly.',robotaxi:'The future moves itself.',semi:'Electric freight, reimagined.',discover:'Explore what’s next.',shop:'Designed for the Tesla life.'})[navHover]}</h3><p>{({vehicles:'Distinct designs. All-electric performance.',energy:'Integrated energy for home and beyond.',charging:'Simple charging at home and on the road.',robotaxi:'A new chapter in autonomous mobility.',semi:'Purpose-built electric transport.',discover:'Technology, stories and experiences.',shop:'Accessories and essentials, thoughtfully made.'})[navHover]}</p></div>
-          
-          <a className="nav-mega-card" href="/modely" onClick={() => setNavHover(null)}><span>02 / MODEL Y</span><strong>Model Y</strong><small>Discover the vehicle <ArrowUpRight size={14}/></small></a>
-          <a className="nav-mega-card" href="#technology" onClick={() => setNavHover(null)}><span>03 / THE EXPERIENCE</span><strong>Technology</strong><small>Discover what's next <ArrowUpRight size={14}/></small></a>
-        </div>}
+        {navHover && <SiteMegaMenu category={navHover} onClose={() => setNavHover(null)} />}
       </header>
 
       <main>
