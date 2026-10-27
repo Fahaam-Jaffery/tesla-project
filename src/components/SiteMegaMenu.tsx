@@ -118,7 +118,7 @@ export default function SiteMegaMenu({ category, onClose, modelY = false }: { ca
   const cards = isDiscover ? [] : items[key];
 
   return (
-    <div className={`nav-mega nav-mega--${key}`} role="region" aria-label={`${content.title} navigation" onMouseEnter={() => {}} onMouseLeave={onClose}>
+    <div className={`nav-mega nav-mega--${key}`} role="region" aria-label={`${content.title} navigation` onMouseEnter={() => {}} onMouseLeave={onClose}>
       <div className="nav-mega-inner">
         <div className="nav-mega-intro">
           <span className="nav-mega-kicker">{modelY ? 'MODEL Y / ' : ''}{content.kicker}</span>
