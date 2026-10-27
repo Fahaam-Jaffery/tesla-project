@@ -1501,3 +1501,9 @@
     border-radius: 4px;
   }
 }
+
+
+/* Match the search icon to the navigation text after the header scrolls. */
+.site-header.header-scrolled .my-search-trigger {
+  color: #17191b;
+}
