@@ -184,6 +184,8 @@ export default function ModelYPage() {
       frame = window.requestAnimationFrame(() => {
         frame = 0;
         setScrolled(window.scrollY > 24);
+        const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        document.documentElement.style.setProperty('--scroll-progress', String(Math.min(1, Math.max(0, window.scrollY / maxScroll))));
         // Reveal the rail once the hero has moved at least halfway out of view.
         setHeroPassed((heroRef.current?.getBoundingClientRect().bottom ?? 1) <= window.innerHeight * 0.5);
         setFooterVisible((footerRef.current?.getBoundingClientRect().top ?? window.innerHeight + 1) < window.innerHeight * 0.92);
