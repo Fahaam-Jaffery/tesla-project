@@ -96,3 +96,14 @@ html, body {
 @media (max-width: 600px) {
   ::-webkit-scrollbar { width: 6px; height: 6px; }
 }
+
+/* Fine-tuned desktop navigation rhythm */
+@media (min-width: 1025px) {
+  .site-header .desktop-nav { gap: 2px; }
+  .site-header .desktop-nav a {
+    padding: 8px 5px;
+    font-size: clamp(12px, .92vw, 14px);
+    font-weight: 500;
+    letter-spacing: -.025em;
+  }
+}
