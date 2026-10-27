@@ -553,3 +553,94 @@
   font-weight: 700;
   color: #6d7072;
 }
+
+
+/* Category-aware Tesla mega menu — shared by the homepage and Model Y. */
+.site-header { isolation: isolate; }
+.nav-mega {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: block;
+  padding: 0;
+  color: #17191b;
+  background: rgba(248,248,247,.94);
+  border-top: 1px solid rgba(255,255,255,.9);
+  box-shadow: 0 26px 70px rgba(8,10,12,.18), inset 0 1px rgba(255,255,255,.92);
+  -webkit-backdrop-filter: blur(32px) saturate(155%);
+  backdrop-filter: blur(32px) saturate(155%);
+  animation: mega-menu-in .24s cubic-bezier(.2,.7,.2,1) both;
+  transform-origin: top center;
+  z-index: 25;
+}
+.nav-mega-inner {
+  width: min(100%, 1440px);
+  margin-inline: auto;
+  padding: 28px clamp(24px, 4.6vw, 76px) 30px;
+  display: grid;
+  grid-template-columns: minmax(155px, .72fr) minmax(0, 3fr) minmax(170px, .85fr);
+  align-items: stretch;
+  gap: clamp(18px, 2.2vw, 34px);
+}
+.nav-mega-intro { align-self: start; padding: 5px 12px 0 0; }
+.nav-mega-intro .nav-mega-kicker,
+.nav-mega-side-label { color: #777b81; font-size: 9px; font-weight: 750; letter-spacing: .16em; line-height: 1.5; }
+.nav-mega-intro h3 { margin: 15px 0 12px; font-family: 'Manrope',sans-serif; font-size: clamp(22px,2vw,31px); font-weight: 550; line-height: 1.08; letter-spacing: -.055em; text-wrap: balance; }
+.nav-mega-intro p { max-width: 250px; margin: 0; color: #696d72; font-size: 11px; line-height: 1.75; }
+.nav-mega-cards { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); align-content: start; gap: clamp(8px,1vw,15px); min-width: 0; }
+.nav-mega-cards--energy,.nav-mega-cards--shop { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.nav-mega-cards--charging { grid-template-columns: repeat(4,minmax(0,1fr)); }
+.nav-mega-cards--robotaxi { grid-template-columns: minmax(0,1fr); max-width: 240px; }
+.nav-mega-cards--semi { grid-template-columns: repeat(2,minmax(0,1fr)); max-width: 420px; }
+.nav-mega-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: rgba(255,255,255,.22);
+  transition: background .28s ease, border-color .28s ease, transform .32s cubic-bezier(.2,.7,.2,1), box-shadow .28s ease;
+}
+.nav-mega-card:hover,.nav-mega-card:focus-visible {
+  background: rgba(255,255,255,.82);
+  border-color: rgba(190,194,200,.72);
+  box-shadow: 0 10px 26px rgba(20,24,30,.07), inset 0 1px rgba(255,255,255,.9);
+  transform: translateY(-3px);
+}
+.nav-mega-card-eyebrow { min-height: 22px; color: #777b81; font-size: 8px; font-weight: 750; letter-spacing: .1em; line-height: 1.4; }
+.nav-mega-card-image { display: grid; place-items: center; height: clamp(72px,7.4vw,108px); margin: 2px -2px 8px; overflow: hidden; }
+.nav-mega-card-image img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+.nav-mega-card:hover .nav-mega-card-image img { transform: scale(1.055); }
+.nav-mega-card strong { margin: 4px 0 7px; color: #191b1f; font-family: 'Manrope',sans-serif; font-size: clamp(12px,1vw,15px); font-weight: 650; letter-spacing: -.035em; }
+.nav-mega-card small { display: flex; align-items: center; gap: 5px; margin-top: auto; color: #686d73; font-size: 10px; font-weight: 650; }
+.nav-mega-card small svg { color: #e82127; transition: transform .25s ease; }
+.nav-mega-card:hover small svg { transform: translate(2px,-2px); }
+.nav-mega-side { min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 4px 0 0 clamp(16px,1.7vw,26px); border-left: 1px solid rgba(25,28,32,.12); }
+.nav-mega-side-label { margin-bottom: 12px; }
+.nav-mega-side-link { display: flex; align-items: center; justify-content: space-between; gap: 9px; padding: 8px 0; color: #34383d; font-size: 10px; font-weight: 600; line-height: 1.35; transition: color .2s ease, padding .2s ease; }
+.nav-mega-side-link svg { flex: 0 0 auto; color: #8a8e94; transition: color .2s ease, transform .2s ease; }
+.nav-mega-side-link:hover { padding-left: 3px; color: #e82127; }
+.nav-mega-side-link:hover svg { color: #e82127; transform: translateX(2px); }
+.nav-mega-discover { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(18px,2.2vw,36px); padding: 5px 0 0; }
+.nav-mega-link-group h4 { margin: 0 0 13px; color: #777b81; font-size: 9px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+.nav-mega-text-link { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 0; border-bottom: 1px solid rgba(25,28,32,.08); color: #272b30; font-size: 11px; font-weight: 600; transition: color .2s ease, padding .2s ease; }
+.nav-mega-text-link svg { flex: 0 0 auto; color: #9a9da3; }
+.nav-mega-text-link:hover { padding-left: 3px; color: #e82127; }
+.nav-mega-text-link:hover svg { color: #e82127; }
+@keyframes mega-menu-in { from { opacity: 0; transform: translateY(-7px) scaleY(.985); } to { opacity: 1; transform: translateY(0) scaleY(1); } }
+@media (max-width: 1180px) and (min-width: 1025px) {
+  .nav-mega-inner { grid-template-columns: 145px minmax(0,1fr) 165px; gap: 14px; padding-inline: 22px; }
+  .nav-mega-card { padding: 8px 6px 10px; }
+  .nav-mega-card-eyebrow { font-size: 7px; }
+  .nav-mega-card-image { height: 72px; }
+  .nav-mega-card strong { font-size: 12px; }
+  .nav-mega-side { padding-left: 14px; }
+}
+@media (max-width: 1024px) {
+  .nav-mega { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-mega,.nav-mega-card,.nav-mega-card-image img,.nav-mega-side-link,.nav-mega-text-link { animation: none; transition: none; }
+}
