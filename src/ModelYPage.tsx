@@ -249,12 +249,30 @@ export default function ModelYPage() {
     };
   }, []);
 
+  // Mirror SignalBoard's command-palette lock: preserve both document overflow
+  // values and compensate for the native scrollbar while an overlay is open.
   useEffect(() => {
     const overlayOpen = menuOpen || searchOpen;
-    const previousOverflow = document.body.style.overflow;
-    if (overlayOpen) document.body.style.overflow = 'hidden';
+    const root = document.documentElement;
+    const body = document.body;
+    const previousRootOverflow = root.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    const previousBodyPaddingRight = body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - root.clientWidth;
+
+    if (overlayOpen) {
+      root.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+      if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
+    }
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setSearchOpen(true);
+        setMenuOpen(false);
+        return;
+      }
       if (event.key !== 'Escape') return;
       if (searchOpen) {
         setSearchOpen(false);
@@ -264,9 +282,11 @@ export default function ModelYPage() {
       }
     };
 
-    if (overlayOpen) window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.body.style.overflow = previousOverflow;
+      root.style.overflow = previousRootOverflow;
+      body.style.overflow = previousBodyOverflow;
+      body.style.paddingRight = previousBodyPaddingRight;
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [menuOpen, searchOpen]);
