@@ -1438,3 +1438,35 @@
   }
   .my-search-result:hover { transform: none; }
 }
+
+
+/* Shared site scrollbar and responsive navigation refinements for Model Y. */
+.my-search-trigger {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(217,221,227,.26);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.018));
+  color: rgba(247,248,250,.9);
+  box-shadow: inset 0 1px rgba(255,255,255,.09), 0 5px 18px rgba(0,0,0,.08);
+  transition: border-color .2s ease, background .2s ease, color .2s ease, transform .2s ease;
+}
+.my-search-trigger:hover {
+  border-color: rgba(232,33,39,.58);
+  background: linear-gradient(145deg, rgba(232,33,39,.17), rgba(255,255,255,.035));
+  color: #fff;
+  transform: translateY(-1px);
+}
+.my-search-trigger:focus-visible {
+  outline: 2px solid rgba(232,33,39,.9);
+  outline-offset: 3px;
+}
+.site-header .menu-button { display: none; }
+.site-header .desktop-nav { gap: clamp(12px, 1.45vw, 24px); }
+.site-header .desktop-nav a { white-space: nowrap; font-size: clamp(9px, .78vw, 11px); }
+.site-header .header-actions { gap: 12px; }
+@media (max-width: 1024px) {
+  .site-header .desktop-nav { display: none; }
+  .site-header .menu-button { display: grid; }
+  .site-header { grid-template-columns: 1fr auto; }
+}
