@@ -223,14 +223,18 @@ function App() {
         <a className="wordmark logo-wordmark" href="#home" aria-label="Tesla home"><img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" /></a>
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href="#fleet" onMouseEnter={() => setNavHover('vehicles')} onFocus={() => setNavHover('vehicles')}>Vehicles</a>
-          <a href="#technology" onMouseEnter={() => setNavHover('technology')} onFocus={() => setNavHover('technology')}>Technology</a>
+          <a href="#energy" onMouseEnter={() => setNavHover('energy')} onFocus={() => setNavHover('energy')}>Energy</a>
           <a href="#charging-network" onMouseEnter={() => setNavHover('charging')} onFocus={() => setNavHover('charging')}>Charging</a>
+          <a href="#technology" onMouseEnter={() => setNavHover('robotaxi')} onFocus={() => setNavHover('robotaxi')}>Robotaxi</a>
+          <a href="#fleet" onMouseEnter={() => setNavHover('semi')} onFocus={() => setNavHover('semi')}>Semi</a>
+          <a href="#technology" onMouseEnter={() => setNavHover('discover')} onFocus={() => setNavHover('discover')}>Discover</a>
+          <a href="#fleet" onMouseEnter={() => setNavHover('shop')} onFocus={() => setNavHover('shop')}>Shop</a>
         </nav>
-        <div className="header-actions"><a className="header-cta" href="#models" onMouseEnter={() => setNavHover('models')} onFocus={() => setNavHover('models')}>Explore models <ArrowUpRight size={16}/></a>
+        <div className="header-actions">
           <button className="menu-button" onClick={() => { setNavHover(null); setMenuOpen(true); }} aria-label="Open menu"><Menu size={23}/></button>
         </div>
         {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
-          <div className="nav-mega-intro"><span className="nav-mega-kicker">EXPLORE TESLA</span><h3>{({vehicles:'Find your vehicle.',technology:'Built around intelligence.',charging:'Go further, effortlessly.',models:'Meet your next Tesla.'})[navHover]}</h3><p>{({vehicles:'Distinct designs. All-electric performance.',technology:'Intuitive software and thoughtful engineering.',charging:'Simple charging at home and on the road.',models:'Explore the lineup and compare the details.'})[navHover]}</p></div>
+          <div className="nav-mega-intro"><span className="nav-mega-kicker">EXPLORE TESLA</span><h3>{({vehicles:'Find your vehicle.',energy:'Power your world.',charging:'Go further, effortlessly.',robotaxi:'The future moves itself.',semi:'Electric freight, reimagined.',discover:'Explore what’s next.',shop:'Designed for the Tesla life.'})[navHover]}</h3><p>{({vehicles:'Distinct designs. All-electric performance.',energy:'Integrated energy for home and beyond.',charging:'Simple charging at home and on the road.',robotaxi:'A new chapter in autonomous mobility.',semi:'Purpose-built electric transport.',discover:'Technology, stories and experiences.',shop:'Accessories and essentials, thoughtfully made.'})[navHover]}</p></div>
           
           <a className="nav-mega-card" href="/modely" onClick={() => setNavHover(null)}><span>02 / MODEL Y</span><strong>Model Y</strong><small>Discover the vehicle <ArrowUpRight size={14}/></small></a>
           <a className="nav-mega-card" href="#technology" onClick={() => setNavHover(null)}><span>03 / THE EXPERIENCE</span><strong>Technology</strong><small>Discover what's next <ArrowUpRight size={14}/></small></a>
