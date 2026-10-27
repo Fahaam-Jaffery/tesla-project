@@ -414,11 +414,18 @@ export default function ModelYPage() {
                       <ArrowUpRight size={16}/>
                     </button>
                   ))}
-                {![{ label: 'Overview', category: 'MODEL Y SECTION', terms: 'home hero overview' },{ label: 'Design', category: 'MODEL Y SECTION', terms: 'exterior design' },{ label: 'Interior', category: 'MODEL Y SECTION', terms: 'cabin seats comfort storage' },{ label: 'Performance', category: 'MODEL Y SECTION', terms: 'speed acceleration range' },{ label: 'Charging', category: 'MODEL Y SECTION', terms: 'energy supercharger battery' },{ label: 'Specifications', category: 'MODEL Y SECTION', terms: 'specs range speed acceleration' },{ label: 'Choose your Model Y', category: 'MODEL Y SECTION', terms: 'configuration trim standard premium long wheelbase performance' },{ label: 'Model 3', category: 'TESLA VEHICLES', terms: 'sedan car' },{ label: 'Model S', category: 'TESLA VEHICLES', terms: 'sedan car' },{ label: 'Model X', category: 'TESLA VEHICLES', terms: 'suv car' },{ label: 'Energy', category: 'EXPLORE TESLA', terms: 'solar power home battery' },{ label: 'Charging', category: 'EXPLORE TESLA', terms: 'supercharger network' },{ label: 'Shop', category: 'EXPLORE TESLA', terms: 'accessories merchandise' }].some((item) => `${item.label} ${item.category} ${item.terms}`.toLowerCase().includes(searchQuery.trim().toLowerCase())) && (
-                  <div className="my-search-empty"><Search size={20}/><strong>No matches found</strong><span>Try a different page or section name.</span></div>
+                {searchQuery.trim() && ![
+                  { label: 'Model 3', category: 'TESLA VEHICLES', terms: 'sedan car' },
+                  { label: 'Model S', category: 'TESLA VEHICLES', terms: 'sedan car' },
+                  { label: 'Model X', category: 'TESLA VEHICLES', terms: 'suv car' },
+                  { label: 'Energy', category: 'EXPLORE TESLA', terms: 'solar power home battery' },
+                  { label: 'Charging', category: 'EXPLORE TESLA', terms: 'supercharger network' },
+                  { label: 'Shop', category: 'EXPLORE TESLA', terms: 'accessories merchandise' },
+                ].some((item) => `${item.label} ${item.category} ${item.terms}`.toLowerCase().includes(searchQuery.trim().toLowerCase())) && (
+                  <div className="my-search-empty"><Search size={20}/><strong>No matches found</strong><span>Try another Tesla destination.</span></div>
                 )}
               </div>
-              <div className="my-search-footnote">Search sections on this page or explore Tesla.com</div>
+              <div className="my-search-footnote">TESLA DESTINATIONS <span>·</span> OPEN A NEW PAGE</div>
             </motion.section>
           </>
         )}
