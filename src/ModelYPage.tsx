@@ -309,21 +309,24 @@ export default function ModelYPage() {
         <a className="wordmark logo-wordmark" href="/" aria-label="Tesla home">
           <img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" />
         </a>
-        <nav className="desktop-nav" aria-label="Model Y navigation">
-          <a href="#design" onMouseEnter={() => setNavHover('design')} onFocus={() => setNavHover('design')}>Design</a>
-          <a href="#interior" onMouseEnter={() => setNavHover('interior')} onFocus={() => setNavHover('interior')}>Interior</a>
-          <a href="#performance" onMouseEnter={() => setNavHover('performance')} onFocus={() => setNavHover('performance')}>Performance</a>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          <a href="/" onMouseEnter={() => setNavHover('vehicles')} onFocus={() => setNavHover('vehicles')}>Vehicles</a>
+          <a href="/#energy" onMouseEnter={() => setNavHover('energy')} onFocus={() => setNavHover('energy')}>Energy</a>
+          <a href="/#charging-network" onMouseEnter={() => setNavHover('charging')} onFocus={() => setNavHover('charging')}>Charging</a>
+          <a href="/#technology" onMouseEnter={() => setNavHover('robotaxi')} onFocus={() => setNavHover('robotaxi')}>Robotaxi</a>
+          <a href="/#fleet" onMouseEnter={() => setNavHover('semi')} onFocus={() => setNavHover('semi')}>Semi</a>
+          <a href="/#technology" onMouseEnter={() => setNavHover('discover')} onFocus={() => setNavHover('discover')}>Discover</a>
+          <a href="/#fleet" onMouseEnter={() => setNavHover('shop')} onFocus={() => setNavHover('shop')}>Shop</a>
         </nav>
         <div className="header-actions">
-          <a className="header-cta" href="#variants" onMouseEnter={() => setNavHover('configurations')} onFocus={() => setNavHover('configurations')}>Explore configurations <ArrowUpRight size={16}/></a>
-          <button className="my-search-trigger" onClick={() => { setNavHover(null); setSearchOpen(true); }} aria-label="Search Tesla pages"><Search size={19}/></button>
+          <button className="my-search-trigger" onClick={() => { setNavHover(null); setSearchOpen(true); }} aria-label="Search Tesla pages" title="Search Tesla pages"><Search size={20}/></button>
           <button className="menu-button" onClick={() => { setNavHover(null); setMenuOpen(true); }} aria-label="Open menu"><Menu size={23}/></button>
         </div>
         {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
           <div className="nav-mega-intro">
             <span className="nav-mega-kicker">MODEL Y / EXPLORE</span>
-            <h3>{({design:'Form, with a purpose.',interior:'Space for what matters.',performance:'Power meets precision.',configurations:'Find your Model Y.'} as Record<string,string>)[navHover]}</h3>
-            <p>{({design:'Thoughtful proportions, sculpted details and an unmistakably modern silhouette.',interior:'A calm, considered cabin with adaptable room for every kind of journey.',performance:'Responsive electric driving, confident handling and range for the road ahead.',configurations:'Compare the available Model Y configurations and choose your fit.'} as Record<string,string>)[navHover]}</p>
+            <h3>{({vehicles:'Find your vehicle.',energy:'Power your world.',charging:'Go further, effortlessly.',robotaxi:'The future moves itself.',semi:'Electric freight, reimagined.',discover:'Explore what’s next.',shop:'Designed for the Tesla life.'} as Record<string,string>)[navHover]}</h3>
+            <p>{({vehicles:'Distinct designs. All-electric performance.',energy:'Integrated energy for home and beyond.',charging:'Simple charging at home and on the road.',robotaxi:'A new chapter in autonomous mobility.',semi:'Purpose-built electric transport.',discover:'Technology, stories and experiences.',shop:'Accessories and essentials, thoughtfully made.'} as Record<string,string>)[navHover]}</p>
           </div>
           <a className="nav-mega-card" href="#variants" onClick={() => setNavHover(null)}><span>01 / CONFIGURATIONS</span><strong>Choose your Model Y</strong><small>Compare available variants <ArrowUpRight size={14}/></small></a>
           <a className="nav-mega-card" href="#charging" onClick={() => setNavHover(null)}><span>02 / CHARGING</span><strong>Go further</strong><small>Explore energy and range <ArrowUpRight size={14}/></small></a>
