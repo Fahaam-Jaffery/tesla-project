@@ -672,3 +672,23 @@
   background: #fff;
   border-color: #d9dadd;
 }
+
+/* Targeted mega-menu fixes: preserve the existing design, enforce pure-white cards,
+   and keep the intro copy aligned with the top edge of the product cards. */
+.site-header .nav-mega-inner {
+  align-items: start;
+}
+.site-header .nav-mega-intro {
+  align-self: start;
+  margin-top: 0;
+  padding-top: 0;
+}
+.site-header .nav-mega-card {
+  background: #fff;
+  border-color: #fff;
+}
+.site-header .nav-mega-card:hover,
+.site-header .nav-mega-card:focus-visible {
+  background: #fff;
+  border-color: #d9dadd;
+}
