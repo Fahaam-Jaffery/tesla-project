@@ -234,30 +234,30 @@ export default function ModelYPage() {
     };
   }, []);
 
+  // One coordinated overlay effect prevents the search and menu from racing
+  // to restore body overflow when either overlay closes.
   useEffect(() => {
-    if (!searchOpen) return;
+    const overlayOpen = menuOpen || searchOpen;
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') { setSearchOpen(false); setSearchQuery(''); }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener('keydown', handleKeyDown); };
-  }, [searchOpen]);
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    if (overlayOpen) document.body.style.overflow = 'hidden';
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false);
+      if (event.key !== 'Escape') return;
+      if (searchOpen) {
+        setSearchOpen(false);
+        setSearchQuery('');
+      } else if (menuOpen) {
+        setMenuOpen(false);
+      }
     };
-    window.addEventListener('keydown', handleKeyDown);
+
+    if (overlayOpen) window.addEventListener('keydown', handleKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [menuOpen]);
+  }, [menuOpen, searchOpen]);
 
   const sectionOrder = ['top', 'variants', 'specs', 'design', 'interior', 'highlights', 'performance', 'charging'];
   const activeSectionIndex = Math.max(0, sectionOrder.indexOf(activeSection));
