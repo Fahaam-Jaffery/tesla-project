@@ -107,3 +107,12 @@ html, body {
     letter-spacing: -.025em;
   }
 }
+
+
+/* Precise hover hit-area requested for desktop navigation tabs. */
+@media (min-width: 1025px) {
+  .site-header .desktop-nav a {
+    padding: 3px 4px;
+    border-radius: 4px;
+  }
+}
