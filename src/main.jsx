@@ -187,7 +187,11 @@ function App() {
   const model = models[activeModel];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      document.documentElement.style.setProperty('--scroll-progress', String(Math.min(1, Math.max(0, window.scrollY / maxScroll))));
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
   return () => window.removeEventListener('scroll', onScroll);
   }, []);
