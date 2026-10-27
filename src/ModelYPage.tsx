@@ -16,6 +16,7 @@ import {
   YAxis,
 } from 'recharts';
 import './modely.css';
+import SiteMegaMenu from './components/SiteMegaMenu';
 import ModelYMediaPlayer from './components/model-y/ModelYMediaPlayer';
 
 type TrimId = 'standard' | 'premium' | 'long_wheelbase' | 'performance';
@@ -324,16 +325,7 @@ export default function ModelYPage() {
           <button className="my-search-trigger" onClick={() => { setNavHover(null); setSearchOpen(true); }} aria-label="Search Tesla pages" title="Search Tesla pages"><Search size={20}/></button>
           <button className="menu-button" onClick={() => { setNavHover(null); setMenuOpen(true); }} aria-label="Open menu"><Menu size={23}/></button>
         </div>
-        {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
-          <div className="nav-mega-intro">
-            <span className="nav-mega-kicker">MODEL Y / EXPLORE</span>
-            <h3>{({vehicles:'Find your vehicle.',energy:'Power your world.',charging:'Go further, effortlessly.',robotaxi:'The future moves itself.',semi:'Electric freight, reimagined.',discover:'Explore what’s next.',shop:'Designed for the Tesla life.'} as Record<string,string>)[navHover]}</h3>
-            <p>{({vehicles:'Distinct designs. All-electric performance.',energy:'Integrated energy for home and beyond.',charging:'Simple charging at home and on the road.',robotaxi:'A new chapter in autonomous mobility.',semi:'Purpose-built electric transport.',discover:'Technology, stories and experiences.',shop:'Accessories and essentials, thoughtfully made.'} as Record<string,string>)[navHover]}</p>
-          </div>
-          <a className="nav-mega-card" href="#variants" onClick={() => setNavHover(null)}><span>01 / CONFIGURATIONS</span><strong>Choose your Model Y</strong><small>Compare available variants <ArrowUpRight size={14}/></small></a>
-          <a className="nav-mega-card" href="#charging" onClick={() => setNavHover(null)}><span>02 / CHARGING</span><strong>Go further</strong><small>Explore energy and range <ArrowUpRight size={14}/></small></a>
-          <a className="nav-mega-card" href="#specs" onClick={() => setNavHover(null)}><span>03 / SPECIFICATIONS</span><strong>Know the details</strong><small>View key vehicle specs <ArrowUpRight size={14}/></small></a>
-        </div>}
+        {navHover && <SiteMegaMenu category={navHover} onClose={() => setNavHover(null)} modelY />}
       </header>
 
       <AnimatePresence>
