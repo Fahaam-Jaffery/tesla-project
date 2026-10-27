@@ -406,8 +406,7 @@ export default function ModelYPage() {
                     <button key={item.category + item.label} className="my-search-result" onClick={() => {
                       setSearchOpen(false);
                       setSearchQuery('');
-                      if ('id' in item && item.id) jumpTo(item.id);
-                      else if ('href' in item && item.href) window.location.assign(item.href);
+                      if ('href' in item && item.href) window.location.assign(item.href);
                     }}>
                       <span className="my-search-result-icon"><Search size={15}/></span>
                       <span className="my-search-result-copy"><strong>{item.label}</strong><small>{item.category}</small></span>
