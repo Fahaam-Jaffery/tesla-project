@@ -234,12 +234,24 @@ export default function ModelYPage() {
     };
   }, []);
 
-  // One coordinated overlay effect prevents the search and menu from racing
-  // to restore body overflow when either overlay closes.
+  // Keep the Model Y page's scrollbar gutter dark, and coordinate overlay locking.
+  // The light homepage shares this document, so restore its original page colors on unmount.
+  useEffect(() => {
+    const root = document.documentElement;
+    const body = document.body;
+    const previousRootBackground = root.style.backgroundColor;
+    const previousBodyBackground = body.style.backgroundColor;
+    root.style.backgroundColor = '#050607';
+    body.style.backgroundColor = '#050607';
+    return () => {
+      root.style.backgroundColor = previousRootBackground;
+      body.style.backgroundColor = previousBodyBackground;
+    };
+  }, []);
+
   useEffect(() => {
     const overlayOpen = menuOpen || searchOpen;
     const previousOverflow = document.body.style.overflow;
-
     if (overlayOpen) document.body.style.overflow = 'hidden';
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -334,32 +346,10 @@ export default function ModelYPage() {
               </div>
 
               <div className="my-menu-heading mt-7">
-                <span className="my-menu-eyebrow">MODEL Y / EXPLORE</span>
-                <h2>Find your<br /><span>next move.</span></h2>
+                <span className="my-menu-eyebrow">TESLA / DESTINATIONS</span>
+                <h2>Explore<br /><span>other pages.</span></h2>
+                <p className="my-menu-description">Jump to another part of the Tesla world.</p>
               </div>
-
-              <nav className="my-menu-links mt-5 w-full" aria-label="Model Y sections">
-                {[
-                  ['01', 'Overview', 'top'],
-                  ['02', 'Design', 'design'],
-                  ['03', 'Interior', 'interior'],
-                  ['04', 'Performance', 'performance'],
-                  ['05', 'Charging', 'charging'],
-                  ['06', 'Specifications', 'specs'],
-                  ['07', 'Choose your Model Y', 'variants'],
-                ].map(([number, label, id]) => (
-                  <motion.button
-                    layout
-                    key={id}
-                    onClick={() => jumpTo(id)}
-                    whileHover={reduceMotion ? undefined : { x: 4 }}
-                    whileTap={reduceMotion ? undefined : { scale: 0.99 }}
-                    transition={spring}
-                  >
-                    <span>{number}</span><strong>{label}</strong><ArrowUpRight size={17} />
-                  </motion.button>
-                ))}
-              </nav>
 
               <div className="my-menu-global mt-7">
                 <span className="my-menu-eyebrow">EXPLORE OTHER PAGES</span>
@@ -399,19 +389,12 @@ export default function ModelYPage() {
               </div>
               <label className="my-search-field">
                 <Search size={19} aria-hidden="true"/>
-                <input autoFocus value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search pages or Model Y sections…" aria-label="Search pages or sections"/>
+                <input autoFocus value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search Tesla destinations…" aria-label="Search Tesla destinations"/>
                 {searchQuery && <button type="button" aria-label="Clear search" onClick={() => setSearchQuery('')}><X size={15}/></button>}
                 <kbd>ESC</kbd>
               </label>
               <div className="my-search-results">
                 {[
-                  { label: 'Overview', category: 'MODEL Y SECTION', id: 'top', terms: 'home hero overview' },
-                  { label: 'Design', category: 'MODEL Y SECTION', id: 'design', terms: 'exterior design' },
-                  { label: 'Interior', category: 'MODEL Y SECTION', id: 'interior', terms: 'cabin seats comfort storage' },
-                  { label: 'Performance', category: 'MODEL Y SECTION', id: 'performance', terms: 'speed acceleration range' },
-                  { label: 'Charging', category: 'MODEL Y SECTION', id: 'charging', terms: 'energy supercharger battery' },
-                  { label: 'Specifications', category: 'MODEL Y SECTION', id: 'specs', terms: 'specs range speed acceleration' },
-                  { label: 'Choose your Model Y', category: 'MODEL Y SECTION', id: 'variants', terms: 'configuration trim standard premium long wheelbase performance' },
                   { label: 'Model 3', category: 'TESLA VEHICLES', href: 'https://www.tesla.com/model3', terms: 'sedan car' },
                   { label: 'Model S', category: 'TESLA VEHICLES', href: 'https://www.tesla.com/models', terms: 'sedan car' },
                   { label: 'Model X', category: 'TESLA VEHICLES', href: 'https://www.tesla.com/modelx', terms: 'suv car' },
