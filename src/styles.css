@@ -112,7 +112,7 @@ html, body {
 /* Precise hover hit-area requested for desktop navigation tabs. */
 @media (min-width: 1025px) {
   .site-header .desktop-nav a {
-    padding: 3px 4px;
+    padding: 9px 12px;
     border-radius: 4px;
   }
 }
