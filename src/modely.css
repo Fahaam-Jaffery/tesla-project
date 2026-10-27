@@ -1492,3 +1492,12 @@
   height: 16px;
   stroke-width: 1.8;
 }
+
+
+/* Keep Model Y tab hover treatment aligned with homepage navigation. */
+@media (min-width: 1025px) {
+  .site-header .desktop-nav a {
+    padding: 3px 4px;
+    border-radius: 4px;
+  }
+}
