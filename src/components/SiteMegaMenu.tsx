@@ -115,7 +115,7 @@ export default function SiteMegaMenu({ category, onClose, modelY = false }: { ca
   const key = category as Category;
   const content = copy[key];
   const isDiscover = key === 'discover';
-  const cards = isDiscover ? [] : items[key];
+  const cards: MenuItem[] = key === 'discover' ? [] : items[key as Exclude<Category, 'discover'>];
 
   return (
     <div className={`nav-mega nav-mega--${key}`} role="region" aria-label={`${content.title} navigation`} onMouseEnter={() => {}} onMouseLeave={onClose}>
