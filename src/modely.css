@@ -864,7 +864,7 @@
 }
 .my-page .my-section-rail button { color:inherit; }
 .my-section-rail-toggle { position:relative; isolation:isolate; display:flex; width:34px; height:34px; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.1); border-radius:50%; background:rgba(255,255,255,.06); color:#fff; }
-.my-section-rail-ring { position:absolute; z-index:-1; inset:-4px; width:42px; height:42px; overflow:visible; pointer-events:none; transform:rotate(-90deg); }
+.my-section-rail-ring { position:absolute; z-index:-1; inset:-4px; width:42px; height:42px; overflow:visible; pointer-events:none; transform:rotate(-90deg) scale(.92); transform-origin:center; }
 .my-section-rail-ring circle { fill:none; stroke-width:1.8; }
 .my-section-rail-ring-track { stroke:rgba(255,255,255,.13); }
 .my-section-rail-ring-progress { stroke:#e82127; stroke-linecap:round; stroke-dasharray:100; filter:drop-shadow(0 0 2px rgba(232,33,39,.35)); transition:stroke-dashoffset .52s cubic-bezier(.22,1,.36,1); }
