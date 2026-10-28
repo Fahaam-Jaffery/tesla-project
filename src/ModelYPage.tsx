@@ -893,10 +893,41 @@ export default function ModelYPage() {
         )}
       </AnimatePresence>
 
-      <footer ref={footerRef} className="my-footer flex flex-col gap-5 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-[5.1%]">
-        <a href="/" className="my-footer-wordmark">TESLA<span>®</span></a>
-        <span className="my-kicker">ACCELERATING THE FUTURE.</span>
-        <div className="flex flex-wrap gap-x-5 gap-y-3 text-xs text-white/65"><a href="/">Home</a><a href="#variants">Configurations</a><a href="#charging">Charging</a><a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">Tesla.com ↗</a></div>
+      <footer ref={footerRef} className="my-footer">
+        <div className="my-footer-main">
+          <div className="my-footer-brand">
+            <a href="/" className="my-footer-wordmark" aria-label="Tesla home">TESLA<span>®</span></a>
+            <p>Electric, reimagined.</p>
+            <span className="my-footer-note">DESIGNED FOR WHAT'S NEXT.</span>
+          </div>
+
+          <nav className="my-footer-column" aria-label="Explore this experience">
+            <span className="my-footer-heading">EXPLORE</span>
+            <a href="/">Home</a>
+            <a href="/modely">Model Y</a>
+            <a href="/roadster">Roadster</a>
+          </nav>
+
+          <nav className="my-footer-column" aria-label="Model Y sections">
+            <span className="my-footer-heading">MODEL Y</span>
+            <a href="#variants">Configurations</a>
+            <a href="#charging">Charging</a>
+            <a href="#performance">Performance</a>
+          </nav>
+
+          <nav className="my-footer-column" aria-label="Tesla resources">
+            <span className="my-footer-heading">TESLA</span>
+            <a href="https://www.tesla.com/modely" target="_blank" rel="noreferrer">Explore Model Y <ArrowUpRight size={13} /></a>
+            <a href="https://www.tesla.com/supercharger" target="_blank" rel="noreferrer">Supercharging <ArrowUpRight size={13} /></a>
+            <a href="https://www.tesla.com" target="_blank" rel="noreferrer">Tesla.com <ArrowUpRight size={13} /></a>
+          </nav>
+        </div>
+
+        <div className="my-footer-bottom">
+          <span>© {new Date().getFullYear()} TESLA EXPERIENCE</span>
+          <span className="my-footer-disclaimer">Independent portfolio concept. Not affiliated with Tesla, Inc.</span>
+          <a className="my-footer-backtop" href="#top" onClick={(event) => { event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>BACK TO TOP ↑</a>
+        </div>
       </footer>
     </main>
   );
