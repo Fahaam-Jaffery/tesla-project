@@ -734,7 +734,6 @@
 .mobile-tesla-menu-links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 16px; }
 .mobile-tesla-menu-links a { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 7px; padding: 10px 0; border-bottom: 1px solid rgba(25,28,32,.07); color: #34383d; font-size: 10px; font-weight: 600; line-height: 1.35; }
 .mobile-tesla-menu-links a svg { flex: 0 0 auto; color: #9a9da3; }
-.mobile-tesla-menu-tesla-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; color: #34383d; font-size: 10px; font-weight: 700; }
 .mobile-tesla-menu--dark { color: #f5f5f7; }
 .mobile-tesla-menu--dark .mobile-tesla-menu-tabs button { color: rgba(245,245,247,.62); border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.035); }
 .mobile-tesla-menu--dark .mobile-tesla-menu-tabs button.is-active { color: #fff; border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.12); }
@@ -742,7 +741,6 @@
 .mobile-tesla-menu--dark .mobile-tesla-menu-intro p { color: rgba(245,245,247,.62); }
 .mobile-tesla-menu--dark .mobile-tesla-menu-card { border-color: rgba(255,255,255,.11); background: rgba(255,255,255,.96); }
 .mobile-tesla-menu--dark .mobile-tesla-menu-more { border-top-color: rgba(255,255,255,.12); }
-.mobile-tesla-menu--dark .mobile-tesla-menu-tesla-link { color: #f5f5f7; }
 @media (max-width: 900px) {
   .menu-overlay { overflow: hidden; }
   .menu-overlay .mobile-nav { display: none; }
