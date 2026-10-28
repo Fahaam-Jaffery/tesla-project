@@ -696,15 +696,25 @@
 
 /* Responsive category drawer shared by the homepage and Model Y mobile menus. */
 .mobile-tesla-menu { display: none; min-width: 0; color: #17191b; }
+.mobile-tesla-menu-tab-shell { min-width: 0; width: 100%; margin: 0 0 22px; }
 .mobile-tesla-menu-tabs {
-  display: flex; align-items: center; gap: 5px; width: 100%; margin: 0 0 22px;
-  padding: 0 0 9px; overflow-x: auto; overscroll-behavior-inline: contain;
-  scrollbar-width: thin; scrollbar-color: rgba(120,124,130,.45) transparent;
-  -webkit-overflow-scrolling: touch;
+  display: flex; align-items: center; gap: 6px; width: 100%; min-width: 0;
+  margin: 0; padding: 3px 3px 9px; overflow-x: auto; overflow-y: hidden;
+  overscroll-behavior-x: contain; scroll-padding-inline: 5px; touch-action: pan-x;
+  scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;
+}
+.mobile-tesla-menu-tabs::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.mobile-tesla-menu-tab-track {
+  height: 2px; width: 100%; overflow: hidden; border-radius: 99px;
+  background: rgba(120,124,130,.15);
+}
+.mobile-tesla-menu-tab-track span {
+  display: block; height: 100%; border-radius: inherit; background: #e82127;
+  box-shadow: 0 0 8px rgba(232,33,39,.28); transition: width .16s ease, transform .16s ease;
 }
 .mobile-tesla-menu-tabs button {
   position: relative; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px;
-  min-height: 36px; padding: 0 12px; border: 1px solid rgba(23,25,27,.1); border-radius: 999px;
+  min-height: 36px; max-width: max-content; white-space: nowrap; padding: 0 12px; border: 1px solid rgba(23,25,27,.1); border-radius: 999px;
   background: rgba(255,255,255,.52); color: #64696e; font-size: 10px; font-weight: 650;
   transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
@@ -744,7 +754,7 @@
 @media (max-width: 900px) {
   .menu-overlay { overflow: hidden; }
   .menu-overlay .mobile-nav { display: none; }
-  .menu-overlay > .mobile-tesla-menu { display: flex; flex: 1 1 auto; flex-direction: column; min-height: 0; margin: 20px 0 16px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(120,124,130,.4) transparent; }
+  .menu-overlay > .mobile-tesla-menu { display: flex; flex: 1 1 auto; flex-direction: column; min-height: 0; margin: 20px 0 16px; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; -ms-overflow-style: none; }\n  .menu-overlay > .mobile-tesla-menu::-webkit-scrollbar { display: none; width: 0; height: 0; }
   .menu-overlay .menu-bottom { flex: 0 0 auto; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(23,25,27,.1); }
 }
 @media (max-width: 360px) {
