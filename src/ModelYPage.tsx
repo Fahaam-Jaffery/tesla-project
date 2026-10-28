@@ -503,7 +503,7 @@ export default function ModelYPage() {
         <AnimatePresence mode="wait" initial={false}>
           <motion.img
           key={selectedVariant}
-          className="absolute inset-0 h-full w-full object-cover"
+          className={`my-hero-image my-hero-image--${selectedVariant} absolute inset-0 h-full w-full object-cover`}
           src={model.image}
           alt={`${model.name} in a cinematic exterior setting`}
           loading="eager"
