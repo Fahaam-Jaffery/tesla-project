@@ -314,7 +314,16 @@
   .my-nav { min-height: 58px; grid-template-columns: 1fr 1fr; padding-inline: 16px; }
   .my-wordmark { width: 44px; }
   .my-wordmark img { width: 36px; }
-  .my-hero { min-height: 650px; height: 94svh; max-height: 900px; }
+  /* Fill the visible mobile viewport; avoid the old 650px minimum on short screens. */
+  .my-hero {
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    max-height: none;
+  }
   .my-hero > img { object-position: 58% center; }
 
   /* Mobile-only hero framing: each Model Y variant can keep its own focal point.
