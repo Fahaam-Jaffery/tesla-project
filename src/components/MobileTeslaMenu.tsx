@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 type Category = 'vehicles' | 'energy' | 'charging' | 'robotaxi' | 'semi' | 'discover' | 'shop';
@@ -106,6 +106,40 @@ const sideLinks: Record<Category, MenuLink[]> = {
 
 export default function MobileTeslaMenu({ onClose, tone = 'light' }: { onClose: () => void; tone?: 'light' | 'dark' }) {
   const [activeCategory, setActiveCategory] = useState<Category>('vehicles');
+  const [tabScroll, setTabScroll] = useState({ width: 100, left: 0, visible: false });
+  const tabsRef = useRef<HTMLDivElement>(null);
+
+  const updateTabScroll = useCallback(() => {
+    const element = tabsRef.current;
+    if (!element) return;
+    const maxScroll = element.scrollWidth - element.clientWidth;
+    if (maxScroll <= 1) {
+      setTabScroll({ width: 100, left: 0, visible: false });
+      return;
+    }
+    const width = Math.max(18, (element.clientWidth / element.scrollWidth) * 100);
+    const left = (element.scrollLeft / maxScroll) * (100 - width);
+    setTabScroll({ width, left, visible: true });
+  }, []);
+
+  useEffect(() => {
+    const element = tabsRef.current;
+    if (!element) return;
+    updateTabScroll();
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateTabScroll) : null;
+    observer?.observe(element);
+    window.addEventListener('resize', updateTabScroll);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', updateTabScroll);
+    };
+  }, [updateTabScroll]);
+
+  const chooseCategory = (category: Category, target: HTMLButtonElement) => {
+    setActiveCategory(category);
+    target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+  };
+
   const activeCopy = copy[activeCategory];
   const activeItems = items[activeCategory];
   const links = sideLinks[activeCategory];
@@ -117,13 +151,17 @@ export default function MobileTeslaMenu({ onClose, tone = 'light' }: { onClose: 
 
   return (
     <section className={`mobile-tesla-menu ${tone === 'dark' ? 'mobile-tesla-menu--dark' : 'mobile-tesla-menu--light'}`} aria-label="Tesla navigation categories">
-      <div className="mobile-tesla-menu-tabs" role="tablist" aria-label="Explore Tesla categories">
+      <div className="mobile-tesla-menu-tab-shell">\n        <div ref={tabsRef} onScroll={updateTabScroll} className="mobile-tesla-menu-tabs" role="tablist" aria-label="Explore Tesla categories">
         {categories.map((category) => (
-          <button key={category.id} type="button" role="tab" aria-selected={activeCategory === category.id} className={activeCategory === category.id ? 'is-active' : ''} onClick={() => setActiveCategory(category.id)}>
+          <button key={category.id} type="button" role="tab" aria-selected={activeCategory === category.id} className={activeCategory === category.id ? 'is-active' : ''} onClick={(event) => chooseCategory(category.id, event.currentTarget)}>
             {category.label}
             <span aria-hidden="true" />
           </button>
         ))}
+        </div>
+        <div className="mobile-tesla-menu-tab-track" aria-hidden="true">
+          <span style={{ width: String(tabScroll.width) + '%', transform: 'translateX(' + (tabScroll.visible ? (tabScroll.left / Math.max(1, 100 - tabScroll.width)) * 100 : 0) + '%)' }} />
+        </div>
       </div>
       <div className="mobile-tesla-menu-intro">
         <span className="mobile-tesla-menu-kicker">{activeCopy.kicker}</span>
