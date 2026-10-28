@@ -1507,3 +1507,97 @@
 .site-header.header-scrolled .my-search-trigger {
   color: #17191b;
 }
+
+
+/* Mobile navigation rail: anchor the expanded panel inside the safe viewport. */
+@media (max-width: 767px) {
+  .my-page .my-section-rail.is-expanded {
+    top: max(12px, env(safe-area-inset-top, 0px));
+    bottom: auto;
+    transform: none;
+    max-height: calc(100dvh - max(24px, env(safe-area-inset-top, 0px)) - max(12px, env(safe-area-inset-bottom, 0px)));
+    overflow: hidden;
+  }
+  .my-page .my-section-rail-content {
+    min-height: 0;
+    max-height: calc(100dvh - max(112px, env(safe-area-inset-top, 0px) + 100px) - max(16px, env(safe-area-inset-bottom, 0px)));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,.2) transparent;
+  }
+  .my-page .my-section-rail-item { min-height: 35px; padding-block: 6px; }
+  .my-page .my-section-rail-arrow { flex: 0 0 26px; height: 26px; }
+}
+
+/* Let every Model Y trim image breathe inside its card instead of clipping at the edges. */
+.my-trim-image {
+  height: clamp(136px, 14vw, 185px);
+  margin: 8px -2px 15px;
+  padding: 5px 0;
+  box-sizing: border-box;
+}
+.my-trim-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  padding: 3px 0;
+  box-sizing: border-box;
+  transform: none !important;
+}
+.my-trim-card:hover .my-trim-image img { transform: none !important; }
+
+/* Keep the three telemetry figures on one compact row on phones. */
+.my-performance-stats { min-width: 0; }
+.my-performance-stat-label {
+  margin-bottom: 0;
+  font-size: 9px;
+  letter-spacing: .07em;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.my-performance-stat-value {
+  font-size: clamp(21px, 6vw, 30px);
+  letter-spacing: -.06em;
+}
+.my-performance-stat-unit { font-size: 10px; }
+@media (max-width: 767px) {
+  .my-performance-stats { gap: 8px; padding-top: 18px; }
+  .my-performance-stats > div { min-width: 0; }
+  .my-performance-stat-label { font-size: clamp(7px, 2.15vw, 9px); letter-spacing: .035em; }
+  .my-performance-stat-value { font-size: clamp(20px, 6vw, 28px); }
+  .my-performance-stat-unit { margin-left: 2px; font-size: 9px; }
+}
+
+/* Mobile gets the category drawer; the existing desktop Model Y menu stays intact. */
+@media (max-width: 767px) {
+  .my-page .my-menu {
+    overflow: hidden;
+    padding-top: max(20px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  }
+  .my-page .my-menu-heading,
+  .my-page .my-menu-global { display: none; }
+  .my-page .my-menu > .mobile-tesla-menu {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    margin-top: 18px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,.2) transparent;
+  }
+  .my-page .my-menu-footer {
+    flex: 0 0 auto;
+    gap: 10px;
+    margin-top: 12px !important;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+}
