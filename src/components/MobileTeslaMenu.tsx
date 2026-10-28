@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, ArrowUpRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 type Category = 'vehicles' | 'energy' | 'charging' | 'robotaxi' | 'semi' | 'discover' | 'shop';
 type MenuItem = { title: string; eyebrow: string; image: string; href: string; action: string };
@@ -110,12 +110,10 @@ export default function MobileTeslaMenu({ onClose, tone = 'light' }: { onClose: 
   const activeItems = items[activeCategory];
   const links = sideLinks[activeCategory];
 
-  const linkProps = (href: string) => ({
-    href,
-    target: /^https?:\\/\\//.test(href) ? '_blank' as const : undefined,
-    rel: /^https?:\\/\\//.test(href) ? 'noreferrer noopener' : undefined,
-    onClick: onClose,
-  });
+  const linkProps = (href: string) => {
+    const external = href.startsWith('https://') || href.startsWith('http://');
+    return { href, target: external ? '_blank' as const : undefined, rel: external ? 'noreferrer noopener' : undefined, onClick: onClose };
+  };
 
   return (
     <section className={`mobile-tesla-menu ${tone === 'dark' ? 'mobile-tesla-menu--dark' : 'mobile-tesla-menu--light'}`} aria-label="Tesla navigation categories">
