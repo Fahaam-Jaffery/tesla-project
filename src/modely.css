@@ -1574,7 +1574,7 @@
 }
 
 /* Mobile gets the category drawer; the existing desktop Model Y menu stays intact. */
-@media (max-width: 767px) {
+@media (max-width: 900px) {
   .my-page .my-menu {
     overflow: hidden;
     padding-top: max(20px, env(safe-area-inset-top, 0px));
