@@ -383,7 +383,7 @@ export default function ModelYPage() {
                 </div>
               </div>
 
-              <MobileTeslaMenu tone="dark" onClose={() => setMenuOpen(false)} />
+              <MobileTeslaMenu tone="light" onClose={() => setMenuOpen(false)} />
 
               <div className="my-menu-footer mt-7 flex items-center justify-between gap-4">
                 <span>ALL ELECTRIC. ALL YOURS.</span>
