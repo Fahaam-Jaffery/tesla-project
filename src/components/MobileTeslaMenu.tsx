@@ -150,9 +150,6 @@ export default function MobileTeslaMenu({ onClose, tone = 'light' }: { onClose: 
           ))}
         </div>
       </div>
-      <a className="mobile-tesla-menu-tesla-link" href="https://www.tesla.com" target="_blank" rel="noreferrer noopener" onClick={onClose}>
-        Visit Tesla.com <ArrowUpRight size={14} aria-hidden="true" />
-      </a>
     </section>
   );
 }
