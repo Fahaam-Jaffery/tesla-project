@@ -350,36 +350,40 @@ function App() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="site-footer-main">
-          <div className="site-footer-brand">
-            <a className="wordmark footer-mark" href="#home" aria-label="Tesla home">TESLA<span>®</span></a>
+      <footer className="my-footer">
+        <div className="my-footer-main">
+          <div className="my-footer-brand">
+            <a href="#home" className="my-footer-wordmark" aria-label="Tesla home">TESLA<span>®</span></a>
             <p>Electric, reimagined.</p>
-            <span className="site-footer-tagline">DESIGNED FOR WHAT'S NEXT.</span>
+            <span className="my-footer-note">DESIGNED FOR WHAT'S NEXT.</span>
           </div>
-          <nav className="site-footer-column" aria-label="Explore the website">
-            <span className="site-footer-heading">EXPLORE</span>
+
+          <nav className="my-footer-column" aria-label="Explore this experience">
+            <span className="my-footer-heading">EXPLORE</span>
             <a href="#home">Home</a>
             <a href="#models">Vehicles</a>
             <a href="#technology">Technology</a>
           </nav>
-          <nav className="site-footer-column" aria-label="Discover more">
-            <span className="site-footer-heading">DISCOVER</span>
+
+          <nav className="my-footer-column" aria-label="Discover more">
+            <span className="my-footer-heading">DISCOVER</span>
             <a href="#energy">Energy</a>
             <a href="#charging-network">Charging</a>
             <a href="#models">Meet the lineup</a>
           </nav>
-          <nav className="site-footer-column" aria-label="Tesla resources">
-            <span className="site-footer-heading">TESLA</span>
+
+          <nav className="my-footer-column" aria-label="Tesla resources">
+            <span className="my-footer-heading">TESLA</span>
             <a href="https://www.tesla.com" target="_blank" rel="noreferrer">Tesla.com <ArrowUpRight size={13}/></a>
             <a href="https://www.tesla.com/charging" target="_blank" rel="noreferrer">Charging <ArrowUpRight size={13}/></a>
             <a href="https://www.tesla.com/energy" target="_blank" rel="noreferrer">Energy <ArrowUpRight size={13}/></a>
           </nav>
         </div>
-        <div className="site-footer-bottom">
+
+        <div className="my-footer-bottom">
           <span>© {new Date().getFullYear()} TESLA EXPERIENCE</span>
-          <span className="site-footer-disclaimer">Independent portfolio concept. Not affiliated with Tesla, Inc.</span>
-          <a className="site-footer-backtop" href="#home">BACK TO TOP ↑</a>
+          <span className="my-footer-disclaimer">Independent portfolio concept. Not affiliated with Tesla, Inc.</span>
+          <a className="my-footer-backtop" href="#home">BACK TO TOP ↑</a>
         </div>
       </footer>
 
