@@ -6,6 +6,7 @@ import SiteMegaMenu from './components/SiteMegaMenu';
 import MobileTeslaMenu from './components/MobileTeslaMenu';
 import './styles-extra.css';
 import ModelYPage from './ModelYPage.tsx';
+import TeslaFooter from './components/TeslaFooter.tsx';
 
 const models = [
   { name: 'Model S', type: 'LUXURY SEDAN', range: '410', speed: '2.4', top: '200', price: '74,990', image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2000&q=90', alt: 'Sleek electric sedan on a road' },
@@ -350,42 +351,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="my-footer">
-        <div className="my-footer-main">
-          <div className="my-footer-brand">
-            <a href="#home" className="my-footer-wordmark" aria-label="Tesla home">TESLA<span>®</span></a>
-            <p>Electric, reimagined.</p>
-            <span className="my-footer-note">DESIGNED FOR WHAT'S NEXT.</span>
-          </div>
-
-          <nav className="my-footer-column" aria-label="Explore this experience">
-            <span className="my-footer-heading">EXPLORE</span>
-            <a href="#home">Home</a>
-            <a href="#models">Vehicles</a>
-            <a href="#technology">Technology</a>
-          </nav>
-
-          <nav className="my-footer-column" aria-label="Discover more">
-            <span className="my-footer-heading">DISCOVER</span>
-            <a href="#energy">Energy</a>
-            <a href="#charging-network">Charging</a>
-            <a href="#models">Meet the lineup</a>
-          </nav>
-
-          <nav className="my-footer-column" aria-label="Tesla resources">
-            <span className="my-footer-heading">TESLA</span>
-            <a href="https://www.tesla.com" target="_blank" rel="noreferrer">Tesla.com <ArrowUpRight size={13}/></a>
-            <a href="https://www.tesla.com/charging" target="_blank" rel="noreferrer">Charging <ArrowUpRight size={13}/></a>
-            <a href="https://www.tesla.com/energy" target="_blank" rel="noreferrer">Energy <ArrowUpRight size={13}/></a>
-          </nav>
-        </div>
-
-        <div className="my-footer-bottom">
-          <span>© {new Date().getFullYear()} TESLA EXPERIENCE</span>
-          <span className="my-footer-disclaimer">Independent portfolio concept. Not affiliated with Tesla, Inc.</span>
-          <a className="my-footer-backtop" href="#home">BACK TO TOP ↑</a>
-        </div>
-      </footer>
+      <TeslaFooter variant="home" />
 
       {menuOpen && <div className="menu-overlay"><div className="menu-top"><a className="wordmark logo-wordmark" href="#home" onClick={() => setMenuOpen(false)} aria-label="Tesla home"><img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" /></a><button className="close-menu" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={22}/></button></div><nav className="mobile-nav"><button onClick={() => scrollTo('fleet')}><span>01</span>Vehicles<ArrowUpRight/></button><button onClick={() => scrollTo('technology')}><span>02</span>Technology<ArrowUpRight/></button><button onClick={() => scrollTo('charging-network')}><span>03</span>Charging<ArrowUpRight/></button><button onClick={() => scrollTo('energy')}><span>04</span>Energy<ArrowUpRight/></button></nav><MobileTeslaMenu tone="light" onClose={() => setMenuOpen(false)} /><div className="menu-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Visit Tesla.com <ArrowUpRight size={14}/></a></div></div>}
     </>
