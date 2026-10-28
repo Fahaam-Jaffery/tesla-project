@@ -794,23 +794,23 @@ export default function ModelYPage() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
                       transition={{ duration: reduceMotion ? 0 : 0.24 }}
-                      className="mt-7 grid grid-cols-1 gap-5 border-t border-white/10 pt-6 sm:grid-cols-3 sm:gap-4"
+                      className="my-performance-stats mt-7 grid grid-cols-3 gap-2 border-t border-white/10 pt-6 sm:grid-cols-3 sm:gap-4"
                       aria-live="polite"
                     >
                       <div>
-                        <p className="my-kicker my-dark-eyebrow">Estimated range</p>
-                        <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
-                          {activeData['Range (mi)']}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">mi</span>
+                        <p className="my-kicker my-dark-eyebrow my-performance-stat-label">Estimated range</p>
+                        <p className="my-performance-stat-value mt-2 whitespace-nowrap font-mono text-2xl font-bold tracking-tighter text-white sm:text-4xl lg:text-5xl">
+                          {activeData['Range (mi)']}<span className="my-performance-stat-unit ml-1 text-[10px] font-normal tracking-normal text-white/45 sm:text-sm">mi</span>
                         </p>
                       </div>
                       <div>
-                        <p className="my-kicker my-dark-eyebrow">0–60 mph</p>
+                        <p className="my-kicker my-dark-eyebrow my-performance-stat-label">0–60 mph</p>
                         <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
                           {activeData['0-60 mph (s)'].toFixed(1)}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">s</span>
                         </p>
                       </div>
                       <div>
-                        <p className="my-kicker my-dark-eyebrow">Top speed</p>
+                        <p className="my-kicker my-dark-eyebrow my-performance-stat-label">Top speed</p>
                         <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
                           {activeData['Top Speed (mph)']}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">mph</span>
                         </p>
