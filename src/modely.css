@@ -316,6 +316,13 @@
   .my-wordmark img { width: 36px; }
   .my-hero { min-height: 650px; height: 94svh; max-height: 900px; }
   .my-hero > img { object-position: 58% center; }
+
+  /* Mobile-only hero framing: each Model Y variant can keep its own focal point.
+     Scoped to this page's hero so desktop, other sections, and the homepage stay untouched. */
+  .my-hero .my-hero-image--standard { object-position: 50% center; }
+  .my-hero .my-hero-image--premium { object-position: 56% center; }
+  .my-hero .my-hero-image--long_wheelbase { object-position: 52% center; }
+  .my-hero .my-hero-image--performance { object-position: 60% center; }
   .my-hero-overlay { background: linear-gradient(90deg, #06080a88, #06080a12 100%), linear-gradient(0deg, #06080ad9 0%, #06080a55 47%, #06080a15 100%); }
   .my-hero-topline { top: 100px; }
   .my-interior-overlay, .my-performance-overlay { background: linear-gradient(90deg, #080a0bc9, #080a0b55 100%), linear-gradient(0deg, #080a0bd1 0%, #080a0b30 75%); }
