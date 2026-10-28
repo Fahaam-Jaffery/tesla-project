@@ -1607,3 +1607,28 @@
     border-top: 1px solid rgba(255,255,255,.12);
   }
 }
+
+
+/* Mobile navigation shares the homepage's light Tesla menu palette. */
+@media (max-width: 900px) {
+  .my-page .my-menu {
+    color: #17191b;
+    background:
+      radial-gradient(ellipse at 95% 0%, rgba(232,33,39,.045), transparent 36%),
+      rgba(247,247,245,.98);
+    border-color: rgba(23,25,27,.1);
+    box-shadow: 0 24px 90px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.8);
+    scrollbar-color: rgba(23,25,27,.2) transparent;
+  }
+  .my-page .my-menu-wordmark img { filter: none; }
+  .my-page .my-menu-button { color: #17191b; border-color: rgba(23,25,27,.16); background: rgba(255,255,255,.65); }
+  .my-page .my-menu-button:hover { background: #fff; }
+  .my-page .my-menu-footer { color: #85898d; border-top-color: rgba(23,25,27,.1); }
+  .my-page .my-menu-footer a { color: #34383d; }
+}
+
+/* Keep the floating section navigator vertically centered even while Framer Motion animates it horizontally. */
+.my-page .my-section-rail {
+  transform: none;
+  translate: 0 -50%;
+}
