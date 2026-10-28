@@ -17,6 +17,7 @@ import {
 } from 'recharts';
 import './modely.css';
 import SiteMegaMenu from './components/SiteMegaMenu';
+import MobileTeslaMenu from './components/MobileTeslaMenu';
 import ModelYMediaPlayer from './components/model-y/ModelYMediaPlayer';
 
 type TrimId = 'standard' | 'premium' | 'long_wheelbase' | 'performance';
@@ -381,6 +382,8 @@ export default function ModelYPage() {
                   ))}
                 </div>
               </div>
+
+              <MobileTeslaMenu tone="dark" onClose={() => setMenuOpen(false)} />
 
               <div className="my-menu-footer mt-7 flex items-center justify-between gap-4">
                 <span>ALL ELECTRIC. ALL YOURS.</span>
