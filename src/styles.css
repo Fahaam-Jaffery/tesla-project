@@ -49,3 +49,70 @@
   .hero-story-poster { animation:none; }
   .hero-story-copy { animation:none; }
 }
+
+
+/* Shared Tesla scrollbar — the thumb transitions from titanium to Tesla red as you scroll. */
+:root {
+  --tesla-scroll-silver: #d9dde3;
+  --tesla-scroll-red: #e82127;
+  --scroll-progress: 0;
+  scrollbar-color: #9a9da4 #111214;
+  scrollbar-width: thin;
+}
+html, body {
+  scrollbar-color: #9a9da4 #111214;
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #151619, #090a0c);
+  border-left: 1px solid rgba(217,221,227,.07);
+}
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg,
+      #e82127 0%,
+      #c8cbd1 calc(var(--scroll-progress, 0) * 100%),
+      #777d87 100%) padding-box;
+  min-height: 34px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f04449, #d9dde3 55%, #8c929c) padding-box;
+}
+::-webkit-scrollbar-corner { background: #090a0c; }
+
+/* Desktop navigation stays clean; the menu trigger is reserved for tablet/mobile. */
+.site-header .menu-button { display: none; }
+.site-header .desktop-nav { gap: clamp(12px, 1.45vw, 24px); }
+.site-header .desktop-nav a { white-space: nowrap; font-size: clamp(9px, .78vw, 11px); }
+.site-header .header-actions { gap: 12px; }
+@media (max-width: 1024px) {
+  .site-header .desktop-nav { display: none; }
+  .site-header .menu-button { display: grid; }
+  .site-header { grid-template-columns: 1fr auto; }
+}
+@media (max-width: 600px) {
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+}
+
+/* Fine-tuned desktop navigation rhythm */
+@media (min-width: 1025px) {
+  .site-header .desktop-nav { gap: 2px; }
+  .site-header .desktop-nav a {
+    padding: 8px 5px;
+    font-size: clamp(12px, .92vw, 14px);
+    font-weight: 500;
+    letter-spacing: -.025em;
+  }
+}
+
+
+/* Precise hover hit-area requested for desktop navigation tabs. */
+@media (min-width: 1025px) {
+  .site-header .desktop-nav a {
+    padding: 9px 12px;
+    border-radius: 4px;
+  }
+}

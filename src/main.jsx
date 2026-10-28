@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X, ChevronDown, ChevronLeft, ChevronRight, Pause, Play, Zap, ShieldCheck, Gauge, BatteryCharging } from 'lucide-react';
 import './styles.css';
+import SiteMegaMenu from './components/SiteMegaMenu';
+import MobileTeslaMenu from './components/MobileTeslaMenu';
 import './styles-extra.css';
-import ModelYPage from './ModelYPage.jsx';
-import RoadsterPage from './RoadsterPage.jsx';
+import ModelYPage from './ModelYPage.tsx';
+import TeslaFooter from './components/TeslaFooter.tsx';
 
 const models = [
   { name: 'Model S', type: 'LUXURY SEDAN', range: '410', speed: '2.4', top: '200', price: '74,990', image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2000&q=90', alt: 'Sleek electric sedan on a road' },
@@ -13,7 +15,6 @@ const models = [
 ];
 
 const fleetModels = [
-  { name: 'Roadster', price: 'Explore Roadster', image: '/roadster/Roadster-01-Hero.avif', order: '/roadster', learn: '/roadster', alt: 'Tesla Roadster concept' },
   { name: 'Model Y L Premium', price: 'Explore Model Y L Premium', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Model-Y-L-Desktop-US.jpg', order: 'https://www.tesla.com/modely#L', learn: 'https://www.tesla.com/modely#L', alt: 'Tesla Model Y L Premium' },
   { name: 'Model 3', price: 'Explore Model 3', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg', order: 'https://www.tesla.com/model3', learn: 'https://www.tesla.com/model3', alt: 'Tesla Model 3 electric sedan' },
   { name: 'Model Y', price: 'Explore Model Y', image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_100,w_2400/Homepage-Vehicle-Card-Model-Y-Desktop-US-Snow.jpg', order: 'https://www.tesla.com/modely', learn: '/modely', alt: 'Tesla Model Y' },
@@ -56,15 +57,7 @@ const heroStories = [
     image: 'https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-3-Desktop-US_PR_MX.jpg',
     video: 'https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Model-3-More-Than-The-Basics-Desktop-LHD-US.mp4'
   },
-  {
-    name: 'Roadster',
-    eyebrow: '03 / ALL ELECTRIC SUPERCAR',
-    title: <>Beyond the<br/><span>expected.</span></>,
-    description: 'An uncompromising vision of electric performance.',
-    href: '/roadster',
-    image: '/roadster/Roadster-01-Hero.avif',
-    video: 'https://res.cloudinary.com/i10zdpsr/video/upload/v1792171702/Roadster-01-Video.mp4'
-  }
+
 ];
 
 function HeroStoryShowcase({ onExplore }) {
@@ -197,7 +190,11 @@ function App() {
   const model = models[activeModel];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      document.documentElement.style.setProperty('--scroll-progress', String(Math.min(1, Math.max(0, window.scrollY / maxScroll))));
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
   return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -212,8 +209,11 @@ function App() {
   }, [fleetPaused]);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    const previousOverflow = document.body.style.overflow;
+    if (menuOpen) document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
   }, [menuOpen]);
 
   const scrollTo = (id) => {
@@ -223,7 +223,6 @@ function App() {
 
   const path = window.location.pathname.replace(/\/+$/, '');
   if (path === '/modely') return <ModelYPage />;
-  if (path === '/roadster') return <RoadsterPage />;
 
   return (
     <>
@@ -231,18 +230,17 @@ function App() {
         <a className="wordmark logo-wordmark" href="#home" aria-label="Tesla home"><img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" /></a>
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href="#fleet" onMouseEnter={() => setNavHover('vehicles')} onFocus={() => setNavHover('vehicles')}>Vehicles</a>
-          <a href="#technology" onMouseEnter={() => setNavHover('technology')} onFocus={() => setNavHover('technology')}>Technology</a>
+          <a href="#energy" onMouseEnter={() => setNavHover('energy')} onFocus={() => setNavHover('energy')}>Energy</a>
           <a href="#charging-network" onMouseEnter={() => setNavHover('charging')} onFocus={() => setNavHover('charging')}>Charging</a>
+          <a href="#technology" onMouseEnter={() => setNavHover('robotaxi')} onFocus={() => setNavHover('robotaxi')}>Robotaxi</a>
+          <a href="#fleet" onMouseEnter={() => setNavHover('semi')} onFocus={() => setNavHover('semi')}>Semi</a>
+          <a href="#technology" onMouseEnter={() => setNavHover('discover')} onFocus={() => setNavHover('discover')}>Discover</a>
+          <a href="#fleet" onMouseEnter={() => setNavHover('shop')} onFocus={() => setNavHover('shop')}>Shop</a>
         </nav>
-        <div className="header-actions"><a className="header-cta" href="#models" onMouseEnter={() => setNavHover('models')} onFocus={() => setNavHover('models')}>Explore models <ArrowUpRight size={16}/></a>
+        <div className="header-actions">
           <button className="menu-button" onClick={() => { setNavHover(null); setMenuOpen(true); }} aria-label="Open menu"><Menu size={23}/></button>
         </div>
-        {navHover && <div className="nav-mega" onMouseEnter={() => setNavHover(navHover)} onMouseLeave={() => setNavHover(null)}>
-          <div className="nav-mega-intro"><span className="nav-mega-kicker">EXPLORE TESLA</span><h3>{({vehicles:'Find your vehicle.',technology:'Built around intelligence.',charging:'Go further, effortlessly.',models:'Meet your next Tesla.'})[navHover]}</h3><p>{({vehicles:'Distinct designs. All-electric performance.',technology:'Intuitive software and thoughtful engineering.',charging:'Simple charging at home and on the road.',models:'Explore the lineup and compare the details.'})[navHover]}</p></div>
-          <a className="nav-mega-card" href="/roadster" onClick={() => setNavHover(null)}><span>01 / FEATURED</span><strong>Roadster</strong><small>Explore the Roadster concept <ArrowUpRight size={14}/></small></a>
-          <a className="nav-mega-card" href="/modely" onClick={() => setNavHover(null)}><span>02 / MODEL Y</span><strong>Model Y</strong><small>Discover the vehicle <ArrowUpRight size={14}/></small></a>
-          <a className="nav-mega-card" href="#technology" onClick={() => setNavHover(null)}><span>03 / THE EXPERIENCE</span><strong>Technology</strong><small>Discover what's next <ArrowUpRight size={14}/></small></a>
-        </div>}
+        {navHover && <SiteMegaMenu category={navHover} onClose={() => setNavHover(null)} />}
       </header>
 
       <main>
@@ -353,9 +351,9 @@ function App() {
         </section>
       </main>
 
-      <footer className="site-footer"><a className="wordmark footer-mark" href="#home">TESLA<span>®</span></a><span className="footer-note">ACCELERATING THE FUTURE.</span><div className="footer-links"><a href="#models">Vehicles</a><a href="#technology">Technology</a><a href="#energy">Energy</a><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Tesla.com <ArrowUpRight size={12}/></a></div><span className="copyright">© {new Date().getFullYear()} CONCEPT EXPERIENCE</span></footer>
+      <TeslaFooter variant="home" />
 
-      {menuOpen && <div className="menu-overlay"><div className="menu-top"><a className="wordmark logo-wordmark" href="#home" onClick={() => setMenuOpen(false)} aria-label="Tesla home"><img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" /></a><button className="close-menu" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={22}/></button></div><nav className="mobile-nav"><button onClick={() => scrollTo('fleet')}><span>01</span>Vehicles<ArrowUpRight/></button><button onClick={() => scrollTo('technology')}><span>02</span>Technology<ArrowUpRight/></button><button onClick={() => scrollTo('charging-network')}><span>03</span>Charging<ArrowUpRight/></button><button onClick={() => scrollTo('energy')}><span>04</span>Energy<ArrowUpRight/></button></nav><div className="menu-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Visit Tesla.com <ArrowUpRight size={14}/></a></div></div>}
+      {menuOpen && <div className="menu-overlay"><div className="menu-top"><a className="wordmark logo-wordmark" href="#home" onClick={() => setMenuOpen(false)} aria-label="Tesla home"><img src="https://www.svgrepo.com/show/303366/tesla-motors-logo.svg" alt="Tesla" /></a><button className="close-menu" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={22}/></button></div><nav className="mobile-nav"><button onClick={() => scrollTo('fleet')}><span>01</span>Vehicles<ArrowUpRight/></button><button onClick={() => scrollTo('technology')}><span>02</span>Technology<ArrowUpRight/></button><button onClick={() => scrollTo('charging-network')}><span>03</span>Charging<ArrowUpRight/></button><button onClick={() => scrollTo('energy')}><span>04</span>Energy<ArrowUpRight/></button></nav><MobileTeslaMenu tone="light" onClose={() => setMenuOpen(false)} /><div className="menu-bottom"><span>DESIGNED FOR THE DRIVE AHEAD</span><a href="https://www.tesla.com" target="_blank" rel="noreferrer">Visit Tesla.com <ArrowUpRight size={14}/></a></div></div>}
     </>
   );
 }

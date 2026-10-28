@@ -553,3 +553,218 @@
   font-weight: 700;
   color: #6d7072;
 }
+
+
+/* Category-aware Tesla mega menu — shared by the homepage and Model Y. */
+.site-header { isolation: isolate; }
+.nav-mega {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: block;
+  padding: 0;
+  color: #17191b;
+  background: rgba(248,248,247,.94);
+  border-top: 1px solid rgba(255,255,255,.9);
+  box-shadow: 0 26px 70px rgba(8,10,12,.18), inset 0 1px rgba(255,255,255,.92);
+  -webkit-backdrop-filter: blur(32px) saturate(155%);
+  backdrop-filter: blur(32px) saturate(155%);
+  animation: mega-menu-in .24s cubic-bezier(.2,.7,.2,1) both;
+  transform-origin: top center;
+  z-index: 25;
+}
+.nav-mega-inner {
+  width: min(100%, 1440px);
+  margin-inline: auto;
+  padding: 28px clamp(24px, 4.6vw, 76px) 30px;
+  display: grid;
+  grid-template-columns: minmax(155px, .72fr) minmax(0, 3fr) minmax(170px, .85fr);
+  align-items: stretch;
+  gap: clamp(18px, 2.2vw, 34px);
+}
+.nav-mega-intro { align-self: start; padding: 5px 12px 0 0; }
+.nav-mega-intro .nav-mega-kicker,
+.nav-mega-side-label { color: #777b81; font-size: 9px; font-weight: 750; letter-spacing: .16em; line-height: 1.5; }
+.nav-mega-intro h3 { margin: 15px 0 12px; font-family: 'Manrope',sans-serif; font-size: clamp(22px,2vw,31px); font-weight: 550; line-height: 1.08; letter-spacing: -.055em; text-wrap: balance; }
+.nav-mega-intro p { max-width: 250px; margin: 0; color: #696d72; font-size: 11px; line-height: 1.75; }
+.nav-mega-cards { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); align-content: start; gap: clamp(8px,1vw,15px); min-width: 0; }
+.nav-mega-cards--energy,.nav-mega-cards--shop { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.nav-mega-cards--charging { grid-template-columns: repeat(4,minmax(0,1fr)); }
+.nav-mega-cards--robotaxi { grid-template-columns: minmax(0,1fr); max-width: 240px; }
+.nav-mega-cards--semi { grid-template-columns: repeat(2,minmax(0,1fr)); max-width: 420px; }
+.nav-mega-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: rgba(255,255,255,.22);
+  transition: background .28s ease, border-color .28s ease, transform .32s cubic-bezier(.2,.7,.2,1), box-shadow .28s ease;
+}
+.nav-mega-card:hover,.nav-mega-card:focus-visible {
+  background: rgba(255,255,255,.82);
+  border-color: rgba(190,194,200,.72);
+  box-shadow: 0 10px 26px rgba(20,24,30,.07), inset 0 1px rgba(255,255,255,.9);
+  transform: translateY(-3px);
+}
+.nav-mega-card-eyebrow { min-height: 22px; color: #777b81; font-size: 8px; font-weight: 750; letter-spacing: .1em; line-height: 1.4; }
+.nav-mega-card-image { display: grid; place-items: center; height: clamp(72px,7.4vw,108px); margin: 2px -2px 8px; overflow: hidden; }
+.nav-mega-card-image img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+.nav-mega-card:hover .nav-mega-card-image img { transform: scale(1.055); }
+.nav-mega-card strong { margin: 4px 0 7px; color: #191b1f; font-family: 'Manrope',sans-serif; font-size: clamp(12px,1vw,15px); font-weight: 650; letter-spacing: -.035em; }
+.nav-mega-card small { display: flex; align-items: center; gap: 5px; margin-top: auto; color: #686d73; font-size: 10px; font-weight: 650; }
+.nav-mega-card small svg { color: #e82127; transition: transform .25s ease; }
+.nav-mega-card:hover small svg { transform: translate(2px,-2px); }
+.nav-mega-side { min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 4px 0 0 clamp(16px,1.7vw,26px); border-left: 1px solid rgba(25,28,32,.12); }
+.nav-mega-side-label { margin-bottom: 12px; }
+.nav-mega-side-link { display: flex; align-items: center; justify-content: space-between; gap: 9px; padding: 8px 0; color: #34383d; font-size: 10px; font-weight: 600; line-height: 1.35; transition: color .2s ease, padding .2s ease; }
+.nav-mega-side-link svg { flex: 0 0 auto; color: #8a8e94; transition: color .2s ease, transform .2s ease; }
+.nav-mega-side-link:hover { padding-left: 3px; color: #e82127; }
+.nav-mega-side-link:hover svg { color: #e82127; transform: translateX(2px); }
+.nav-mega-discover { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(18px,2.2vw,36px); padding: 5px 0 0; }
+.nav-mega-link-group h4 { margin: 0 0 13px; color: #777b81; font-size: 9px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+.nav-mega-text-link { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 0; border-bottom: 1px solid rgba(25,28,32,.08); color: #272b30; font-size: 11px; font-weight: 600; transition: color .2s ease, padding .2s ease; }
+.nav-mega-text-link svg { flex: 0 0 auto; color: #9a9da3; }
+.nav-mega-text-link:hover { padding-left: 3px; color: #e82127; }
+.nav-mega-text-link:hover svg { color: #e82127; }
+@keyframes mega-menu-in { from { opacity: 0; transform: translateY(-7px) scaleY(.985); } to { opacity: 1; transform: translateY(0) scaleY(1); } }
+@media (max-width: 1180px) and (min-width: 1025px) {
+  .nav-mega-inner { grid-template-columns: 145px minmax(0,1fr) 165px; gap: 14px; padding-inline: 22px; }
+  .nav-mega-card { padding: 8px 6px 10px; }
+  .nav-mega-card-eyebrow { font-size: 7px; }
+  .nav-mega-card-image { height: 72px; }
+  .nav-mega-card strong { font-size: 12px; }
+  .nav-mega-side { padding-left: 14px; }
+}
+@media (max-width: 1024px) {
+  .nav-mega { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-mega,.nav-mega-card,.nav-mega-card-image img,.nav-mega-side-link,.nav-mega-text-link { animation: none; transition: none; }
+}
+
+
+/* Mega-menu refinements: clean white cards and aligned intro baseline. */
+.nav-mega {
+  align-items: start;
+}
+.nav-mega-inner {
+  align-items: start;
+}
+.nav-mega-intro {
+  align-self: start;
+  padding-top: 0;
+  margin-top: 0;
+}
+.nav-mega-cards {
+  align-self: start;
+  margin-top: 0;
+}
+.nav-mega-card {
+  background: #fff;
+  border-color: #fff;
+  color: #17191b;
+}
+.nav-mega-card:hover,
+.nav-mega-card:focus-visible {
+  background: #fff;
+  border-color: #d9dadd;
+}
+
+/* Targeted mega-menu fixes: preserve the existing design, enforce pure-white cards,
+   and keep the intro copy aligned with the top edge of the product cards. */
+.site-header .nav-mega-inner {
+  align-items: start;
+}
+.site-header .nav-mega-intro {
+  align-self: start;
+  margin-top: 0;
+  padding-top: 0;
+}
+.site-header .nav-mega-card {
+  background: #fff;
+  border-color: #fff;
+}
+.site-header .nav-mega-card:hover,
+.site-header .nav-mega-card:focus-visible {
+  background: #fff;
+  border-color: #d9dadd;
+}
+
+
+/* Responsive category drawer shared by the homepage and Model Y mobile menus. */
+.mobile-tesla-menu { display: none; min-width: 0; color: #17191b; }
+.mobile-tesla-menu-tab-shell { min-width: 0; width: 100%; margin: 0 0 22px; }
+.mobile-tesla-menu-tabs {
+  display: flex; align-items: center; gap: 6px; width: 100%; min-width: 0;
+  margin: 0; padding: 3px 3px 9px; overflow-x: auto; overflow-y: hidden;
+  overscroll-behavior-x: contain; scroll-padding-inline: 5px; touch-action: pan-x;
+  scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;
+}
+.mobile-tesla-menu-tabs::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.mobile-tesla-menu-tab-track {
+  height: 2px; width: 100%; overflow: hidden; border-radius: 99px;
+  background: rgba(120,124,130,.15);
+}
+.mobile-tesla-menu-tab-track span {
+  display: block; height: 100%; border-radius: inherit; background: #e82127;
+  box-shadow: 0 0 8px rgba(232,33,39,.28); transition: width .16s ease, transform .16s ease;
+}
+.mobile-tesla-menu-tabs button {
+  position: relative; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0;
+  min-height: 36px; max-width: max-content; white-space: nowrap; padding: 0 12px; border: 1px solid rgba(23,25,27,.1); border-radius: 999px;
+  background: rgba(255,255,255,.52); color: #64696e; font-size: 10px; font-weight: 650;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.mobile-tesla-menu-tabs button span { display: block; flex: 0 0 0; width: 0; height: 5px; margin-left: 0; border-radius: 50%; background: transparent; opacity: 0; transition: width .22s ease, flex-basis .22s ease, margin-left .22s ease, opacity .16s ease, background .2s ease; }
+.mobile-tesla-menu-tabs button.is-active span { flex-basis: 5px; width: 5px; margin-left: 7px; opacity: 1; }
+.mobile-tesla-menu-tabs button.is-active { color: #17191b; border-color: rgba(23,25,27,.24); background: #fff; }
+.mobile-tesla-menu-tabs button.is-active span { background: #e82127; box-shadow: 0 0 0 3px rgba(232,33,39,.1); }
+.mobile-tesla-menu-intro { margin: 0 0 18px; }
+.mobile-tesla-menu-kicker { display: block; margin-bottom: 8px; color: #85898d; font-size: 8px; font-weight: 750; letter-spacing: .16em; line-height: 1.5; }
+.mobile-tesla-menu-intro h2 { margin: 0; color: #17191b; font-family: 'Manrope',sans-serif; font-size: clamp(26px,7vw,36px); font-weight: 550; line-height: 1.02; letter-spacing: -.06em; text-wrap: balance; }
+.mobile-tesla-menu-intro p { max-width: 34rem; margin: 9px 0 0; color: #696e73; font-size: 11px; line-height: 1.65; }
+.mobile-tesla-menu-cards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; min-width: 0; }
+.mobile-tesla-menu-card {
+  display: flex; min-width: 0; flex-direction: column; padding: 10px; border: 1px solid rgba(25,28,32,.09);
+  border-radius: 12px; background: #fff; color: #17191b; transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.mobile-tesla-menu-card:active { transform: scale(.985); }
+.mobile-tesla-menu-card-eyebrow { min-height: 21px; color: #85898d; font-size: 7px; font-weight: 750; letter-spacing: .09em; line-height: 1.4; }
+.mobile-tesla-menu-card-image { display: grid; place-items: center; height: clamp(68px,22vw,104px); margin: 3px -2px 8px; overflow: hidden; }
+.mobile-tesla-menu-card-image img { display: block; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.mobile-tesla-menu-card strong { margin: 2px 0 7px; color: #191b1f; font-family: 'Manrope',sans-serif; font-size: 13px; font-weight: 650; line-height: 1.2; letter-spacing: -.035em; }
+.mobile-tesla-menu-card small { display: flex; align-items: center; gap: 4px; margin-top: auto; color: #686d73; font-size: 9px; font-weight: 650; }
+.mobile-tesla-menu-card small svg { flex: 0 0 auto; color: #e82127; }
+.mobile-tesla-menu-cards--robotaxi { grid-template-columns: minmax(0,1fr); }
+.mobile-tesla-menu-cards--robotaxi .mobile-tesla-menu-card { max-width: 260px; }
+.mobile-tesla-menu-more { margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(25,28,32,.1); }
+.mobile-tesla-menu-more > span { display: block; margin-bottom: 7px; color: #85898d; font-size: 8px; font-weight: 750; letter-spacing: .15em; }
+.mobile-tesla-menu-links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 16px; }
+.mobile-tesla-menu-links a { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 7px; padding: 10px 0; border-bottom: 1px solid rgba(25,28,32,.07); color: #34383d; font-size: 10px; font-weight: 600; line-height: 1.35; }
+.mobile-tesla-menu-links a svg { flex: 0 0 auto; color: #9a9da3; }
+.mobile-tesla-menu--dark { color: #f5f5f7; }
+.mobile-tesla-menu--dark .mobile-tesla-menu-tabs button { color: rgba(245,245,247,.62); border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.035); }
+.mobile-tesla-menu--dark .mobile-tesla-menu-tabs button.is-active { color: #fff; border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.12); }
+.mobile-tesla-menu--dark .mobile-tesla-menu-intro h2 { color: #f7f7f5; }
+.mobile-tesla-menu--dark .mobile-tesla-menu-intro p { color: rgba(245,245,247,.62); }
+.mobile-tesla-menu--dark .mobile-tesla-menu-card { border-color: rgba(255,255,255,.11); background: rgba(255,255,255,.96); }
+.mobile-tesla-menu--dark .mobile-tesla-menu-more { border-top-color: rgba(255,255,255,.12); }
+@media (max-width: 900px) {
+  .menu-overlay { overflow: hidden; }
+  .menu-overlay .mobile-nav { display: none; }
+  .menu-overlay > .mobile-tesla-menu { display: flex; flex: 1 1 auto; flex-direction: column; min-height: 0; margin: 20px 0 16px; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; -ms-overflow-style: none; }\n  .menu-overlay > .mobile-tesla-menu::-webkit-scrollbar { display: none; width: 0; height: 0; }
+  .menu-overlay .menu-bottom { flex: 0 0 auto; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(23,25,27,.1); }
+}
+@media (max-width: 360px) {
+  .mobile-tesla-menu-tabs { gap: 4px; }
+  .mobile-tesla-menu-tabs button { min-height: 33px; padding-inline: 10px; font-size: 9px; }
+  .mobile-tesla-menu-card { padding: 8px; }
+  .mobile-tesla-menu-card strong { font-size: 12px; }
+  .mobile-tesla-menu-links { gap: 0 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-tesla-menu-tabs button, .mobile-tesla-menu-card { transition: none; }
+}
