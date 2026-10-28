@@ -692,3 +692,70 @@
   background: #fff;
   border-color: #d9dadd;
 }
+
+
+/* Responsive category drawer shared by the homepage and Model Y mobile menus. */
+.mobile-tesla-menu { display: none; min-width: 0; color: #17191b; }
+.mobile-tesla-menu-tabs {
+  display: flex; align-items: center; gap: 5px; width: 100%; margin: 0 0 22px;
+  padding: 0 0 9px; overflow-x: auto; overscroll-behavior-inline: contain;
+  scrollbar-width: thin; scrollbar-color: rgba(120,124,130,.45) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+.mobile-tesla-menu-tabs button {
+  position: relative; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px;
+  min-height: 36px; padding: 0 12px; border: 1px solid rgba(23,25,27,.1); border-radius: 999px;
+  background: rgba(255,255,255,.52); color: #64696e; font-size: 10px; font-weight: 650;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.mobile-tesla-menu-tabs button span { width: 5px; height: 5px; border-radius: 50%; background: transparent; }
+.mobile-tesla-menu-tabs button.is-active { color: #17191b; border-color: rgba(23,25,27,.24); background: #fff; }
+.mobile-tesla-menu-tabs button.is-active span { background: #e82127; box-shadow: 0 0 0 3px rgba(232,33,39,.1); }
+.mobile-tesla-menu-intro { margin: 0 0 18px; }
+.mobile-tesla-menu-kicker { display: block; margin-bottom: 8px; color: #85898d; font-size: 8px; font-weight: 750; letter-spacing: .16em; line-height: 1.5; }
+.mobile-tesla-menu-intro h2 { margin: 0; color: #17191b; font-family: 'Manrope',sans-serif; font-size: clamp(26px,7vw,36px); font-weight: 550; line-height: 1.02; letter-spacing: -.06em; text-wrap: balance; }
+.mobile-tesla-menu-intro p { max-width: 34rem; margin: 9px 0 0; color: #696e73; font-size: 11px; line-height: 1.65; }
+.mobile-tesla-menu-cards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; min-width: 0; }
+.mobile-tesla-menu-card {
+  display: flex; min-width: 0; flex-direction: column; padding: 10px; border: 1px solid rgba(25,28,32,.09);
+  border-radius: 12px; background: #fff; color: #17191b; transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.mobile-tesla-menu-card:active { transform: scale(.985); }
+.mobile-tesla-menu-card-eyebrow { min-height: 21px; color: #85898d; font-size: 7px; font-weight: 750; letter-spacing: .09em; line-height: 1.4; }
+.mobile-tesla-menu-card-image { display: grid; place-items: center; height: clamp(68px,22vw,104px); margin: 3px -2px 8px; overflow: hidden; }
+.mobile-tesla-menu-card-image img { display: block; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.mobile-tesla-menu-card strong { margin: 2px 0 7px; color: #191b1f; font-family: 'Manrope',sans-serif; font-size: 13px; font-weight: 650; line-height: 1.2; letter-spacing: -.035em; }
+.mobile-tesla-menu-card small { display: flex; align-items: center; gap: 4px; margin-top: auto; color: #686d73; font-size: 9px; font-weight: 650; }
+.mobile-tesla-menu-card small svg { flex: 0 0 auto; color: #e82127; }
+.mobile-tesla-menu-cards--robotaxi { grid-template-columns: minmax(0,1fr); }
+.mobile-tesla-menu-cards--robotaxi .mobile-tesla-menu-card { max-width: 260px; }
+.mobile-tesla-menu-more { margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(25,28,32,.1); }
+.mobile-tesla-menu-more > span { display: block; margin-bottom: 7px; color: #85898d; font-size: 8px; font-weight: 750; letter-spacing: .15em; }
+.mobile-tesla-menu-links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 16px; }
+.mobile-tesla-menu-links a { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 7px; padding: 10px 0; border-bottom: 1px solid rgba(25,28,32,.07); color: #34383d; font-size: 10px; font-weight: 600; line-height: 1.35; }
+.mobile-tesla-menu-links a svg { flex: 0 0 auto; color: #9a9da3; }
+.mobile-tesla-menu-tesla-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; color: #34383d; font-size: 10px; font-weight: 700; }
+.mobile-tesla-menu--dark { color: #f5f5f7; }
+.mobile-tesla-menu--dark .mobile-tesla-menu-tabs button { color: rgba(245,245,247,.62); border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.035); }
+.mobile-tesla-menu--dark .mobile-tesla-menu-tabs button.is-active { color: #fff; border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.12); }
+.mobile-tesla-menu--dark .mobile-tesla-menu-intro h2 { color: #f7f7f5; }
+.mobile-tesla-menu--dark .mobile-tesla-menu-intro p { color: rgba(245,245,247,.62); }
+.mobile-tesla-menu--dark .mobile-tesla-menu-card { border-color: rgba(255,255,255,.11); background: rgba(255,255,255,.96); }
+.mobile-tesla-menu--dark .mobile-tesla-menu-more { border-top-color: rgba(255,255,255,.12); }
+.mobile-tesla-menu--dark .mobile-tesla-menu-tesla-link { color: #f5f5f7; }
+@media (max-width: 900px) {
+  .menu-overlay { overflow: hidden; }
+  .menu-overlay .mobile-nav { display: none; }
+  .menu-overlay > .mobile-tesla-menu { display: flex; flex: 1 1 auto; flex-direction: column; min-height: 0; margin: 20px 0 16px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(120,124,130,.4) transparent; }
+  .menu-overlay .menu-bottom { flex: 0 0 auto; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(23,25,27,.1); }
+}
+@media (max-width: 360px) {
+  .mobile-tesla-menu-tabs { gap: 4px; }
+  .mobile-tesla-menu-tabs button { min-height: 33px; padding-inline: 10px; font-size: 9px; }
+  .mobile-tesla-menu-card { padding: 8px; }
+  .mobile-tesla-menu-card strong { font-size: 12px; }
+  .mobile-tesla-menu-links { gap: 0 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-tesla-menu-tabs button, .mobile-tesla-menu-card { transition: none; }
+}
