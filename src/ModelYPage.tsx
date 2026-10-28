@@ -805,14 +805,14 @@ export default function ModelYPage() {
                       </div>
                       <div>
                         <p className="my-kicker my-dark-eyebrow my-performance-stat-label">0–60 mph</p>
-                        <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
-                          {activeData['0-60 mph (s)'].toFixed(1)}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">s</span>
+                        <p className="my-performance-stat-value mt-2 whitespace-nowrap font-mono text-2xl font-bold tracking-tighter text-white sm:text-4xl lg:text-5xl">
+                          {activeData['0-60 mph (s)'].toFixed(1)}<span className="my-performance-stat-unit ml-1 text-[10px] font-normal tracking-normal text-white/45 sm:text-sm">s</span>
                         </p>
                       </div>
                       <div>
                         <p className="my-kicker my-dark-eyebrow my-performance-stat-label">Top speed</p>
-                        <p className="mt-2 whitespace-nowrap font-mono text-4xl font-bold tracking-tighter text-white lg:text-5xl">
-                          {activeData['Top Speed (mph)']}<span className="ml-1 text-sm font-normal tracking-normal text-white/45">mph</span>
+                        <p className="my-performance-stat-value mt-2 whitespace-nowrap font-mono text-2xl font-bold tracking-tighter text-white sm:text-4xl lg:text-5xl">
+                          {activeData['Top Speed (mph)']}<span className="my-performance-stat-unit ml-1 text-[10px] font-normal tracking-normal text-white/45 sm:text-sm">mph</span>
                         </p>
                       </div>
                     </motion.div>
