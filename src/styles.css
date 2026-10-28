@@ -117,17 +117,14 @@ html, body {
   }
 }
 
-
-/* Refined homepage footer — aligned with the Model Y experience */
-.site-footer {
-  display: block;
-  min-height: 0;
-  padding: 56px 5.1% 22px;
+/* Homepage uses the exact same footer styling as the Model Y page. */
+.my-footer {
   background: #08090b;
   color: #f5f5f7;
   border-top: 1px solid #262629;
+  padding: 56px 5.1% 22px;
 }
-.site-footer-main {
+.my-footer-main {
   display: grid;
   grid-template-columns: minmax(220px, 1.6fr) repeat(3, minmax(130px, 1fr));
   gap: 36px;
@@ -135,17 +132,24 @@ html, body {
   margin: 0 auto;
   padding-bottom: 48px;
 }
-.site-footer-brand { display: flex; flex-direction: column; align-items: flex-start; }
-.site-footer .footer-mark { display: inline-block; color: #f5f5f7; font-size: 21px; }
-.site-footer-brand p { margin: 20px 0 0; color: #f5f5f7; font-size: 15px; letter-spacing: -.02em; }
-.site-footer-tagline { margin-top: 9px; color: #86868b; font-size: 9px; font-weight: 600; letter-spacing: .16em; }
-.site-footer-column { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
-.site-footer-heading { margin-bottom: 5px; color: #86868b; font-size: 9px; font-weight: 700; letter-spacing: .16em; }
-.site-footer-column a { display: inline-flex; align-items: center; gap: 5px; color: #c7c7cc; font-size: 12px; transition: color .2s ease; }
-.site-footer a { text-decoration: none; }
-.site-footer a:hover { color: #fff; }
-.site-footer-column svg { color: #e82127; }
-.site-footer-bottom {
+.my-footer-brand { display: flex; flex-direction: column; align-items: flex-start; }
+.my-footer-wordmark {
+  display: inline-block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  line-height: 1;
+}
+.my-footer-wordmark span { margin-left: 2px; font-size: 8px; vertical-align: top; letter-spacing: 0; }
+.my-footer-brand p { margin: 20px 0 0; color: #f5f5f7; font-size: 15px; letter-spacing: -.02em; }
+.my-footer-note { margin-top: 9px; color: #86868b; font-size: 9px; font-weight: 600; letter-spacing: .16em; }
+.my-footer-column { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
+.my-footer-heading { margin-bottom: 5px; color: #86868b; font-size: 9px; font-weight: 700; letter-spacing: .16em; }
+.my-footer-column a { display: inline-flex; align-items: center; gap: 5px; color: #c7c7cc; font-size: 12px; transition: color .2s ease; }
+.my-footer a { text-decoration: none; }
+.my-footer a:hover { color: #fff; }
+.my-footer-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -159,14 +163,14 @@ html, body {
   font-weight: 600;
   letter-spacing: .07em;
 }
-.site-footer-disclaimer { font-weight: 400; letter-spacing: 0; text-align: center; }
-.site-footer-backtop { flex-shrink: 0; color: #c7c7cc; font-size: 9px; letter-spacing: .1em; }
+.my-footer-disclaimer { font-weight: 400; letter-spacing: 0; text-align: center; }
+.my-footer-backtop { flex-shrink: 0; color: #c7c7cc; font-size: 9px; letter-spacing: .1em; }
 @media (max-width: 767px) {
-  .site-footer { padding: 38px 22px 18px; }
-  .site-footer-main { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 22px; padding-bottom: 34px; }
-  .site-footer-brand { grid-column: 1 / -1; padding-bottom: 4px; }
-  .site-footer .footer-mark { font-size: 20px; }
-  .site-footer-column { gap: 12px; }
-  .site-footer-bottom { align-items: flex-start; flex-direction: column; gap: 12px; padding-top: 17px; line-height: 1.5; }
-  .site-footer-disclaimer { text-align: left; }
+  .my-footer { padding: 38px 22px 18px; }
+  .my-footer-main { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 22px; padding-bottom: 34px; }
+  .my-footer-brand { grid-column: 1 / -1; padding-bottom: 4px; }
+  .my-footer-wordmark { font-size: 20px; }
+  .my-footer-column { gap: 12px; }
+  .my-footer-bottom { align-items: flex-start; flex-direction: column; gap: 12px; padding-top: 17px; line-height: 1.5; }
+  .my-footer-disclaimer { text-align: left; }
 }
